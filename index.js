@@ -21,3 +21,7 @@ export const nth = n => callWithIterator(iterator => {
   while (n--) iterator.next();
   return iterator.next().value;
 });
+
+export const makeCircular = iterable => createIterable(function* () {
+  while (true) yield* iterable[Symbol.iterator]();
+});
