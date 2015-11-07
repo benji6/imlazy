@@ -25,7 +25,6 @@ Functional, declarative, immutable and lazy as you like.
 
 ### query
 
-- contains (TODO - needs a notion of equality)
 - findIndex
 - find
 - length
