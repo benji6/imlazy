@@ -2,11 +2,17 @@ import test from 'tape';
 import {filter, find, map, makeCircular, nth, range, take} from './';
 
 const oneTwoThree = Object.freeze([1, 2, 3]);
+const threeTwoOne = Object.freeze([3, 2, 1]);
 const positiveIntegers = range(1)(Infinity);
+const negativeIntegers = range(-1)(-Infinity);
 
 test('range', t => {
+    t.deepEquals([...range(1)(1)],
+                 [1]);
     t.deepEquals([...range(1)(3)],
                  oneTwoThree);
+    t.deepEquals([...range(3)(1)],
+                 threeTwoOne);
     t.end();
 });
 

@@ -2,7 +2,8 @@ const callWithIterator = f => iterable => f(iterable[Symbol.iterator]());
 const createIterable = generator => ({[Symbol.iterator]: generator});
 
 export const range = a => b => createIterable(function* (n = a) {
-  while (n <= b) yield n++;
+  if (n < b) while (n <= b) yield n++;
+  else while (n >= b) yield n--;
 });
 
 export const filter = f => iterable => createIterable(function* () {
