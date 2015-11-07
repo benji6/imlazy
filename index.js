@@ -22,6 +22,14 @@ export const nth = n => callWithIterator(iterator => {
   return iterator.next().value;
 });
 
+export const find = f => callWithIterator(iterator => {
+  do {
+    let {value, done} = iterator.next();
+    if (done) return;
+    if (f(value)) return value;
+  } while (true)
+});
+
 export const makeCircular = iterable => createIterable(function* () {
   while (true) yield* iterable[Symbol.iterator]();
 });

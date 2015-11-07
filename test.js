@@ -1,25 +1,26 @@
 import test from 'tape';
-import {filter, map, makeCircular, nth, range, take} from './';
+import {filter, find, map, makeCircular, nth, range, take} from './';
 
+const oneTwoThree = Object.freeze([1, 2, 3]);
 const positiveIntegers = range(1)(Infinity);
 
 test('range', t => {
     t.deepEquals([...range(1)(3)],
-                 [1, 2, 3]);
+                 oneTwoThree);
     t.end();
 });
 
 test('map', t => {
     t.deepEquals([...map(x => x / 2)([2, 4, 6])],
-                 [1, 2, 3]);
+                 oneTwoThree);
     t.end();
 });
 
 test('take', t => {
     t.deepEquals([...take(3)([1, 2, 3, 4])],
-                 [1, 2, 3]);
+                 oneTwoThree);
     t.deepEquals([...take(3)(positiveIntegers)],
-                 [1, 2, 3]);
+                 oneTwoThree);
     t.end();
 });
 
@@ -36,14 +37,26 @@ test('map take', t => {
 });
 
 test('nth', t => {
+    t.deepEquals(nth(0)(positiveIntegers),
+                 1);
     t.deepEquals(nth(1)(positiveIntegers),
                  2);
     t.end();
 });
 
+test('find', t => {
+    t.deepEquals(find(x => x === 1)(positiveIntegers),
+                 1);
+    t.deepEquals(find(x => x === 3)(positiveIntegers),
+                 3);
+    t.deepEquals(find(x => x === 4)(oneTwoThree),
+                 undefined);
+    t.end();
+});
+
 test('filter', t => {
     t.deepEquals([...filter(x => x <= 3)(range(1)(100))],
-                 [1, 2, 3]);
+                 oneTwoThree);
     t.end();
 });
 
