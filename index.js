@@ -30,7 +30,7 @@ export const length = callWithIterator(iterator => {
 });
 
 export const makeCircular = iterable => createIterable(function* () {
-  while (true) yield* iterable[Symbol.iterator]();
+  while (true) yield* iterable;
 });
 
 export const map = f => iterable => createIterable(function* () {
@@ -53,6 +53,10 @@ export const reduce = f => acc => callWithIterator(iterator => {
     if (done) return acc;
     acc = f(acc)(value);
   }
+});
+
+export const reverse = iterable => createIterable(function* () {
+  yield* [...iterable].reverse();
 });
 
 export const take = a => callWithIterator(iterator => createIterable(function* (n = a) {

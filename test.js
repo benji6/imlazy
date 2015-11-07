@@ -8,6 +8,7 @@ import {filter,
         nth,
         range,
         reduce,
+        reverse,
         take} from './';
 
 const oneTwoThree = Object.freeze([1, 2, 3]);
@@ -78,6 +79,12 @@ test('range', t => {
 test('reduce', t => {
     t.deepEquals(reduce(add)(0)(oneTwoThree),
                  6);
+    t.end();
+});
+
+test('reverse', t => {
+    t.deepEquals([...reverse(oneTwoThree)],
+                 threeTwoOne);
     t.end();
 });
 

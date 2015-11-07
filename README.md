@@ -19,6 +19,7 @@ Functional, declarative, immutable and lazy as you like.
 - makeCircular
 - map
 - reduce
+- reverse
 - take
 
 ### query
