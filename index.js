@@ -23,6 +23,12 @@ export const findIndex = f => callWithIterator(iterator => {
   }
 });
 
+export const length = callWithIterator(iterator => {
+  let i = 0;
+  while (!iterator.next().done) i++;
+  return i;
+});
+
 export const makeCircular = iterable => createIterable(function* () {
   while (true) yield* iterable[Symbol.iterator]();
 });

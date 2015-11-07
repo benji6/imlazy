@@ -1,5 +1,14 @@
 import test from 'tape';
-import {filter, find, findIndex, map, makeCircular, nth, range, reduce, take} from './';
+import {filter,
+        find,
+        findIndex,
+        length,
+        map,
+        makeCircular,
+        nth,
+        range,
+        reduce,
+        take} from './';
 
 const oneTwoThree = Object.freeze([1, 2, 3]);
 const threeTwoOne = Object.freeze([3, 2, 1]);
@@ -33,6 +42,12 @@ test('findIndex', t => {
                  29);
     t.deepEquals(findIndex(x => x === -4)(oneTwoThree),
                  undefined);
+    t.end();
+});
+
+test('length', t => {
+    t.deepEquals(length(oneTwoThree),
+                 3);
     t.end();
 });
 
