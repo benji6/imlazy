@@ -1,5 +1,6 @@
 import test from 'tape';
-import {filter,
+import {contains,
+        filter,
         find,
         findIndex,
         length,
@@ -19,6 +20,16 @@ const negativeIntegers = range(-1)(-Infinity);
 const add = a => b => a + b;
 const double = x => x * 2;
 const halve = x => x / 2;
+
+test('contains', t => {
+    t.deepEquals(contains(3)(oneTwoThree),
+                 true);
+    t.deepEquals(contains(1)(oneTwoThree),
+                 true);
+    t.deepEquals(contains(0)(oneTwoThree),
+                 false);
+    t.end();
+});
 
 test('filter', t => {
     t.deepEquals([...filter(x => x <= 3)(range(1)(100))],
