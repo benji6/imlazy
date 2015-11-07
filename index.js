@@ -6,6 +6,14 @@ export const range = a => b => createIterable(function* (n = a) {
   else while (n >= b) yield n--;
 });
 
+export const reduce = f => acc => callWithIterator(iterator => {
+  while (true) {
+    let {value, done} = iterator.next();
+    if (done) return acc;
+    acc = f(acc)(value);
+  }
+})
+
 export const filter = f => iterable => createIterable(function* () {
   for (let val of iterable) if (f(val)) yield val;
 });
@@ -24,11 +32,11 @@ export const nth = n => callWithIterator(iterator => {
 });
 
 export const find = f => callWithIterator(iterator => {
-  do {
+  while (true) {
     let {value, done} = iterator.next();
     if (done) return;
     if (f(value)) return value;
-  } while (true)
+  }
 });
 
 export const makeCircular = iterable => createIterable(function* () {
