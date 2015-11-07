@@ -1,5 +1,5 @@
 import test from 'tape';
-import {filter, find, map, makeCircular, nth, range, reduce, take} from './';
+import {filter, find, findIndex, map, makeCircular, nth, range, reduce, take} from './';
 
 const oneTwoThree = Object.freeze([1, 2, 3]);
 const threeTwoOne = Object.freeze([3, 2, 1]);
@@ -66,6 +66,16 @@ test('find', t => {
     t.deepEquals(find(x => x === 3)(positiveIntegers),
                  3);
     t.deepEquals(find(x => x === 4)(oneTwoThree),
+                 undefined);
+    t.end();
+});
+
+test('findIndex', t => {
+    t.deepEquals(findIndex(x => x === -1)(negativeIntegers),
+                 0);
+    t.deepEquals(findIndex(x => x === -30)(negativeIntegers),
+                 29);
+    t.deepEquals(findIndex(x => x === -4)(oneTwoThree),
                  undefined);
     t.end();
 });
