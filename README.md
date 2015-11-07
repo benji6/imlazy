@@ -12,6 +12,7 @@ Functional, declarative, immutable and lazy as you like.
 ### create
 
 - range
+- repeat
 
 ### transform (mutation free)
 

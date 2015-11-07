@@ -9,6 +9,7 @@ import {contains,
         nth,
         range,
         reduce,
+        repeat,
         reverse,
         take} from './';
 
@@ -63,6 +64,12 @@ test('length', t => {
     t.end();
 });
 
+test('makeCircular', t => {
+    t.deepEquals([...take(8)(makeCircular(range(1)(3)))],
+                 [1, 2, 3, 1, 2, 3, 1, 2]);
+    t.end();
+});
+
 test('map', t => {
     t.deepEquals([...map(halve)([2, 4, 6])],
                  oneTwoThree);
@@ -93,6 +100,14 @@ test('reduce', t => {
     t.end();
 });
 
+test('repeat', t => {
+    t.deepEquals([...repeat(5)(3)],
+                 [5, 5, 5]);
+    t.deepEquals([...take(3)(repeat(5)(Infinity))],
+                 [5, 5, 5]);
+    t.end();
+});
+
 test('reverse', t => {
     t.deepEquals([...reverse(oneTwoThree)],
                  threeTwoOne);
@@ -104,22 +119,8 @@ test('take', t => {
                  oneTwoThree);
     t.deepEquals([...take(3)(positiveIntegers)],
                  oneTwoThree);
-    t.end();
-});
-
-test('map take', t => {
     t.deepEquals([...take(3)(map(double)(positiveIntegers))],
                  [2, 4, 6]);
-    t.end();
-});
-
-test('take makeCircular', t => {
-    t.deepEquals([...take(8)(makeCircular(range(1)(3)))],
-                 [1, 2, 3, 1, 2, 3, 1, 2]);
-    t.end();
-});
-
-test('take map', t => {
     t.deepEquals([...map(double)(take(3)(positiveIntegers))],
                  [2, 4, 6]);
     t.end();

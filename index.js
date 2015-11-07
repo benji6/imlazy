@@ -55,6 +55,10 @@ export const range = a => b => createIterable(function* (n = a) {
   else while (n >= b) yield n--;
 });
 
+export const repeat = a => b => createIterable(function* (x = b) {
+  while (x--) yield a;
+});
+
 export const reduce = f => acc => callWithIterator(iterator => {
   while (true) {
     let {value, done} = iterator.next();
