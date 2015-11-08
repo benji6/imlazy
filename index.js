@@ -1,6 +1,11 @@
 const callWithIterator = f => iterable => f(iterable[Symbol.iterator]());
 const createIterable = generator => ({[Symbol.iterator]: generator});
 
+export const concat = iterableA => iterableB => createIterable(function* () {
+  yield* iterableA;
+  yield* iterableB;
+});
+
 export const every = f => callWithIterator(iterator => {
   while (true) {
     let {value, done} = iterator.next();

@@ -1,5 +1,6 @@
 import test from 'tape';
-import {every,
+import {concat,
+        every,
         filter,
         find,
         findIndex,
@@ -25,6 +26,18 @@ const negativeIntegers = range(-1)(-Infinity);
 const add = a => b => a + b;
 const double = x => x * 2;
 const halve = x => x / 2;
+
+test('concat', t => {
+    t.deepEquals([...concat(oneTwoThree)(threeTwoOne)],
+                 [1, 2, 3, 3, 2, 1]);
+    t.deepEquals([...take(8)(concat(oneTwoThree)(negativeIntegers))],
+                 [1, 2, 3, -1, -2, -3, -4, -5]);
+    t.deepEquals([...take(8)(concat(negativeIntegers)(oneTwoThree))],
+                 [-1, -2, -3, -4, -5, -6, -7, -8]);
+    t.deepEquals([...take(8)(concat(negativeIntegers)(negativeIntegers))],
+                 [-1, -2, -3, -4, -5, -6, -7, -8]);
+    t.end();
+});
 
 test('every', t => {
     t.deepEquals(every(x => x === 5)(fiveFiveFive),
