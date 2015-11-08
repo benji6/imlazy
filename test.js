@@ -18,6 +18,7 @@ import {concat,
         some,
         sort,
         take,
+        takeWhile,
         zip} from './';
 
 const oneTwoThree = Object.freeze([1, 2, 3]);
@@ -185,6 +186,16 @@ test('take', t => {
                [2, 4, 6]);
   t.deepEquals([...map(double)(take(3)(positiveIntegers))],
                [2, 4, 6]);
+  t.end();
+});
+
+test('takeWhile', t => {
+  t.deepEquals([...takeWhile(a => a !== 5)(oneTwoThreeFour)],
+               oneTwoThreeFour);
+  t.deepEquals([...takeWhile(a => a !== 4)(oneTwoThreeFour)],
+               oneTwoThree);
+  t.deepEquals([...takeWhile(a => a !== 4)(positiveIntegers)],
+               oneTwoThree);
   t.end();
 });
 

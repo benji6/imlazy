@@ -49,6 +49,7 @@ const someReturnedValue = someFunction(...someIterable);
 - reduce
 - reverse
 - take
+- takeWhile
 - zip
 
 ### query

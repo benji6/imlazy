@@ -106,6 +106,14 @@ export const take = a => callWithIterator(iterator => createIterable(function* (
   while (n--) yield iterator.next().value;
 }));
 
+export const takeWhile = f => callWithIterator(iterator => createIterable(function* () {
+  while (true) {
+    const {done, value} = iterator.next();
+    if (done || !f(value)) return;
+    yield value;
+  }
+}));
+
 export const zip = iterableA => iterableB => {
   const iteratorA = iterableA[Symbol.iterator]();
   const iteratorB = iterableB[Symbol.iterator]();
