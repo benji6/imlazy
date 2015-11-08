@@ -76,6 +76,12 @@ export const reverse = iterable => createIterable(function* () {
   yield* [...iterable].reverse();
 });
 
+export const slice = a => b => iterable => createIterable(function* (x = a, y = b) {
+  const iterator = iterable[Symbol.iterator]();
+  while (x--) if (iterator.next().done) return;
+  while (--y) yield iterator.next().value;
+});
+
 export const some = f => callWithIterator(iterator => {
   while (true) {
     let {value, done} = iterator.next();

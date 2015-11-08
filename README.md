@@ -43,6 +43,7 @@ const someReturnedValue = someFunction(...someIterable);
 - filter
 - makeCircular
 - map
+- slice
 - reduce
 - reverse
 - take
@@ -55,6 +56,7 @@ const someReturnedValue = someFunction(...someIterable);
 - find
 - length
 - nth
+- slice
 - some
 
 ## Project Scope

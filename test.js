@@ -12,6 +12,7 @@ import {concat,
         reduce,
         repeat,
         reverse,
+        slice,
         some,
         take,
         zip} from './';
@@ -126,6 +127,20 @@ test('repeat', t => {
 test('reverse', t => {
     t.deepEquals([...reverse(oneTwoThree)],
                  threeTwoOne);
+    t.end();
+});
+
+test('slice', t => {
+    t.deepEquals([...slice(0)(4)(oneTwoThreeFour)],
+                 oneTwoThree);
+    t.deepEquals([...slice(1)(2)(oneTwoThree)],
+                 [2]);
+    t.deepEquals([...slice(1)(1)(oneTwoThree)],
+                 []);
+    t.deepEquals([...slice(0)(4)(positiveIntegers)],
+                 oneTwoThree);
+    t.deepEquals([...slice(0)(4)(slice(0)(Infinity)(positiveIntegers))],
+                 oneTwoThree);
     t.end();
 });
 
