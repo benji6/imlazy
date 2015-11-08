@@ -66,3 +66,19 @@ export const reverse = iterable => createIterable(function* () {
 export const take = a => callWithIterator(iterator => createIterable(function* (n = a) {
   while (n--) yield iterator.next().value;
 }));
+
+export const zip = iterableA => iterableB => {
+  const iteratorA = iterableA[Symbol.iterator]();
+  const iteratorB = iterableB[Symbol.iterator]();
+  return createIterable(function* () {
+    while (true) {
+      let nextA = iteratorA.next();
+      let nextB = iteratorB.next();
+      if (nextA.done || nextB.done) return;
+      yield createIterable(function* () {
+        yield nextA.value;
+        yield nextB.value;
+      });
+    }
+  });
+};

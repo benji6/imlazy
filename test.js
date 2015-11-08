@@ -10,9 +10,11 @@ import {filter,
         reduce,
         repeat,
         reverse,
-        take} from './';
+        take,
+        zip} from './';
 
 const oneTwoThree = Object.freeze([1, 2, 3]);
+const oneTwoThreeFour = Object.freeze([1, 2, 3, 4]);
 const threeTwoOne = Object.freeze([3, 2, 1]);
 const positiveIntegers = range(1)(Infinity);
 const negativeIntegers = range(-1)(-Infinity);
@@ -104,7 +106,7 @@ test('reverse', t => {
 });
 
 test('take', t => {
-    t.deepEquals([...take(3)([1, 2, 3, 4])],
+    t.deepEquals([...take(3)(oneTwoThreeFour)],
                  oneTwoThree);
     t.deepEquals([...take(3)(positiveIntegers)],
                  oneTwoThree);
@@ -113,4 +115,14 @@ test('take', t => {
     t.deepEquals([...map(double)(take(3)(positiveIntegers))],
                  [2, 4, 6]);
     t.end();
+});
+
+test('zip', t => {
+  t.deepEquals([...zip(oneTwoThree)(threeTwoOne)].map(xs => [...xs]),
+               [[1, 3], [2, 2], [3, 1]]);
+  t.deepEquals([...zip(oneTwoThreeFour)(threeTwoOne)].map(xs => [...xs]),
+               [[1, 3], [2, 2], [3, 1]]);
+  t.deepEquals([...zip(threeTwoOne)(positiveIntegers)].map(xs => [...xs]),
+               [[3, 1], [2, 2], [1, 3]]);
+  t.end();
 });
