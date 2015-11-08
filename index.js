@@ -1,6 +1,14 @@
 const callWithIterator = f => iterable => f(iterable[Symbol.iterator]());
 const createIterable = generator => ({[Symbol.iterator]: generator});
 
+export const every = f => callWithIterator(iterator => {
+  while (true) {
+    let {value, done} = iterator.next();
+    if (done) return true;
+    if (!f(value)) return false;
+  }
+});
+
 export const filter = f => iterable => createIterable(function* () {
   for (let val of iterable) if (f(val)) yield val;
 });

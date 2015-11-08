@@ -1,5 +1,6 @@
 import test from 'tape';
-import {filter,
+import {every,
+        filter,
         find,
         findIndex,
         length,
@@ -17,12 +18,21 @@ import {filter,
 const oneTwoThree = Object.freeze([1, 2, 3]);
 const oneTwoThreeFour = Object.freeze([1, 2, 3, 4]);
 const threeTwoOne = Object.freeze([3, 2, 1]);
+const fiveFiveFive = Object.freeze([5, 5, 5]);
 const positiveIntegers = range(1)(Infinity);
 const negativeIntegers = range(-1)(-Infinity);
 
 const add = a => b => a + b;
 const double = x => x * 2;
 const halve = x => x / 2;
+
+test('every', t => {
+    t.deepEquals(every(x => x === 5)(fiveFiveFive),
+                 true);
+    t.deepEquals(every(x => x === 30)(fiveFiveFive),
+                 false);
+    t.end();
+});
 
 test('filter', t => {
     t.deepEquals([...filter(x => x <= 3)(range(1)(100))],
@@ -94,9 +104,9 @@ test('reduce', t => {
 
 test('repeat', t => {
     t.deepEquals([...repeat(5)(3)],
-                 [5, 5, 5]);
+                 fiveFiveFive);
     t.deepEquals([...take(3)(repeat(5)(Infinity))],
-                 [5, 5, 5]);
+                 fiveFiveFive);
     t.end();
 });
 

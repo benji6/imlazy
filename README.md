@@ -49,6 +49,7 @@ const someReturnedValue = someFunction(...someIterable);
 
 ### query
 
+- every
 - findIndex
 - find
 - length
