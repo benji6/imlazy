@@ -156,5 +156,7 @@ test('zip', t => {
                [[1, 3], [2, 2], [3, 1]]);
   t.deepEquals([...zip(threeTwoOne)(positiveIntegers)].map(xs => [...xs]),
                [[3, 1], [2, 2], [1, 3]]);
+  t.deepEquals([...take(3)(zip(positiveIntegers)(positiveIntegers))].map(xs => [...xs]),
+               [[1, 1], [2, 2], [3, 3]]);
   t.end();
 });
