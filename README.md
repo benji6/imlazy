@@ -34,6 +34,7 @@ const someReturnedValue = someFunction(...someIterable);
 
 ### create
 
+- iterableFrom
 - range
 - repeat
 
