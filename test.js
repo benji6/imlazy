@@ -16,12 +16,14 @@ import {concat,
         reverse,
         slice,
         some,
+        sort,
         take,
         zip} from './';
 
 const oneTwoThree = Object.freeze([1, 2, 3]);
-const oneTwoThreeFour = Object.freeze([1, 2, 3, 4]);
 const threeTwoOne = Object.freeze([3, 2, 1]);
+const oneTwoThreeFour = Object.freeze([1, 2, 3, 4]);
+const fourThreeTwoOne = Object.freeze([4, 3, 2, 1]);
 const fiveFiveFive = Object.freeze([5, 5, 5]);
 const positiveIntegers = range(1)(Infinity);
 const negativeIntegers = range(-1)(-Infinity);
@@ -163,6 +165,14 @@ test('some', t => {
                true);
   t.deepEquals(some(x => x === 30)(oneTwoThree),
                false);
+  t.end();
+});
+
+test('sort', t => {
+  t.deepEquals([...sort(a => b => a > b)(oneTwoThreeFour)],
+               oneTwoThreeFour);
+  t.deepEquals([...sort(a => b => a < b)(oneTwoThreeFour)],
+               fourThreeTwoOne);
   t.end();
 });
 

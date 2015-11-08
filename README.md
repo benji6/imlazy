@@ -60,6 +60,7 @@ const someReturnedValue = someFunction(...someIterable);
 - nth
 - slice
 - some
+- sort
 
 ## Project Scope
 

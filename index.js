@@ -98,6 +98,10 @@ export const some = f => callWithIterator(iterator => {
   }
 });
 
+export const sort = f => iterable => createIterable(function* () {
+  yield* [...iterable].sort((a, b) => f(a)(b));
+});
+
 export const take = a => callWithIterator(iterator => createIterable(function* (n = a) {
   while (n--) yield iterator.next().value;
 }));
