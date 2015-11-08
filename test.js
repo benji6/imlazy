@@ -10,6 +10,7 @@ import {filter,
         reduce,
         repeat,
         reverse,
+        some,
         take,
         zip} from './';
 
@@ -102,6 +103,14 @@ test('repeat', t => {
 test('reverse', t => {
     t.deepEquals([...reverse(oneTwoThree)],
                  threeTwoOne);
+    t.end();
+});
+
+test('some', t => {
+    t.deepEquals(some(x => x === 30)(positiveIntegers),
+                 true);
+    t.deepEquals(some(x => x === 30)(oneTwoThree),
+                 false);
     t.end();
 });
 

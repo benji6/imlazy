@@ -53,3 +53,4 @@ const someReturnedValue = someFunction(...someIterable);
 - find
 - length
 - nth
+- some
