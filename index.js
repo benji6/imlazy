@@ -40,6 +40,10 @@ export const iterableFrom = iterable => createIterable(function* () {
   yield* iterable;
 });
 
+export const iterableOf = (...iterable) => createIterable(function* () {
+  yield* iterable;
+});
+
 export const length = callWithIterator(iterator => {
   let i = 0;
   while (!iterator.next().done) i++;

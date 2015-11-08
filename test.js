@@ -5,6 +5,7 @@ import {concat,
         find,
         findIndex,
         iterableFrom,
+        iterableOf,
         length,
         map,
         makeCircular,
@@ -77,6 +78,12 @@ test('findIndex', t => {
 
 test('iterableFrom', t => {
   t.deepEquals([...iterableFrom(oneTwoThree)],
+              oneTwoThree);
+  t.end();
+});
+
+test('iterableOf', t => {
+  t.deepEquals([...iterableOf(1, 2, 3)],
               oneTwoThree);
   t.end();
 });
