@@ -44,11 +44,12 @@ const someReturnedValue = someFunction(...someIterable);
 
 - concat
 - filter
+- flatten
 - makeCircular
 - map
-- slice
 - reduce
 - reverse
+- slice
 - take
 - takeWhile
 - zip
@@ -57,8 +58,8 @@ const someReturnedValue = someFunction(...someIterable);
 ### query
 
 - every
-- findIndex
 - find
+- findIndex
 - length
 - nth
 - slice

@@ -28,6 +28,10 @@ export const findIndex = f => iterable => {
   for (let x of iterable) if (f(x)) return i; else i++;
 };
 
+export const flatten = iterable => createIterable(function* () {
+  for (let xs of iterable) yield* xs;
+});
+
 export const iterableFrom = iterableFromIterable;
 
 export const iterableOf = (...iterable) => iterableFromIterable(iterable);

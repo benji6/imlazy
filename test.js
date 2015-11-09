@@ -4,11 +4,12 @@ import {concat,
         filter,
         find,
         findIndex,
+        flatten,
         iterableFrom,
         iterableOf,
         length,
-        map,
         makeCircular,
+        map,
         nth,
         range,
         reduce,
@@ -35,6 +36,7 @@ const subtract = a => b => a - b;
 const double = x => x * 2;
 const halve = x => x / 2;
 const takeThree = take(3);
+const takeEight = take(8);
 
 const B = a => b => c => a(b(c));
 
@@ -52,11 +54,11 @@ syncTest('concat', t => {
   const processIterable = isFrozenToArray(t);
   t.deepEquals(processIterable(concatOneTwoThree(threeTwoOne)),
                [1, 2, 3, 3, 2, 1]);
-  t.deepEquals(processIterable(take(8)(concatOneTwoThree(negativeIntegers))),
+  t.deepEquals(processIterable(takeEight(concatOneTwoThree(negativeIntegers))),
                [1, 2, 3, -1, -2, -3, -4, -5]);
-  t.deepEquals(processIterable(take(8)(concat(negativeIntegers)(oneTwoThree))),
+  t.deepEquals(processIterable(takeEight(concat(negativeIntegers)(oneTwoThree))),
                [-1, -2, -3, -4, -5, -6, -7, -8]);
-  t.deepEquals(processIterable(take(8)(concat(negativeIntegers)(negativeIntegers))),
+  t.deepEquals(processIterable(takeEight(concat(negativeIntegers)(negativeIntegers))),
                [-1, -2, -3, -4, -5, -6, -7, -8]);
 });
 
@@ -91,6 +93,16 @@ syncTest('findIndex', t => {
                undefined);
 });
 
+syncTest('flatten', t => {
+  const processIterable = isFrozenToArray(t);
+  t.deepEquals(processIterable(flatten([oneTwoThree, threeTwoOne, oneTwoThreeFour])),
+               [...oneTwoThree, ...threeTwoOne, ...oneTwoThreeFour]);
+  t.deepEquals(processIterable(takeEight(flatten([oneTwoThree, positiveIntegers]))),
+               [...oneTwoThree, ...oneTwoThreeFour, 5]);
+  t.deepEquals(processIterable(takeEight(flatten(repeat(positiveIntegers)(Infinity)))),
+               [1, 2, 3, 4, 5, 6, 7, 8]);
+});
+
 syncTest('iterableFrom', t => {
   const processIterable = isFrozenToArray(t);
   t.deepEquals(processIterable(iterableFrom(oneTwoThree)),
@@ -110,7 +122,7 @@ syncTest('length', t => {
 
 syncTest('makeCircular', t => {
   const processIterable = isFrozenToArray(t);
-  t.deepEquals(processIterable(take(8)(makeCircular(range(1)(3)))),
+  t.deepEquals(processIterable(takeEight(makeCircular(range(1)(3)))),
                [1, 2, 3, 1, 2, 3, 1, 2]);
 });
 
