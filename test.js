@@ -19,7 +19,8 @@ import {concat,
         sort,
         take,
         takeWhile,
-        zip} from './';
+        zip,
+        zipWith} from './';
 
 const oneTwoThree = Object.freeze([1, 2, 3]);
 const threeTwoOne = Object.freeze([3, 2, 1]);
@@ -30,6 +31,7 @@ const positiveIntegers = range(1)(Infinity);
 const negativeIntegers = range(-1)(-Infinity);
 
 const add = a => b => a + b;
+const subtract = a => b => a - b;
 const double = x => x * 2;
 const halve = x => x / 2;
 const takeThree = take(3);
@@ -226,6 +228,19 @@ syncTest('zip', t => {
                [[1, 3], [2, 2], [3, 1]]);
   t.deepEquals(processIterable(zip(threeTwoOne)(positiveIntegers)).map(processIterable),
                [[3, 1], [2, 2], [1, 3]]);
-  t.deepEquals(processIterable(takeThree(zip(positiveIntegers)(positiveIntegers))).map(xs => [...xs]),
+  t.deepEquals(processIterable(takeThree(zip(positiveIntegers)(positiveIntegers))).map(processIterable),
                [[1, 1], [2, 2], [3, 3]]);
+});
+
+syncTest('zipWith', t => {
+  const processIterable = isFrozenToArray(t);
+  const zipWithSubtract = zipWith(subtract);
+  t.deepEquals(processIterable(zipWithSubtract(oneTwoThree)(threeTwoOne)),
+               [-2, 0, 2]);
+  t.deepEquals(processIterable(zipWithSubtract(oneTwoThreeFour)(threeTwoOne)),
+               [-2, 0, 2]);
+  t.deepEquals(processIterable(zipWithSubtract(threeTwoOne)(positiveIntegers)),
+               [2, 0, -2]);
+  t.deepEquals(processIterable(takeThree(zipWith(add)(positiveIntegers)(positiveIntegers))),
+               [2, 4, 6]);
 });

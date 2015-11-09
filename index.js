@@ -94,3 +94,13 @@ export const zip = iterableA => iterableB => {
     }
   });
 };
+
+export const zipWith = f => iterableA => iterableB => {
+  const iteratorB = iterableB[Symbol.iterator]();
+  return createIterable(function* () {
+    for (let x of iterableA) {
+      let {done, value} = iteratorB.next();
+      if (done) return; else yield f(x)(value);
+    }
+  });
+};

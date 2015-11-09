@@ -22,7 +22,7 @@ const someIterable = Object.freeze({[Symbol.Iterator]: function* () {
 
 Therefore they are lazy and immutable.
 
-If you want to turn them into arrays or feed them into a function etc then just spread them:
+If you want to turn them into arrays or feed them into a function etc then just spread them (don't spread anything infinite or circular!):
 
 ```javascript
 
@@ -52,6 +52,7 @@ const someReturnedValue = someFunction(...someIterable);
 - take
 - takeWhile
 - zip
+- zipWith
 
 ### query
 
