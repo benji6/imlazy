@@ -1,4 +1,5 @@
 # imlazy
+
 Laziness is next to Godliness
 
 ## What is this?

@@ -48,8 +48,7 @@ export const nth = a => iterable => {
 };
 
 export const range = a => b => createIterable(function* (n = a) {
-  if (n < b) while (n <= b) yield n++;
-  else while (n >= b) yield n--;
+  if (n < b) while (n <= b) yield n++; else while (n >= b) yield n--;
 });
 
 export const repeat = a => b => createIterable(function* (x = b) {
@@ -79,17 +78,11 @@ export const sort = f => iterable => iterableFromIterable([...iterable].sort((a,
 
 export const take = a => iterable => createIterable(function* () {
   let i = a;
-  for (let x of iterable) {
-    if (!i--) return;
-    yield x;
-  }
+  for (let x of iterable) if (!i--) return; else yield x;
 });
 
 export const takeWhile = f => iterable => createIterable(function* () {
-  for (let x of iterable) {
-    if (!f(x)) return;
-    yield x;
-  }
+  for (let x of iterable) if (!f(x)) return; else yield x;
 });
 
 export const zip = iterableA => iterableB => {
@@ -97,8 +90,7 @@ export const zip = iterableA => iterableB => {
   return createIterable(function* () {
     for (let x of iterableA) {
       let {done, value} = iteratorB.next();
-      if (done) return;
-      yield iterableFromIterable([x, value]);
+      if (done) return; else yield iterableFromIterable([x, value]);
     }
   });
 };
