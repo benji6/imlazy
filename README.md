@@ -3,7 +3,7 @@ Laziness is next to Godliness
 
 ## What is this?
 
-JS utility library, for dealing with iterables, iterators and generators.
+JS library, for dealing with iterables, iterators and generators.
 
 Functional, declarative, immutable and lazy as you like.
 
@@ -13,9 +13,9 @@ Iterables returned by imlazy are simpy of the form:
 
 ```javascript
 
-const someIterable = {[Symbol.Iterator]: function* () {
+const someIterable = Object.freeze({[Symbol.Iterator]: function* () {
   // do some stuff
-}};
+}});
 
 ```
 
