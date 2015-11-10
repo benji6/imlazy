@@ -1,16 +1,23 @@
 import test from 'tape';
-import {concat,
+import {append,
+        concat,
+        drop,
+        dropWhile,
         every,
         filter,
         find,
         findIndex,
         flatten,
+        head,
         iterableFrom,
         iterableOf,
+        last,
         length,
         makeCircular,
         map,
         nth,
+        pop,
+        prepend,
         range,
         reduce,
         repeat,
@@ -18,8 +25,10 @@ import {concat,
         slice,
         some,
         sort,
+        tail,
         take,
         takeWhile,
+        transpose,
         zip,
         zipWith} from './';
 
@@ -30,7 +39,7 @@ const fourThreeTwoOne = Object.freeze([4, 3, 2, 1]);
 const fiveFiveFive = Object.freeze([5, 5, 5]);
 const positiveIntegers = range(1)(Infinity);
 const negativeIntegers = range(-1)(-Infinity);
-
+const infiniteIterableOfPositiveIntegers = repeat(positiveIntegers)(Infinity);
 const add = a => b => a + b;
 const subtract = a => b => a - b;
 const double = x => x * 2;
@@ -49,6 +58,14 @@ const syncTest = (name, f) => test(name, t => {
   t.end();
 });
 
+syncTest('append', t => {
+  const processIterable = isFrozenToArray(t);
+  t.deepEquals(processIterable(append(4)([])),
+               [4]);
+  t.deepEquals(processIterable(append(4)(oneTwoThree)),
+               oneTwoThreeFour);
+});
+
 syncTest('concat', t => {
   const concatOneTwoThree = concat(oneTwoThree);
   const processIterable = isFrozenToArray(t);
@@ -60,6 +77,27 @@ syncTest('concat', t => {
                [-1, -2, -3, -4, -5, -6, -7, -8]);
   t.deepEquals(processIterable(takeEight(concat(negativeIntegers)(negativeIntegers))),
                [-1, -2, -3, -4, -5, -6, -7, -8]);
+});
+
+syncTest('drop', t => {
+  const processIterable = isFrozenToArray(t);
+  const dropOne = drop(1);
+  t.deepEquals(processIterable(dropOne(oneTwoThreeFour)),
+               [2, 3, 4]);
+  t.deepEquals(processIterable(dropOne(oneTwoThreeFour)),
+               [2, 3, 4]);
+  t.deepEquals(processIterable(drop(3)(oneTwoThreeFour)),
+               [4]);
+  t.deepEquals(drop(30)(oneTwoThree),
+               []);
+});
+
+syncTest('dropWhile', t => {
+  const processIterable = isFrozenToArray(t);
+  t.deepEquals(processIterable(dropWhile(a => a !== 3)(oneTwoThreeFour)),
+               [3, 4]);
+  t.deepEquals(processIterable(dropWhile(a => a !== 12321)(oneTwoThreeFour)),
+               []);
 });
 
 syncTest('every', t => {
@@ -99,8 +137,15 @@ syncTest('flatten', t => {
                [...oneTwoThree, ...threeTwoOne, ...oneTwoThreeFour]);
   t.deepEquals(processIterable(takeEight(flatten([oneTwoThree, positiveIntegers]))),
                [...oneTwoThree, ...oneTwoThreeFour, 5]);
-  t.deepEquals(processIterable(takeEight(flatten(repeat(positiveIntegers)(Infinity)))),
+  t.deepEquals(processIterable(takeEight(flatten(infiniteIterableOfPositiveIntegers))),
                [1, 2, 3, 4, 5, 6, 7, 8]);
+});
+
+syncTest('head', t => {
+  t.deepEquals(head([]),
+               undefined);
+  t.deepEquals(head(positiveIntegers),
+               1);
 });
 
 syncTest('iterableFrom', t => {
@@ -113,6 +158,13 @@ syncTest('iterableOf', t => {
   const processIterable = isFrozenToArray(t);
   t.deepEquals(processIterable(iterableOf(1, 2, 3)),
                oneTwoThree);
+});
+
+syncTest('last', t => {
+  t.deepEquals(last([]),
+               undefined);
+  t.deepEquals(last(oneTwoThree),
+               3);
 });
 
 syncTest('length', t => {
@@ -136,10 +188,30 @@ syncTest('nth', t => {
   const second = nth(1);
   t.deepEquals(nth(0)(positiveIntegers),
                1);
+  t.deepEquals(nth(256)(positiveIntegers),
+               257);
   t.deepEquals(second(positiveIntegers),
                2);
   t.deepEquals(second(negativeIntegers),
                -2);
+});
+
+syncTest('pop', t => {
+  const processIterable = isFrozenToArray(t);
+  t.deepEquals(processIterable(pop([])),
+               []);
+  t.deepEquals(processIterable(pop([1])),
+               []);
+  t.deepEquals(processIterable(takeEight(pop(oneTwoThreeFour))),
+               oneTwoThree);
+});
+
+syncTest('prepend', t => {
+  const processIterable = isFrozenToArray(t);
+  t.deepEquals(processIterable(prepend(1)([])),
+               [1]);
+  t.deepEquals(processIterable(takeEight(prepend(0)(positiveIntegers))),
+               [0, 1, 2, 3, 4, 5, 6, 7]);
 });
 
 syncTest('range', t => {
@@ -210,8 +282,18 @@ syncTest('sort', t => {
                fourThreeTwoOne);
 });
 
+syncTest('tail', t => {
+  const processIterable = isFrozenToArray(t);
+  t.deepEquals(processIterable(tail([])),
+               []);
+  t.deepEquals(processIterable(takeEight(tail(positiveIntegers))),
+               [2, 3, 4, 5, 6, 7, 8, 9]);
+});
+
 syncTest('take', t => {
   const processIterable = isFrozenToArray(t);
+  t.deepEquals(processIterable(takeThree([1])),
+               [1]);
   t.deepEquals(processIterable(takeThree(oneTwoThreeFour)),
                oneTwoThree);
   t.deepEquals(processIterable(takeThree(positiveIntegers)),
@@ -230,6 +312,16 @@ syncTest('takeWhile', t => {
                oneTwoThree);
   t.deepEquals(processIterable(takeWhile(a => a !== 4)(positiveIntegers)),
                oneTwoThree);
+});
+
+syncTest('transpose', t => {
+  const processIterable = isFrozenToArray(t);
+  t.deepEquals(processIterable(transpose([oneTwoThreeFour, oneTwoThree, oneTwoThree])).map(processIterable),
+               [[1, 1, 1], [2, 2, 2], [3, 3, 3], [4]]);
+  t.deepEquals(processIterable(takeEight(transpose([oneTwoThree, negativeIntegers, positiveIntegers, [64]]))).map(takeEight).map(processIterable),
+               [[1, -1, 1, 64], [2, -2, 2], [3, -3, 3], [-4, 4], [-5, 5], [-6, 6], [-7, 7], [-8, 8]]);
+  t.deepEquals(processIterable(takeThree(infiniteIterableOfPositiveIntegers)).map(takeThree).map(processIterable),
+               [oneTwoThree, oneTwoThree, oneTwoThree]);
 });
 
 syncTest('zip', t => {

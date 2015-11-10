@@ -42,16 +42,21 @@ const someReturnedValue = someFunction(...someIterable);
 
 ### "transform" (mutation free)
 
+- append
 - concat
 - filter
 - flatten
 - makeCircular
 - map
+- pop
+- prepend
 - reduce
 - reverse
 - slice
 - take
 - takeWhile
+- tail
+- transpose
 - zip
 - zipWith
 
@@ -60,6 +65,7 @@ const someReturnedValue = someFunction(...someIterable);
 - every
 - find
 - findIndex
+- head
 - length
 - nth
 - slice
