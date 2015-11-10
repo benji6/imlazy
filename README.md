@@ -31,6 +31,22 @@ const someReturnedValue = someFunction(...someIterable);
 
 ```
 
+## Why?
+
+```javascript
+
+import {filter, range, reduce, take} from 'imlazy';
+
+// all functions are autocurried for partial application
+const sum = reduce((val, acc) => val + acc, 0);
+
+const positiveIntegers = range(1, Infinity);
+const positiveEvenIntegers = filter(x => x % 2 === 0, positiveIntegers);
+const twoFourSix = take(3, positiveEvenIntegers);
+sum(twoFourSix); // => 12
+
+```
+
 ## API
 
 ### create
