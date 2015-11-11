@@ -1,5 +1,6 @@
 import test from 'tape';
-import {append,
+import {adjust,
+        append,
         concat,
         drop,
         dropWhile,
@@ -9,13 +10,18 @@ import {append,
         findIndex,
         flatten,
         head,
+        insert,
+        insertAll,
+        intersperse,
         iterableFrom,
         iterableOf,
+        iterate,
         last,
         length,
         makeCircular,
         map,
         nth,
+        partition,
         pop,
         prepend,
         range,
@@ -46,6 +52,7 @@ const double = x => x * 2;
 const halve = x => x / 2;
 const takeThree = take(3);
 const takeEight = take(8);
+const isEven = x => x % 2 === 0;
 
 const B = a => b => c => a(b(c));
 
@@ -56,6 +63,12 @@ const isFrozenToArray = t => B(toArray)(isFrozen(t));
 const syncTest = (name, f) => test(name, t => {
   f(t);
   t.end();
+});
+
+syncTest('adjust', t => {
+  const processIterable = isFrozenToArray(t);
+  t.deepEquals(processIterable(takeEight(adjust(double)(2)(positiveIntegers))),
+               [1, 2, 6, 4, 5, 6, 7, 8]);
 });
 
 syncTest('append', t => {
@@ -148,6 +161,26 @@ syncTest('head', t => {
                1);
 });
 
+syncTest('insert', t => {
+  const processIterable = isFrozenToArray(t);
+  t.deepEquals(processIterable(takeEight(insert(2)(20)(positiveIntegers))),
+               [1, 2, 20, 3, 4, 5, 6, 7]);
+});
+
+syncTest('insertAll', t => {
+  const processIterable = isFrozenToArray(t);
+  t.deepEquals(processIterable(takeEight(insertAll(2)([20, 21, 22])(positiveIntegers))),
+               [1, 2, 20, 21, 22, 3, 4, 5]);
+  t.deepEquals(processIterable(takeEight(insertAll(2)(negativeIntegers)(positiveIntegers))),
+               [1, 2, -1, -2, -3, -4, -5, -6]);
+});
+
+syncTest('intersperse', t => {
+  const processIterable = isFrozenToArray(t);
+  t.deepEquals(processIterable(takeEight(intersperse(2)(positiveIntegers))),
+               [1, 2, 2, 2, 3, 2, 4, 2]);
+});
+
 syncTest('iterableFrom', t => {
   const processIterable = isFrozenToArray(t);
   t.deepEquals(processIterable(iterableFrom(oneTwoThree)),
@@ -158,6 +191,12 @@ syncTest('iterableOf', t => {
   const processIterable = isFrozenToArray(t);
   t.deepEquals(processIterable(iterableOf(1, 2, 3)),
                oneTwoThree);
+});
+
+syncTest('iterate', t => {
+  const processIterable = isFrozenToArray(t);
+  t.deepEquals(processIterable(takeEight(iterate(double)(1))),
+               [1, 2, 4, 8, 16, 32, 64, 128]);
 });
 
 syncTest('last', t => {
@@ -194,6 +233,12 @@ syncTest('nth', t => {
                2);
   t.deepEquals(second(negativeIntegers),
                -2);
+});
+
+syncTest('partition', t => {
+  const processIterable = isFrozenToArray(t);
+  t.deepEquals(processIterable(partition(isEven)(oneTwoThreeFour)).map(processIterable),
+               [[2, 4], [1, 3]]);
 });
 
 syncTest('pop', t => {

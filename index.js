@@ -5,6 +5,11 @@ const generatorFromIterable = iterable => function* () {
 };
 const iterableFromIterable = B(createIterable)(generatorFromIterable);
 
+export const adjust = f => a => iterable => createIterable(function* () {
+  let i = a;
+  for (let x of iterable) if (i--) yield x; else yield f(x);
+});
+
 export const append = a => iterable => createIterable(function* () {
   yield* iterable;
   yield a;
@@ -51,8 +56,39 @@ export const flatten = iterables => createIterable(function* () {
 });
 
 export const head = iterable => iterable[Symbol.iterator]().next().value;
+
+export const insert = a => b => iterable => createIterable(function* () {
+  let i = a;
+  for (let x of iterable) if (i--) yield x; else {
+    yield b;
+    yield x;
+  }
+});
+
+export const insertAll = a => xs => ys => createIterable(function* () {
+  let i = a;
+  for (let y of ys) if (i--) yield y; else {
+    yield* xs;
+    yield y;
+  }
+});
+
+export const intersperse = a => xs => createIterable(function* () {
+  for (let x of xs) {
+    yield x;
+    yield a;
+  }
+});
+
 export const iterableFrom = iterableFromIterable;
 export const iterableOf = (...iterable) => iterableFromIterable(iterable);
+
+export const iterate = f => a => createIterable(function* () {
+  let x = a;
+  yield x;
+  while (true) yield x = f(x);
+});
+
 export const last = iterable => [...iterable].pop();
 export const length = iterable => [...iterable].length;
 
@@ -68,6 +104,16 @@ export const nth = a => iterable => {
   let i = a;
   for (let x of iterable) if (i-- <= 0) return x;
 };
+
+export const partition = f => xs => createIterable(function* () {
+  const listA = [];
+  const listB = [];
+  for (let x of xs) {
+    if (f(x)) listA.push(x); else listB.push(x);
+  }
+  yield iterableFromIterable(listA);
+  yield iterableFromIterable(listB);
+});
 
 export const pop = iterable => createIterable(function* () {
   const iterator = iterable[Symbol.iterator]();

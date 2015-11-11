@@ -33,13 +33,15 @@ const someReturnedValue = someFunction(...someIterable);
 
 ## Why?
 
-Because lazy and immutable!
+Because lazy and immutable! (And also very small!)
 
 - Want to operate on infinite or cicrular data strutures? No problem!
 
 - Want to compose multiple transformations without having to worry about the performance costs of traversing data structures multiple times? No problem!
 
 - Scared of your data structures being mutated and having to deal with painful bugs caused by this? No problem!
+
+## Examples
 
 ```javascript
 
@@ -70,17 +72,23 @@ const circularOneTwoThree = makeCircular(oneTwoThree);
 
 - iterableFrom
 - iterableOf
+- iterate
 - range
 - repeat
 
 ### "transform" (mutation free)
 
+- adjust
 - append
 - concat
 - filter
 - flatten
+- insert
+- insertAll
+- intersperse
 - makeCircular
 - map
+- partition
 - pop
 - prepend
 - reduce
