@@ -33,17 +33,34 @@ const someReturnedValue = someFunction(...someIterable);
 
 ## Why?
 
+Because lazy and immutable!
+
+- Want to operate on infinite or cicrular data strutures? No problem!
+
+- Want to compose multiple transformations without having to worry about the performance costs of traversing data structures multiple times? No problem!
+
+- Scared of your data structures being mutated and having to deal with painful bugs caused by this? No problem!
+
 ```javascript
 
-import {filter, range, reduce, take} from 'imlazy';
+import {filter, makeCircular, ange, reduce, take} from 'imlazy';
 
 // all functions are autocurried for partial application
 const sum = reduce((val, acc) => val + acc, 0);
+const isEven = x => x % 2 === 0;
 
 const positiveIntegers = range(1, Infinity);
-const positiveEvenIntegers = filter(x => x % 2 === 0, positiveIntegers);
+const positiveEvenIntegers = filter(isEven, positiveIntegers);
 const twoFourSix = take(3, positiveEvenIntegers);
 sum(twoFourSix); // => 12
+
+// NB twoFourSix is an immutable lazy iterable
+// convert to an array like this
+[...twoFourSix]; // => [2, 4, 6]
+
+const oneTwoThree = range(1, 3);
+const circularOneTwoThree = makeCircular(oneTwoThree);
+[...take(8, circularOneTwoThree)]; // => [1, 2, 3, 1, 2, 3, 1, 2]
 
 ```
 
