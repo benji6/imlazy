@@ -31,6 +31,8 @@ const someReturnedValue = someFunction(...someIterable);
 
 ```
 
+All functions exposed by imlazy are curried and data-last which makes them ideal for partial application and functional programming.
+
 ## Why?
 
 Because lazy and immutable! (And also very small!)
@@ -45,7 +47,7 @@ Because lazy and immutable! (And also very small!)
 
 ```javascript
 
-import {filter, makeCircular, ange, reduce, take} from 'imlazy';
+import {filter, makeCircular, range, reduce, take} from 'imlazy';
 
 // all functions are autocurried for partial application
 const sum = reduce((val, acc) => val + acc, 0);
@@ -119,3 +121,9 @@ const circularOneTwoThree = makeCircular(oneTwoThree);
 ## Project Scope
 
 At the moment the scope of this project is limited to manipulating iterables using the iterator protocols. It does not expose standard FP functions like curry, compose, identity, flip, tap etc. It also does not prescribe a notion of equality, so iterables cannot be treated as sets and functions like [includes](https://tc39.github.io/Array.prototype.includes/), [has](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set/has), or [contains](http://ramdajs.com/docs/#contains) cannot exist. This could change going forwards.
+
+## Influences
+
+- [Ramda](https://github.com/ramda/ramda)
+- Haskell
+- Clojure

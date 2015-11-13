@@ -198,7 +198,7 @@ export const take = a => xs => createIterable(function* () {
 })
 
 export const takeWhile = f => xs => createIterable(function* () {
-  for (let x of xs) if (!f(x)) return; else yield x
+  for (let x of xs) if (f(x)) yield x; else return
 })
 
 export const transpose = xss => createIterable(function* () {
