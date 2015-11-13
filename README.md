@@ -92,8 +92,10 @@ const circularOneTwoThree = makeCircular(oneTwoThree);
 - pop
 - prepend
 - reduce
+- remove
 - reverse
 - slice
+- splitEvery
 - take
 - takeWhile
 - tail

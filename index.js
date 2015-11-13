@@ -131,12 +131,9 @@ export const prepend = a => iterable => createIterable(function* () {
   yield* iterable;
 });
 
-export const range = a => b => createIterable(function* (n = a) {
+export const range = a => b => createIterable(function* () {
+  let n = a;
   if (n < b) while (n <= b) yield n++; else while (n >= b) yield n--;
-});
-
-export const repeat = a => b => createIterable(function* (x = b) {
-  while (x--) yield a;
 });
 
 export const reduce = f => initialVal => iterable => {
@@ -145,12 +142,30 @@ export const reduce = f => initialVal => iterable => {
   return acc;
 };
 
+export const remove = a => b => xs => createIterable(function* () {
+  let i = a;
+  let j = b;
+  let yielding = true;
+  for (let x of xs) {
+    if (!i--) yielding = false;
+    if (yielding) yield x; else if (!--j) yielding = true;
+  }
+});
+
+export const repeat = a => b => createIterable(function* () {
+  let x = b;
+  while (x--) yield a;
+});
+
 export const reverse = iterable => iterableFromIterable([...iterable].reverse());
 
-export const slice = a => b => iterable => createIterable(function* (x = a, y = b) {
-  const iterator = iterable[Symbol.iterator]();
-  while (x--) if (iterator.next().done) return;
-  while (--y) yield iterator.next().value;
+export const slice = a => b => xs => createIterable(function* () {
+  let i = a;
+  let j = b;
+  for (let x of xs) {
+    if (--j < 0) return;
+    if (--i < 0) yield x;
+  }
 });
 
 export const some = f => iterable => {
@@ -159,6 +174,15 @@ export const some = f => iterable => {
 };
 
 export const sort = f => iterable => iterableFromIterable([...iterable].sort((a, b) => f(a)(b)));
+
+export const splitEvery = a => iterable => createIterable(function* () {
+  let i = 0;
+  while (true) {
+    const yieldVal = slice(i * a)((i + 1) * a)(iterable);
+    if (length(yieldVal)) yield yieldVal; else return;
+    i++;
+  }
+});
 
 export const tail = iterable => createIterable(function* () {
   let i = 1;

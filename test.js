@@ -26,11 +26,13 @@ import {adjust,
         prepend,
         range,
         reduce,
+        remove,
         repeat,
         reverse,
         slice,
         some,
         sort,
+        splitEvery,
         tail,
         take,
         takeWhile,
@@ -280,6 +282,12 @@ syncTest('reduce', t => {
                10);
 });
 
+syncTest('remove', t => {
+  const processIterable = isFrozenToArray(t);
+  t.deepEquals(processIterable(takeEight(remove(2)(4)(positiveIntegers))),
+               [1, 2, 7, 8, 9, 10, 11, 12]);
+});
+
 syncTest('repeat', t => {
   const processIterable = isFrozenToArray(t);
   const repeatFive = repeat(5);
@@ -300,15 +308,19 @@ syncTest('reverse', t => {
 syncTest('slice', t => {
   const sliceFromZero = slice(0);
   const processIterable = isFrozenToArray(t);
-  t.deepEquals(processIterable(sliceFromZero(4)(oneTwoThreeFour)),
+  t.deepEquals(processIterable(sliceFromZero(3)(oneTwoThreeFour)),
                oneTwoThree);
   t.deepEquals(processIterable(slice(1)(2)(oneTwoThree)),
                [2]);
+  t.deepEquals(processIterable(slice(1)(20)(oneTwoThree)),
+               [2, 3]);
   t.deepEquals(processIterable(slice(1)(1)(oneTwoThree)),
                []);
-  t.deepEquals(processIterable(sliceFromZero(4)(positiveIntegers)),
-               oneTwoThree);
-  t.deepEquals(processIterable(sliceFromZero(4)(slice(0)(Infinity)(positiveIntegers))),
+  t.deepEquals(processIterable(slice(20)(100)(oneTwoThree)),
+               []);
+  t.deepEquals(processIterable(slice(40)(45)(positiveIntegers)),
+               [41, 42, 43, 44, 45]);
+  t.deepEquals(processIterable(sliceFromZero(3)(slice(0)(Infinity)(positiveIntegers))),
                oneTwoThree);
 });
 
@@ -325,6 +337,15 @@ syncTest('sort', t => {
                oneTwoThreeFour);
   t.deepEquals(processIterable(sort(a => b => a < b)(oneTwoThreeFour)),
                fourThreeTwoOne);
+});
+
+syncTest('splitEvery', t => {
+  const processIterable = isFrozenToArray(t);
+  const splitEveryThree = splitEvery(3);
+  t.deepEquals(processIterable(splitEveryThree(oneTwoThreeFour)).map(processIterable),
+               [[1, 2, 3], [4]]);
+  t.deepEquals(processIterable(takeThree(splitEveryThree(positiveIntegers))).map(processIterable),
+               [[1, 2, 3], [4, 5, 6], [7, 8, 9]]);
 });
 
 syncTest('tail', t => {
