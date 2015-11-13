@@ -80,6 +80,7 @@ const circularOneTwoThree = makeCircular(oneTwoThree);
 
 - adjust
 - append
+- assoc
 - concat
 - filter
 - flatten

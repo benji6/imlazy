@@ -1,6 +1,7 @@
 import test from 'tape';
 import {adjust,
         append,
+        assoc,
         concat,
         drop,
         dropWhile,
@@ -79,6 +80,12 @@ syncTest('append', t => {
                [4]);
   t.deepEquals(processIterable(append(4)(oneTwoThree)),
                oneTwoThreeFour);
+});
+
+syncTest('assoc', t => {
+  const processIterable = isFrozenToArray(t);
+  t.deepEquals(processIterable(takeEight(assoc(4)(100)(positiveIntegers))),
+               [1, 2, 3, 4, 100, 6, 7, 8]);
 });
 
 syncTest('concat', t => {

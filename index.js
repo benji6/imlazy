@@ -1,65 +1,70 @@
 const B = a => b => c => a(b(c));
 const createIterable = generator => Object.freeze({[Symbol.iterator]: generator});
-const generatorFromIterable = iterable => function* () {
-  yield* iterable;
+const generatorFromIterable = xs => function* () {
+  yield* xs;
 };
 const iterableFromIterable = B(createIterable)(generatorFromIterable);
 
-export const adjust = f => a => iterable => createIterable(function* () {
+export const adjust = f => a => xs => createIterable(function* () {
   let i = a;
-  for (let x of iterable) if (i--) yield x; else yield f(x);
+  for (let x of xs) if (i--) yield x; else yield f(x);
 });
 
-export const append = a => iterable => createIterable(function* () {
-  yield* iterable;
+export const append = a => xs => createIterable(function* () {
+  yield* xs;
   yield a;
 });
 
-export const concat = iterableA => iterableB => createIterable(function* () {
-  yield* iterableA;
-  yield* iterableB;
-});
-
-export const drop = a => iterable => createIterable(function* () {
+export const assoc = a => b => xs => createIterable(function* () {
   let i = a;
-  for (let x of iterable) if (i-- <= 0) yield x;
+  for (let x of xs) if (i--) yield x; else yield b;
 });
 
-export const dropWhile = f => iterable => createIterable(function* () {
+export const concat = xs => ys => createIterable(function* () {
+  yield* xs;
+  yield* ys;
+});
+
+export const drop = a => xs => createIterable(function* () {
+  let i = a;
+  for (let x of xs) if (i-- <= 0) yield x;
+});
+
+export const dropWhile = f => xs => createIterable(function* () {
   let yielding = false;
-  for (let x of iterable) {
+  for (let x of xs) {
     if (!f(x)) yielding = true;
     if (yielding) yield x;
   }
 });
 
-export const every = f => iterable => {
-  for (let x of iterable) if (!f(x)) return false;
+export const every = f => xs => {
+  for (let x of xs) if (!f(x)) return false;
   return true;
 };
 
-export const filter = f => iterable => createIterable(function* () {
-  for (let x of iterable) if (f(x)) yield x;
+export const filter = f => xs => createIterable(function* () {
+  for (let x of xs) if (f(x)) yield x;
 });
 
-export const find = f => iterable => {
-  for (let x of iterable) if (f(x)) return x;
+export const find = f => xs => {
+  for (let x of xs) if (f(x)) return x;
 };
 
-export const findIndex = f => iterable => {
+export const findIndex = f => xs => {
   let i = 0;
-  for (let x of iterable) if (f(x)) return i; else i++;
+  for (let x of xs) if (f(x)) return i; else i++;
 };
 
-export const flatten = iterables => createIterable(function* () {
-  for (let xs of iterables) yield* xs;
+export const flatten = xss => createIterable(function* () {
+  for (let xs of xss) yield* xs;
 });
 
-export const head = iterable => iterable[Symbol.iterator]().next().value;
+export const head = xs => xs[Symbol.iterator]().next().value;
 
-export const insert = a => b => iterable => createIterable(function* () {
+export const insert = a => b => xs => createIterable(function* () {
   let i = a;
-  for (let x of iterable) if (i--) yield x; else {
+  for (let x of xs) if (i--) yield x; else {
     yield b;
     yield x;
   }
@@ -81,7 +86,7 @@ export const intersperse = a => xs => createIterable(function* () {
 });
 
 export const iterableFrom = iterableFromIterable;
-export const iterableOf = (...iterable) => iterableFromIterable(iterable);
+export const iterableOf = (...xs) => iterableFromIterable(xs);
 
 export const iterate = f => a => createIterable(function* () {
   let x = a;
@@ -89,20 +94,20 @@ export const iterate = f => a => createIterable(function* () {
   while (true) yield x = f(x);
 });
 
-export const last = iterable => [...iterable].pop();
-export const length = iterable => [...iterable].length;
+export const last = xs => [...xs].pop();
+export const length = xs => [...xs].length;
 
-export const makeCircular = iterable => createIterable(function* () {
-  while (true) yield* iterable;
+export const makeCircular = xs => createIterable(function* () {
+  while (true) yield* xs;
 });
 
-export const map = f => iterable => createIterable(function* () {
-  for (let x of iterable) yield f(x);
+export const map = f => xs => createIterable(function* () {
+  for (let x of xs) yield f(x);
 });
 
-export const nth = a => iterable => {
+export const nth = a => xs => {
   let i = a;
-  for (let x of iterable) if (i-- <= 0) return x;
+  for (let x of xs) if (i-- <= 0) return x;
 };
 
 export const partition = f => xs => createIterable(function* () {
@@ -115,8 +120,8 @@ export const partition = f => xs => createIterable(function* () {
   yield iterableFromIterable(listB);
 });
 
-export const pop = iterable => createIterable(function* () {
-  const iterator = iterable[Symbol.iterator]();
+export const pop = xs => createIterable(function* () {
+  const iterator = xs[Symbol.iterator]();
   let next = iterator.next();
   while (true) {
     const {done, value} = next;
@@ -126,9 +131,9 @@ export const pop = iterable => createIterable(function* () {
   }
 });
 
-export const prepend = a => iterable => createIterable(function* () {
+export const prepend = a => xs => createIterable(function* () {
   yield a;
-  yield* iterable;
+  yield* xs;
 });
 
 export const range = a => b => createIterable(function* () {
@@ -136,9 +141,9 @@ export const range = a => b => createIterable(function* () {
   if (n < b) while (n <= b) yield n++; else while (n >= b) yield n--;
 });
 
-export const reduce = f => initialVal => iterable => {
-  let acc = initialVal;
-  for (let x of iterable) acc = f(acc)(x);
+export const reduce = f => a => xs => {
+  let acc = a;
+  for (let x of xs) acc = f(acc)(x);
   return acc;
 };
 
@@ -157,7 +162,7 @@ export const repeat = a => b => createIterable(function* () {
   while (x--) yield a;
 });
 
-export const reverse = iterable => iterableFromIterable([...iterable].reverse());
+export const reverse = xs => iterableFromIterable([...xs].reverse());
 
 export const slice = a => b => xs => createIterable(function* () {
   let i = a;
@@ -168,47 +173,47 @@ export const slice = a => b => xs => createIterable(function* () {
   }
 });
 
-export const some = f => iterable => {
-  for (let x of iterable) if (f(x)) return true;
+export const some = f => xs => {
+  for (let x of xs) if (f(x)) return true;
   return false;
 };
 
-export const sort = f => iterable => iterableFromIterable([...iterable].sort((a, b) => f(a)(b)));
+export const sort = f => xs => iterableFromIterable([...xs].sort((a, b) => f(a)(b)));
 
-export const splitEvery = a => iterable => createIterable(function* () {
+export const splitEvery = a => xs => createIterable(function* () {
   let i = 0;
   while (true) {
-    const yieldVal = slice(i * a)((i + 1) * a)(iterable);
+    const yieldVal = slice(i * a)((i + 1) * a)(xs);
     if (length(yieldVal)) yield yieldVal; else return;
     i++;
   }
 });
 
-export const tail = iterable => createIterable(function* () {
+export const tail = xs => createIterable(function* () {
   let i = 1;
-  for (let x of iterable) if (i) i--; else yield x;
+  for (let x of xs) if (i) i--; else yield x;
 });
 
-export const take = a => iterable => createIterable(function* () {
+export const take = a => xs => createIterable(function* () {
   let i = a;
-  for (let x of iterable) if (!i--) return; else yield x;
+  for (let x of xs) if (!i--) return; else yield x;
 });
 
-export const takeWhile = f => iterable => createIterable(function* () {
-  for (let x of iterable) if (!f(x)) return; else yield x;
+export const takeWhile = f => xs => createIterable(function* () {
+  for (let x of xs) if (!f(x)) return; else yield x;
 });
 
-export const transpose = iterables => createIterable(function* () {
+export const transpose = xss => createIterable(function* () {
   const done = () => null;
-  const _nth = (a, iterable) => {
-    for (let x of iterable) if (a-- <= 0) return x;
+  const _nth = (a, xs) => {
+    for (let x of xs) if (a-- <= 0) return x;
     return done;
   };
   for (let i = 0; ; i++) {
     const returnGenerator = function* () {
       let j = 0;
-      for (let iterable of iterables) {
-        const value = _nth(i, iterable);
+      for (let xs of xss) {
+        const value = _nth(i, xs);
         if (value !== done) yield value;
       }
     };
@@ -217,20 +222,20 @@ export const transpose = iterables => createIterable(function* () {
   }
 });
 
-export const zip = iterableA => iterableB => {
-  const iteratorB = iterableB[Symbol.iterator]();
+export const zip = xs => ys => {
+  const iteratorB = ys[Symbol.iterator]();
   return createIterable(function* () {
-    for (let x of iterableA) {
+    for (let x of xs) {
       let {done, value} = iteratorB.next();
       if (done) return; else yield iterableFromIterable([x, value]);
     }
   });
 };
 
-export const zipWith = f => iterableA => iterableB => {
-  const iteratorB = iterableB[Symbol.iterator]();
+export const zipWith = f => xs => ys => {
+  const iteratorB = ys[Symbol.iterator]();
   return createIterable(function* () {
-    for (let x of iterableA) {
+    for (let x of xs) {
       let {done, value} = iteratorB.next();
       if (done) return; else yield f(x)(value);
     }
