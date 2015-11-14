@@ -11,9 +11,9 @@ const isIterable = a => a[Symbol.iterator];
  * @param {Iterable} xs
  * @return {Iterable}
  * @example
- * adjust(x => 2 * x,
+ * adjust(x => 10 * x,
  *        1,
- *        [1, 2, 3]); // => iterableOf(1, 4, 3)
+ *        range(1, Infinity)); // => iterableOf(1, 20, 3, 4, 5, 6, 7, 8, ...)
  */
 export const adjust = f => a => xs => createIterable(function* () {
   let i = a
@@ -41,9 +41,9 @@ export const append = a => xs => createIterable(function* () {
  * @param {Iterable} xs
  * @return {Iterable}
  * @example
- * assoc(1,
- *       5,
- *       [1, 2, 3]); // => iterableOf(1, 5, 3)
+ * assoc(2,
+ *       42,
+ *       range(1, Infinity)); // => iterableOf(1, 2, 42, 4, 5, 6, 7, 8, ...)
  */
 export const assoc = a => b => xs => createIterable(function* () {
   let i = a
@@ -56,8 +56,8 @@ export const assoc = a => b => xs => createIterable(function* () {
  * @param {Iterable} ys
  * @return {Iterable}
  * @example
- * concat([1, 2],
- *        [3, 4]); // => iterableOf(1, 2, 3, 4)
+ * concat([100, 200],
+ *        range(1, Infinity)); // => iterableOf(100, 200, 1, 2, 3, 4, 5, 6, 7, 8, ...)
  */
 export const concat = xs => ys => createIterable(function* () {
   yield* xs
@@ -71,7 +71,7 @@ export const concat = xs => ys => createIterable(function* () {
  * @return {Iterable}
  * @example
  * drop(2,
- *      [1, 2, 3, 4]); // => iterableOf(3, 4)
+ *      range(1, Infinity)); // => iterableOf(3, 4, 5, 6, 7, 8, 9, 10, ...)
  */
 export const drop = n => xs => createIterable(function* () {
   let i = n
@@ -118,7 +118,7 @@ export const every = f => xs => {
  * @return {Iterable}
  * @example
  * filter(x => x % 2 === 0,
- *       [1, 2, 3, 4, 5, 6]); // => iterableOf(2, 4, 6)
+ *        range(1, Infinity)); // => iterableOf(2, 4, 6, 8, 12, 14, 16, 18, ...)
  */
 export const filter = f => xs => createIterable(function* () {
   for (let x of xs) if (f(x)) yield x
@@ -131,7 +131,9 @@ export const filter = f => xs => createIterable(function* () {
  * @return {Iterable}
  * @example
  * find(x => x % 2 === 0,
- *       [1, 2, 3, 4, 5, 6]); // => 2
+ *      range(1, Infinity)); // => 2
+ * find(x => x === 0,
+ *      [1, 2, 3, 4, 5, 6]); // => undefined
  */
 export const find = f => xs => {
   for (let x of xs) if (f(x)) return x
@@ -143,8 +145,10 @@ export const find = f => xs => {
  * @param {Iterable} xs
  * @return {Iterable}
  * @example
- * find(x => x % 2 === 0,
- *       [1, 2, 3, 4, 5, 6]); // => 1
+ * findIndex(x => x % 2 === 0,
+ *           range(1, Infinity); // => 1
+ * findIndex(x => x === 0,
+ *           [1, 2, 3]; // => undefined
  */
 export const findIndex = f => xs => {
   let i = 0
@@ -155,7 +159,7 @@ export const findIndex = f => xs => {
  * Takes an iterable and recursively unnests any values which are iterables
  * @param {Iterable} xs
  * @return {Iterable}
- * @example flatten([1, [2, [3, [[4]]]]]); // => 1
+ * @example flatten([1, [2, [3, [[4]]]], [range(1, Infinity)]); // => iterableOf(1, 2, 4, 4, 1, 2, 3, 4, 5, 6, 7, 8, ...)
  */
 export const flatten = xs => createIterable(function* recur (ys = xs) {
   for (let y of ys) if (isIterable(y)) yield* recur(y); else yield y
@@ -178,7 +182,7 @@ export const head = ([x]) => x
  * @example
  * insert(1,
  *        42,
- *        [1, 2, 3]) => iterableOf(1, 42, 2, 3)
+ *        range(1, Infinity)) // => iterableOf(1, 42, 2, 3, 4, 5, 6, 7, 8, ...)
  */
 export const insert = a => b => xs => createIterable(function* () {
   let i = a
@@ -197,7 +201,7 @@ export const insert = a => b => xs => createIterable(function* () {
  * @example
  * insertAll(1,
  *           [42, 24, 3],
- *           [1, 2, 3]) => iterableOf(1, 42, 24, 3, 2, 3)
+ *           [1, 2, 3]) // => iterableOf(1, 42, 24, 3, 2, 3)
  */
 export const insertAll = a => xs => ys => createIterable(function* () {
   let i = a
@@ -207,6 +211,15 @@ export const insertAll = a => xs => ys => createIterable(function* () {
   }
 })
 
+/**
+ * Returns a new iterable with the given value interspersed at every other index in the given iterable
+ * @param {Any} value
+ * @param {Iterable} xs
+ * @return {Iterable}
+ * @example
+ * intersperse(42,
+ *             range(1, Infinity)) // => iterableOf(1, 42, 2, 42, 3, 42, 4, 42, ...)
+ */
 export const intersperse = a => xs => createIterable(function* () {
   for (let x of xs) {
     yield x
