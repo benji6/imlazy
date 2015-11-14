@@ -68,56 +68,6 @@ const circularOneTwoThree = makeCircular(oneTwoThree);
 
 ```
 
-## API
-
-### create
-
-- iterableFrom
-- iterableOf
-- iterate
-- range
-- repeat
-
-### "transform" (mutation free)
-
-- adjust
-- append
-- assoc
-- concat
-- filter
-- flatten
-- insert
-- insertAll
-- intersperse
-- makeCircular
-- map
-- partition
-- pop
-- prepend
-- reduce
-- remove
-- reverse
-- slice
-- splitEvery
-- take
-- takeWhile
-- tail
-- transpose
-- zip
-- zipWith
-
-### query
-
-- every
-- find
-- findIndex
-- head
-- length
-- nth
-- slice
-- some
-- sort
-
 ## Project Scope
 
 At the moment the scope of this project is limited to manipulating iterables using the iterator protocols. It does not expose standard FP functions like curry, compose, identity, flip, tap etc. It also does not prescribe a notion of equality, so iterables cannot be treated as sets and functions like [includes](https://tc39.github.io/Array.prototype.includes/), [has](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set/has), or [contains](http://ramdajs.com/docs/#contains) cannot exist. This could change going forwards.
