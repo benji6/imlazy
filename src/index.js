@@ -330,16 +330,46 @@ export const partition = f => xs => createIterable(function* () {
   yield iterableFromIterable(listB)
 })
 
+/**
+ * Returns a new iterable with the given value prepended to the given iterable
+ * @param {Any} value
+ * @param {Iterable} xs
+ * @return {Iterable}
+ * @example
+ * prepend(42,
+ *         range(1, Infinity)); // => iterableOf(42, 1, 2, 3, 4, 5, 6, 7, 8, ...)
+ */
 export const prepend = a => xs => createIterable(function* () {
   yield a
   yield* xs
 })
 
+/**
+ * Returns a new iterable starting with the first given value and either descending or ascending in integer steps until the yielded value is equal to the second given value
+ * @param {Number} startFrom
+ * @param {Number} endAt
+ * @return {Iterable}
+ * @example
+ * range(1, 3)); // => iterableOf(1, 2, 3)
+ * range(1, Infinity)); // => iterableOf(1, 2, 3, 4, 5, 6, 7, 8, ...)
+ * range(-1, -Infinity)); // => iterableOf(-1, -2, -3, -4, -5, -6, -7, -8, ...)
+ */
 export const range = a => b => createIterable(function* () {
   let n = a
   if (n < b) while (n <= b) yield n++; else while (n >= b) yield n--
 })
 
+/**
+ * Returns a value by applying the given function with the accumulated value (starting with the given initialValue) and the current value for every value in the given iterable. The value returned from each call to the given function becomes the accumulated value for the next time it is called
+ * @param {f} function
+ * @param {Any} initialValue
+ * @param {Iterable} xs
+ * @return {Iterable}
+ * @example
+ * reduce((acc, val) => acc + val,
+          0,
+ *        [1, 2, 3, 4]) // => 10
+ */
 export const reduce = f => a => xs => {
   let acc = a
   for (let x of xs) acc = f(acc)(x)
