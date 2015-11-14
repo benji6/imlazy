@@ -274,6 +274,12 @@ export const last = xs => [...xs].pop()
  */
 export const length = xs => [...xs].length
 
+/**
+ * Returns a new iterable by infinitely repeating the given iterable
+ * @param {Iterable} xs
+ * @return {Iterable}
+ * @example makeCircular([1, 2, 3]) // => iterableOf(1, 2, 3, 1, 2, 3, 1, 2, 3, ...)
+ */
 export const makeCircular = xs => createIterable(function* () {
   while (true) yield* xs
 })
