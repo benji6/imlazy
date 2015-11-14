@@ -2,8 +2,9 @@
   "name": "imlazy",
   "version": "0.0.0",
   "description": "Laziness is next to Godliness",
-  "main": "index.js",
+  "main": "src/index.js",
   "scripts": {
+    "docs": "node_modules/.bin/esdoc -c esdoc.json",
     "test": "node_modules/.bin/babel-node test"
   },
   "repository": {
@@ -20,6 +21,7 @@
     "babel": "^6.0.15",
     "babel-cli": "^6.1.2",
     "babel-preset-es2015-node5": "^1.0.0",
+    "esdoc": "^0.4.3",
     "tape": "^4.2.2"
   }
 }

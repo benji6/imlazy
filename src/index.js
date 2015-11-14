@@ -3,31 +3,89 @@ const createIterable = generator => Object.freeze({[Symbol.iterator]: generator}
 const generatorFromIterable = xs => function* () {yield* xs}
 const iterableFromIterable = B(createIterable)(generatorFromIterable)
 
+/**
+ * Returns a new iterable with the given function applied to the value at the given index
+ * @param {Function} f
+ * @param {Number} index
+ * @param {Iterable} xs
+ * @return {Iterable}
+ * @example
+ * adjust(x => 2 * x,
+ *        1,
+ *        [1, 2, 3]); // => iterableOf(1, 4, 3)
+ */
 export const adjust = f => a => xs => createIterable(function* () {
   let i = a
   for (let x of xs) if (i--) yield x; else yield f(x)
 })
 
+/**
+ * Returns a new iterable of the given iterable followed by the given value
+ * @param {Any} value
+ * @param {Iterable} iterable
+ * @return {Iterable}
+ * @example
+ * append(4,
+ *        [1, 2, 3]); // => iterableOf(1, 2, 3, 4)
+ */
 export const append = a => xs => createIterable(function* () {
   yield* xs
   yield a
 })
 
+/**
+ * Returns a new iterable with the given value at the given index
+ * @param {Number} index
+ * @param {Any} value
+ * @param {Iterable} iterable
+ * @return {Iterable}
+ * @example
+ * assoc(1,
+ *       5,
+ *       [1, 2, 3]); // => iterableOf(1, 5, 3)
+ */
 export const assoc = a => b => xs => createIterable(function* () {
   let i = a
   for (let x of xs) if (i--) yield x; else yield b
 })
 
+/**
+ * Returns a new iterable of the first given iterable followed by the second given iterable
+ * @param {Iterable} xs
+ * @param {Iterable} ys
+ * @return {Iterable}
+ * @example
+ * concat([1, 2],
+ *        [3, 4]); // => iterableOf(1, 2, 3, 4)
+ */
 export const concat = xs => ys => createIterable(function* () {
   yield* xs
   yield* ys
 })
 
-export const drop = a => xs => createIterable(function* () {
-  let i = a
+/**
+ * Returns a new iterable of the given iterable without the first n elements
+ * @param {Number} n
+ * @param {Iterable} xs
+ * @return {Iterable}
+ * @example
+ * drop(2,
+ *      [1, 2, 3, 4]); // => iterableOf(3, 4)
+ */
+export const drop = n => xs => createIterable(function* () {
+  let i = n
   for (let x of xs) if (i-- <= 0) yield x
 })
 
+/**
+ * Returns a new iterable by applying the given function to each value in the given iterable only yielding values when false is returned
+ * @param {Function} f
+ * @param {Iterable} xs
+ * @return {Iterable}
+ * @example
+ * dropWhile(x => x <= 2,
+ *           [1, 2, 3, 4, 3, 2, 1]); // => iterableOf(3, 4, 3, 2, 1)
+ */
 export const dropWhile = f => xs => createIterable(function* () {
   let yielding = false
   for (let x of xs) {
@@ -36,11 +94,31 @@ export const dropWhile = f => xs => createIterable(function* () {
   }
 })
 
+/**
+ * Applies the given function to each value in the given iterable until that function returns falsy, in which case false is returned. If the iterable is completely traversed and falsy is never returned by the given function then true is returned
+ * @param {Function} f
+ * @param {Iterable} xs
+ * @return {Boolean}
+ * @example
+ * every(x => x <= 20,
+ *       [1, 2, 3, 4]); // => true
+ * every(x => x <= 2,
+ *       [1, 2, 3, 4]); // => false
+ */
 export const every = f => xs => {
   for (let x of xs) if (!f(x)) return false
   return true
 }
 
+/**
+ * Returns a new iterable containing only values from the given iterable where the given function applied to that value returns truthy
+ * @param {Function} f
+ * @param {Iterable} xs
+ * @return {Iterable}
+ * @example
+ * filter(x => x % 2 === 0,
+ *       [1, 2, 3, 4, 5, 6]); // => iterableOf(2, 4, 6)
+ */
 export const filter = f => xs => createIterable(function* () {
   for (let x of xs) if (f(x)) yield x
 })
