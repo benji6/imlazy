@@ -227,16 +227,51 @@ export const intersperse = a => xs => createIterable(function* () {
   }
 })
 
+/**
+ * Returns a new iterable with values identical to the given iterable
+ * @param {Iterable} xs
+ * @return {Iterable}
+ * @example interableFrom([1, 2, 3]) // => iterableOf(1, 2, 3)
+ */
 export const iterableFrom = iterableFromIterable
+
+/**
+ * Returns an iterable of the arguments passed
+ * @param {Any} ...values
+ * @return {Iterable}
+ * @example [...interableOf(1, 2, 3)] // => [1, 2, 3]
+ */
 export const iterableOf = (...xs) => iterableFromIterable(xs)
 
+/**
+ * Returns an infinite iterable with the first value as the given initial value and all other values defined by applying the given function to the previous value
+ * @param {f} function
+ * @param {Any} initialValue
+ * @return {Iterable}
+ * @example
+ * iterate(x => 2 * x,
+ *         1) // => iterableOf(1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, ...)
+ */
 export const iterate = f => a => createIterable(function* () {
   let x = a
   yield x
   while (true) yield x = f(x)
 })
 
+/**
+ * Returns the last value in the given iterable
+ * @param {Iterable} xs
+ * @return {Any}
+ * @example last([1, 2, 3]) // => 3
+ */
 export const last = xs => [...xs].pop()
+
+/**
+ * Returns the number of elements in the given iterable
+ * @param {Iterable} xs
+ * @return {Number}
+ * @example length(range(1, 100)) // => 100
+ */
 export const length = xs => [...xs].length
 
 export const makeCircular = xs => createIterable(function* () {
