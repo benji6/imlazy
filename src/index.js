@@ -367,7 +367,7 @@ export const range = a => b => createIterable(function* () {
  * @return {Iterable}
  * @example
  * reduce((acc, val) => acc + val,
-          0,
+ *        0,
  *        [1, 2, 3, 4]) // => 10
  */
 export const reduce = f => a => xs => {
@@ -376,6 +376,17 @@ export const reduce = f => a => xs => {
   return acc
 }
 
+/**
+ * Returns an iterable of the given iterable, excluding values from the given index for the given count
+ * @param {Number} index
+ * @param {Number} count
+ * @param {Iterable} xs
+ * @return {Iterable}
+ * @example
+ * remove(2,
+ *        4,
+ *        range(1, Infinity)) // => iterableOf(1, 2, 7, 8, 9, 10, 11, 12, ...)
+ */
 export const remove = a => b => xs => createIterable(function* () {
   let i = a
   let j = b
@@ -386,6 +397,15 @@ export const remove = a => b => xs => createIterable(function* () {
   }
 })
 
+/**
+ * Returns a new iterable where every value is the given value and there are as many values as the given count
+ * @param {Number} value
+ * @param {Number} count
+ * @return {Iterable}
+ * @example
+ * repeat(42, 3)); // => iterableOf(42, 42, 42)
+ * repeat(42, Infinity)); // => iterableOf(42, 42, 42, 42, 42, 42, 42, 42, 42...)
+ */
 export const repeat = a => b => createIterable(function* () {
   let x = b
   while (x--) yield a
