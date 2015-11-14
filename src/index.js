@@ -411,8 +411,25 @@ export const repeat = a => b => createIterable(function* () {
   while (x--) yield a
 })
 
+/**
+ * Returns a new iterable which is the reverse of the given iterable
+ * @param {Iterable} xs
+ * @return {Iterable}
+ * @example reverse([1, 2, 3]) // => iterableOf(3, 2, 1)
+ */
 export const reverse = xs => iterableFromIterable([...xs].reverse())
 
+/**
+ * Returns an iterable of the given iterable starting at the given startIndex and ending one before the given endIndex
+ * @param {Number} startIndex
+ * @param {Number} endIndex
+ * @param {Iterable} xs
+ * @return {Iterable}
+ * @example
+ * slice(2,
+ *       4,
+ *       range(1, Infinity)) // => iterableOf(3, 4)
+ */
 export const slice = a => b => xs => createIterable(function* () {
   let i = a
   let j = b
@@ -422,6 +439,17 @@ export const slice = a => b => xs => createIterable(function* () {
   }
 })
 
+/**
+ * Applies the given function to each value in the given iterable until that function returns truthy, in which case true is returned. If the iterable is completely traversed and truthy is never returned by the given function then false is returned
+ * @param {Function} f
+ * @param {Iterable} xs
+ * @return {Boolean}
+ * @example
+ * some(x => x === 20,
+ *      [1, 2, 3, 4]); // => false
+ * some(x => x === 2,
+ *      [1, 2, 3, 4]); // => true
+ */
 export const some = f => xs => {
   for (let x of xs) if (f(x)) return true
   return false
