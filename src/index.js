@@ -403,8 +403,9 @@ export const remove = a => b => xs => createIterable(function* () {
  * @param {Number} count
  * @return {Iterable}
  * @example
- * repeat(42, 3)); // => iterableOf(42, 42, 42)
- * repeat(42, Infinity)); // => iterableOf(42, 42, 42, 42, 42, 42, 42, 42, 42...)
+ * const repeat42 = repeat(42)
+ * repeat42(3)); // => iterableOf(42, 42, 42)
+ * repeat42(Infinity)); // => iterableOf(42, 42, 42, 42, 42, 42, 42, 42, 42...)
  */
 export const repeat = a => b => createIterable(function* () {
   let x = b
@@ -462,10 +463,20 @@ export const some = f => xs => {
  * @return {Iterable}
  * @example
  * sort((a, b) => a - b,
- *      [5, 7, 3, 2) // => iterableOf(2, 3, 5, 7)
+ *      [5, 7, 3, 2]) // => iterableOf(2, 3, 5, 7)
  */
 export const sort = f => xs => iterableFromIterable([...xs].sort((a, b) => f(a)(b)))
 
+/**
+ * Returns a new iterable comprised by iterables created from the given iterable of length specified by the given length
+ * @param {Number} length
+ * @param {Iterable} xs
+ * @return {Iterable}
+ * @example
+ * const splitEveryThree = splitEvery(3)
+ * splitEveryThree([1, 2, 3, 4]) // => iterableOf(iterableOf(1, 2, 3), iterableOf(4))
+ * splitEveryThree(range(1, Infinity)) // => iterableOf(iterableOf(1, 2, 3), iterableOf(4, 5, 6), iterableOf(7, 8, 9), ...)
+ */
 export const splitEvery = a => xs => createIterable(function* () {
   let i = 0
   while (true) {
