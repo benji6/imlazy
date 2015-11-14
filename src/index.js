@@ -169,6 +169,17 @@ export const flatten = xs => createIterable(function* recur (ys = xs) {
  */
 export const head = ([x]) => x
 
+/**
+ * Returns a new iterable with the given value inserted at the given index in the given iterable
+ * @param {Number} index
+ * @param {Any} value
+ * @param {Iterable} xs
+ * @return {Iterable}
+ * @example
+ * insert(1,
+ *        42,
+ *        [1, 2, 3]) => iterableOf(1, 42, 2, 3)
+ */
 export const insert = a => b => xs => createIterable(function* () {
   let i = a
   for (let x of xs) if (i--) yield x; else {
@@ -177,6 +188,17 @@ export const insert = a => b => xs => createIterable(function* () {
   }
 })
 
+/**
+ * Returns a new iterable with the values in the first given iterable inserted at the given index in the last given iterable
+ * @param {Number} index
+ * @param {Iterable} xs
+ * @param {Iterable} ys
+ * @return {Iterable}
+ * @example
+ * insertAll(1,
+ *           [42, 24, 3],
+ *           [1, 2, 3]) => iterableOf(1, 42, 24, 3, 2, 3)
+ */
 export const insertAll = a => xs => ys => createIterable(function* () {
   let i = a
   for (let y of ys) if (i--) yield y; else {
