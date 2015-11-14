@@ -486,20 +486,54 @@ export const splitEvery = a => xs => createIterable(function* () {
   }
 })
 
+/**
+ * Returns a new iterable of all but the first element of the given iterable
+ * @param {Iterable} xs
+ * @return {Iterable}
+ * @example tail(range(1, Infinity)) // => iterableOf(2, 3, 4, 5, 6, 7, 8, 9, ...)
+ */
 export const tail = xs => createIterable(function* () {
   let i = 1
   for (let x of xs) if (i) i--; else yield x
 })
 
+/**
+ * Returns an iterable of the first n elements of the given iterable
+ * @param {Number} n
+ * @param {Iterable} xs
+ * @return {Iterable}
+ * @example
+ * take(3,
+ *      range(1, Infinity)) // => iterableOf(1, 2, 3)
+ */
 export const take = a => xs => createIterable(function* () {
   let i = a
   for (let x of xs) if (!i--) return; else yield x
 })
 
+/**
+ * Returns an iterable of the all elements of the given iterable until the given function returns falsy when called on the value of that element
+ * @param {Function} f
+ * @param {Iterable} xs
+ * @return {Iterable}
+ * @example
+ * takeWhile(x => x < 5,
+ *           range(1, Infinity)) // => iterableOf(1, 2, 3, 4)
+ */
 export const takeWhile = f => xs => createIterable(function* () {
   for (let x of xs) if (f(x)) yield x; else return
 })
 
+/**
+ * Returns a new iterable which is a transposition of the given iterable (columns and rows swapped)
+ * @param {Iterable} xs
+ * @return {Iterable}
+ * @example transpose([[1, 2, 3],
+ *                     [4, 5, 6],
+ *                     [7, 8, 9]]) // => iterableOf(iterableOf(1, 4, 7),
+ *                                                  iterableOf(2, 5, 8),
+ *                                                  iterableOf(3, 6, 9))
+ */
 export const transpose = xss => createIterable(function* () {
   const done = () => null
   const _nth = (a, xs) => {
@@ -519,6 +553,18 @@ export const transpose = xss => createIterable(function* () {
   }
 })
 
+/**
+ * Returns a new iterable with values as iterables of length 2 with the first element as the corresponding element from the first given iterable and the second element as the corresponding element from the second given iterable. The length of the returned iterable is the same as the shortest iterable supplied
+ * @param {Iterable} xs
+ * @param {Iterable} ys
+ * @return {Iterable}
+ * @example
+ * zip([2, 3, 5, 7],
+ *     range(1, Infinity)) // => iterableOf(iterableOf(2, 1),
+ *                                          iterableOf(3, 2),
+ *                                          iterableOf(5, 3),
+ *                                          iterableOf(7, 4))
+ */
 export const zip = xs => ys => {
   const iteratorB = ys[Symbol.iterator]()
   return createIterable(function* () {
@@ -529,6 +575,17 @@ export const zip = xs => ys => {
   })
 }
 
+/**
+ * Returns a new iterable with values as the result of calling the given function with the corresponding element from the first and second given iterables respectively. The length of the returned iterable is the same as the shortest iterable supplied
+ * @param {Function} f
+ * @param {Iterable} xs
+ * @param {Iterable} ys
+ * @return {Iterable}
+ * @example
+ * zipWith((a, b) => a + b
+ *         [2, 3, 5, 7],
+ *         range(1, Infinity)) // => iterableOf(3, 5, 8, 11)
+ */
 export const zipWith = f => xs => ys => {
   const iteratorB = ys[Symbol.iterator]()
   return createIterable(function* () {
