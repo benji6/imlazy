@@ -285,32 +285,41 @@ export const makeCircular = xs => createIterable(function* () {
 })
 
 /**
-* Returns a new Iterable by applying the given function to every value in the given iterable
-* @param {f} function
-* @param {Iterable} xs
-* @return {Iterable}
-* @example
-* map(x => 2 * x,
-*     range(1, Infinity)) // => iterableOf(2, 4, 6, 8, 10, 12, 14, 16, 18, ...)
-*/
+ * Returns a new Iterable by applying the given function to every value in the given iterable
+ * @param {f} function
+ * @param {Iterable} xs
+ * @return {Iterable}
+ * @example
+ * map(x => 2 * x,
+ *     range(1, Infinity)) // => iterableOf(2, 4, 6, 8, 10, 12, 14, 16, 18, ...)
+ */
 export const map = f => xs => createIterable(function* () {
   for (let x of xs) yield f(x)
 })
 
 /**
-* Returns the value at the given index in the given iterable, or undefined if no value exists
-* @param {Number} n
-* @param {Iterable} xs
-* @return {Iterable}
-* @example
-* nth(90,
-*     range(1, Infinity)) // => 90
-*/
+ * Returns the value at the given index in the given iterable, or undefined if no value exists
+ * @param {Number} n
+ * @param {Iterable} xs
+ * @return {Iterable}
+ * @example
+ * nth(90,
+ *     range(1, Infinity)) // => 90
+ */
 export const nth = a => xs => {
   let i = a
   for (let x of xs) if (i-- <= 0) return x
 }
 
+/**
+ * Returns an iterable of two iterables, the first iterable contains every value from the given iterable where the given function returns truthy and teh second iterable contains every value from the given iterable where the given function returns falsy
+ * @param {Number} n
+ * @param {Iterable} xs
+ * @return {Iterable}
+ * @example
+ * partition(x => x % 2 === 0,
+ *           [1, 2, 3, 4]) // => iterableOf(iterableOf(2, 4), iterableOf(1, 3))
+*/
 export const partition = f => xs => createIterable(function* () {
   const listA = []
   const listB = []
