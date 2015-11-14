@@ -22,7 +22,7 @@ export const adjust = f => a => xs => createIterable(function* () {
 /**
  * Returns a new iterable of the given iterable followed by the given value
  * @param {Any} value
- * @param {Iterable} iterable
+ * @param {Iterable} xs
  * @return {Iterable}
  * @example
  * append(4,
@@ -37,7 +37,7 @@ export const append = a => xs => createIterable(function* () {
  * Returns a new iterable with the given value at the given index
  * @param {Number} index
  * @param {Any} value
- * @param {Iterable} iterable
+ * @param {Iterable} xs
  * @return {Iterable}
  * @example
  * assoc(1,
@@ -123,10 +123,28 @@ export const filter = f => xs => createIterable(function* () {
   for (let x of xs) if (f(x)) yield x
 })
 
+/**
+ * Applies the given function to each value in the given iterable. If truthy is returned then find returns the value from the iterable and if the end of the iterable is reached with truthy never returned then find returns undefined
+ * @param {Function} f
+ * @param {Iterable} xs
+ * @return {Iterable}
+ * @example
+ * find(x => x % 2 === 0,
+ *       [1, 2, 3, 4, 5, 6]); // => 2
+ */
 export const find = f => xs => {
   for (let x of xs) if (f(x)) return x
 }
 
+/**
+ * Applies the given function to each value in the given iterable. If truthy is returned then findIndex returns the index from the iterable and if the end of the iterable is reached with truthy never returned then findIndex returns undefined
+ * @param {Function} f
+ * @param {Iterable} xs
+ * @return {Iterable}
+ * @example
+ * find(x => x % 2 === 0,
+ *       [1, 2, 3, 4, 5, 6]); // => 1
+ */
 export const findIndex = f => xs => {
   let i = 0
   for (let x of xs) if (f(x)) return i; else i++
