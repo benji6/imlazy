@@ -161,7 +161,13 @@ export const flatten = xs => createIterable(function* recur (ys = xs) {
   for (let y of ys) if (isIterable(y)) yield* recur(y); else yield y
 })
 
-export const head = xs => xs[Symbol.iterator]().next().value
+/**
+ * Returns the first value from an iterable
+ * @param {Iterable} xs
+ * @return {Any}
+ * @example head(range(1, Infinity)) // => 1
+ */
+export const head = ([x]) => x
 
 export const insert = a => b => xs => createIterable(function* () {
   let i = a
