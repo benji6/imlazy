@@ -330,17 +330,6 @@ export const partition = f => xs => createIterable(function* () {
   yield iterableFromIterable(listB)
 })
 
-export const pop = xs => createIterable(function* () {
-  const iterator = xs[Symbol.iterator]()
-  let next = iterator.next()
-  while (true) {
-    const {done, value} = next
-    next = iterator.next()
-    if (next.done) return
-    yield value
-  }
-})
-
 export const prepend = a => xs => createIterable(function* () {
   yield a
   yield* xs

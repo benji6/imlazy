@@ -23,7 +23,6 @@ import {adjust,
         map,
         nth,
         partition,
-        pop,
         prepend,
         range,
         reduce,
@@ -252,16 +251,6 @@ syncTest('partition', t => {
   const processIterable = isFrozenToArray(t);
   t.deepEquals(processIterable(partition(isEven)(oneTwoThreeFour)).map(processIterable),
                [[2, 4], [1, 3]]);
-});
-
-syncTest('pop', t => {
-  const processIterable = isFrozenToArray(t);
-  t.deepEquals(processIterable(pop([])),
-               []);
-  t.deepEquals(processIterable(pop([1])),
-               []);
-  t.deepEquals(processIterable(takeEight(pop(oneTwoThreeFour))),
-               oneTwoThree);
 });
 
 syncTest('prepend', t => {
