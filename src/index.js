@@ -455,6 +455,15 @@ export const some = f => xs => {
   return false
 }
 
+/**
+ * Returns a new iterable of the given iterable sorted based on the return value of the given function when called with any two values from the given iterable
+ * @param {f} function
+ * @param {Iterable} xs
+ * @return {Iterable}
+ * @example
+ * sort((a, b) => a - b,
+ *      [5, 7, 3, 2) // => iterableOf(2, 3, 5, 7)
+ */
 export const sort = f => xs => iterableFromIterable([...xs].sort((a, b) => f(a)(b)))
 
 export const splitEvery = a => xs => createIterable(function* () {
