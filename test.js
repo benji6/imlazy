@@ -157,6 +157,10 @@ syncTest('flatten', t => {
   const processIterable = isFrozenToArray(t);
   t.deepEquals(processIterable(flatten([oneTwoThree, threeTwoOne, oneTwoThreeFour])),
                [...oneTwoThree, ...threeTwoOne, ...oneTwoThreeFour]);
+  t.deepEquals(processIterable(flatten([1, oneTwoThree, threeTwoOne, oneTwoThreeFour])),
+               [1, ...oneTwoThree, ...threeTwoOne, ...oneTwoThreeFour]);
+  t.deepEquals(processIterable(flatten([1, [[[[oneTwoThree]]]], threeTwoOne, oneTwoThreeFour])),
+               [1, ...oneTwoThree, ...threeTwoOne, ...oneTwoThreeFour]);
   t.deepEquals(processIterable(takeEight(flatten([oneTwoThree, positiveIntegers]))),
                [...oneTwoThree, ...oneTwoThreeFour, 5]);
   t.deepEquals(processIterable(takeEight(flatten(infiniteIterableOfPositiveIntegers))),

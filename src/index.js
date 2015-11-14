@@ -2,6 +2,7 @@ const B = a => b => c => a(b(c))
 const createIterable = generator => Object.freeze({[Symbol.iterator]: generator})
 const generatorFromIterable = xs => function* () {yield* xs}
 const iterableFromIterable = B(createIterable)(generatorFromIterable)
+const isIterable = a => a[Symbol.iterator];
 
 /**
  * Returns a new iterable with the given function applied to the value at the given index
@@ -150,8 +151,14 @@ export const findIndex = f => xs => {
   for (let x of xs) if (f(x)) return i; else i++
 }
 
-export const flatten = xss => createIterable(function* () {
-  for (let xs of xss) yield* xs
+/**
+ * Takes an iterable and recursively unnests any values which are iterables
+ * @param {Iterable} xs
+ * @return {Iterable}
+ * @example flatten([1, [2, [3, [[4]]]]]); // => 1
+ */
+export const flatten = xs => createIterable(function* recur (ys = xs) {
+  for (let y of ys) if (isIterable(y)) yield* recur(y); else yield y
 })
 
 export const head = xs => xs[Symbol.iterator]().next().value
