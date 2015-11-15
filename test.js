@@ -38,29 +38,33 @@ import {adjust,
         takeWhile,
         transpose,
         zip,
-        zipWith} from './';
+        zipWith} from './'
 
-const oneTwoThree = Object.freeze([1, 2, 3]);
-const threeTwoOne = Object.freeze([3, 2, 1]);
-const oneTwoThreeFour = Object.freeze([1, 2, 3, 4]);
-const fourThreeTwoOne = Object.freeze([4, 3, 2, 1]);
-const fiveFiveFive = Object.freeze([5, 5, 5]);
-const positiveIntegers = range(1)(Infinity);
-const negativeIntegers = range(-1)(-Infinity);
-const infiniteIterableOfPositiveIntegers = repeat(positiveIntegers)(Infinity);
-const add = (a, b) => a + b;
-const subtract = (a, b) => a - b;
-const double = x => x * 2;
-const halve = x => x / 2;
-const takeThree = take(3);
-const takeEight = take(8);
-const isEven = x => x % 2 === 0;
+const oneTwoThree = Object.freeze([1, 2, 3])
+const threeTwoOne = Object.freeze([3, 2, 1])
+const oneTwoThreeFour = Object.freeze([1, 2, 3, 4])
+const fourThreeTwoOne = Object.freeze([4, 3, 2, 1])
+const fiveFiveFive = Object.freeze([5, 5, 5])
+const positiveIntegers = range(1)(Infinity)
+const negativeIntegers = range(-1)(-Infinity)
+const infiniteIterableOfPositiveIntegers = repeat(positiveIntegers)(Infinity)
+const add = (a, b) => a + b
+const subtract = (a, b) => a - b
+const double = x => x * 2
+const halve = x => x / 2
+const takeThree = take(3)
+const takeEight = take(8)
+const isEven = x => x % 2 === 0
 
-const B = a => b => c => a(b(c));
+const B = a => b => c => a(b(c))
 
-const isFrozen = t => iterable => (t.throws(() => iterable.a = 1), iterable);
-const toArray = iterable => [...iterable];
-const isFrozenToArray = t => B(toArray)(isFrozen(t));
+const isFrozen = t => iterable => (t.throws(() => iterable.a = 1), iterable)
+const toArray = iterable => [...iterable]
+const isFrozenToArray = t => B(toArray)(isFrozen(t))
+const fibonacciGenerator = function* () {
+  let [a, b] = [0, 1]
+  while (true) yield ([a, b] = [b, a + b])[0]
+}
 
 const syncTest = (name, f) => test(name, t => {
   f(t);
@@ -71,8 +75,10 @@ syncTest('adjust', t => {
   const processIterable = isFrozenToArray(t);
   t.deepEquals(processIterable(takeEight(adjust(double)(2)(positiveIntegers))),
                [1, 2, 6, 4, 5, 6, 7, 8]);
-  t.deepEquals(processIterable(takeEight(adjust(double, 2, positiveIntegers))),
+  t.deepEquals(processIterable(takeEight(adjust(double)(2)(positiveIntegers))),
                [1, 2, 6, 4, 5, 6, 7, 8]);
+  t.deepEquals(processIterable(takeEight(adjust(double, 2, fibonacciGenerator()))),
+               [1, 1, 4, 3, 5, 8, 13, 21]);
 });
 
 syncTest('append', t => {
