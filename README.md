@@ -47,24 +47,32 @@ Because lazy and immutable! (And also very small!)
 
 ```javascript
 
-import {filter, makeCircular, range, reduce, take} from 'imlazy';
+import {filter, makeCircular, range, reduce, take} from 'imlazy'
 
 // all functions are autocurried for partial application
-const sum = reduce((val, acc) => val + acc, 0);
-const isEven = x => x % 2 === 0;
+const sum = reduce((val, acc) => val + acc, 0)
+const takeEight = take(8);
+const isEven = x => x % 2 === 0
 
-const positiveIntegers = range(1, Infinity);
-const positiveEvenIntegers = filter(isEven, positiveIntegers);
-const twoFourSix = take(3, positiveEvenIntegers);
-sum(twoFourSix); // => 12
+const positiveIntegers = range(1, Infinity) // => iterableOf(1, 2, 3, 4, 5, 6, 7, 8, ...)
+const positiveEvenIntegers = filter(isEven, positiveIntegers) // => iterableOf(2, 4, 6, 8, ...)
+const twoFourSix = take(3, positiveEvenIntegers) // => iterableOf(2, 4, 6)
+sum(twoFourSix) // => 12
 
 // NB twoFourSix is an immutable lazy iterable
 // convert to an array like this
-[...twoFourSix]; // => [2, 4, 6]
+[...twoFourSix] // => [2, 4, 6]
 
-const oneTwoThree = range(1, 3);
-const circularOneTwoThree = makeCircular(oneTwoThree);
-[...take(8, circularOneTwoThree)]; // => [1, 2, 3, 1, 2, 3, 1, 2]
+const oneTwoThree = range(1, 3) // => iterableOf(1, 2, 3)
+const circularOneTwoThree = makeCircular(oneTwoThree) // => iterableOf(1, 2, 3, 1, 2, 3, 1, 2, 3, ...)
+takeEight(circularOneTwoThree) // => iterableOf(1, 2, 3, 1, 2, 3, 1, 2)
+
+const fibonacciGenerator = function* () {
+  let [a, b] = [0, 1]
+  while (true) yield ([a, b] = [b, a + b])[0]
+}
+
+takeEight(fibonacciGenerator()) // => iterableOf(1, 1, 2, 3, 5, 8, 13, 21)
 
 ```
 
@@ -72,7 +80,7 @@ const circularOneTwoThree = makeCircular(oneTwoThree);
 
 ## Project Scope
 
-At the moment the scope of this project is limited to manipulating iterables using the iterator protocols. It does not expose standard FP functions like curry, compose, identity, flip, tap etc. It also does not prescribe a notion of equality, so iterables cannot be treated as sets and functions like [includes](https://tc39.github.io/Array.prototype.includes/), [has](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set/has), or [contains](http://ramdajs.com/docs/#contains) cannot exist. This could change going forwards.
+At the moment the scope of this project is limited to manipulating iterables using the iteration protocols. It does not expose standard FP functions like curry, compose, identity, flip, tap etc. It also does not prescribe a notion of equality, so iterables cannot be treated as sets and functions like [includes](https://tc39.github.io/Array.prototype.includes/), [has](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set/has), or [contains](http://ramdajs.com/docs/#contains) cannot exist. This could change going forwards.
 
 ## Influences
 
