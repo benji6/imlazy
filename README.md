@@ -37,7 +37,7 @@ Because lazy and immutable! (And also very small!)
 
 - Want to operate on infinite or cicrular data strutures? No problem!
 
-- Want to compose multiple transformations without having to worry about the performance costs of traversing data structures multiple times? No problem!
+- Want to compose multiple transformations without having to worry about traversing data structures multiple times? No problem!
 
 - Scared of your data structures being mutated and having to deal with painful bugs caused by this? No problem!
 
@@ -76,13 +76,29 @@ takeEight(fibonacciGenerator()) // => iterableOf(1, 1, 2, 3, 5, 8, 13, 21)
 
 ```
 
+## [Click Here for Documentation](http://benji6.github.io/imlazy/docs/)
+
 ## Interoperability
 
 This library works with all native iterable types including the Generator, String, Array, TypedArray, Map and Set types.
 
 In fact anything that has a [Symbol.iterator] property can be processed by this library and that includes custom data structures. For instance, the functions in this library can be used to process [immutable-js](https://github.com/facebook/immutable-js) iterables.
 
-## [Click Here for Documentation](http://benji6.github.io/imlazy/docs/)
+
+## Performance
+
+There is a benchmark in the root of this repo comparing imlazy with Ramda and native array methods. When mapping twice then filtering twice over 1024 values on node 5 with babel es2015-node5 preset here are the results I get:
+
+```bash
+imlazy x 1,373 ops/sec ±8.28% (65 runs sampled)
+native x 3,302 ops/sec ±6.12% (75 runs sampled)
+ramda x 14,924 ops/sec ±8.71% (63 runs sampled)
+Fastest is ramda
+```
+
+Ramda blows the other two out the water and imlazy has the worst performance :(
+
+It is possible to contrive situations where the relative performance of imlazy would be better, for instance if only a small portion of the test data were actually ever used.
 
 ## Project Scope
 
