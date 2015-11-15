@@ -76,6 +76,12 @@ takeEight(fibonacciGenerator()) // => iterableOf(1, 1, 2, 3, 5, 8, 13, 21)
 
 ```
 
+## Interoperability
+
+This library works with all native iterable types including the Generator, String, Array, TypedArray, Map and Set types.
+
+In fact anything that has a [Symbol.iterator] property can be processed by this library and that includes custom data structures. For instance, the functions in this library can be used to process [immutable-js](https://github.com/facebook/immutable-js) iterables.
+
 ## [Click Here for Documentation](http://benji6.github.io/imlazy/docs/)
 
 ## Project Scope

@@ -1,3 +1,4 @@
+import Immutable from 'immutable';
 import test from 'tape';
 import {adjust,
         append,
@@ -69,6 +70,13 @@ const fibonacciGenerator = function* () {
 const syncTest = (name, f) => test(name, t => {
   f(t);
   t.end();
+});
+
+syncTest('immutable interop', t => {
+  const processIterable = isFrozenToArray(t);
+  const immutableOneTwoThree = Immutable.List.of(1, 2, 3);
+  t.deepEquals(processIterable(append(4, immutableOneTwoThree)),
+               oneTwoThreeFour);
 });
 
 syncTest('adjust', t => {
@@ -252,6 +260,8 @@ syncTest('map', t => {
   t.deepEquals(processIterable(map(halve)([2, 4, 6])),
                oneTwoThree);
   t.deepEquals(processIterable(map(halve, [2, 4, 6])),
+               oneTwoThree);
+  t.deepEquals(processIterable(map(halve, new Set([2, 4, 6]))),
                oneTwoThree);
 });
 
