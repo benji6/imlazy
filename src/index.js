@@ -373,7 +373,7 @@ export const range = curry((a, b) => createIterable(function* () {
  */
 export const reduce = curry((f, a, xs) => {
   let acc = a
-  for (let x of xs) acc = f(acc)(x)
+  for (let x of xs) acc = f(acc, x)
   return acc
 })
 
@@ -466,7 +466,7 @@ export const some = curry((f, xs) => {
  * sort((a, b) => a - b,
  *      [5, 7, 3, 2]) // => iterableOf(2, 3, 5, 7)
  */
-export const sort = curry((f, xs) => iterableFromIterable([...xs].sort((a, b) => f(a)(b))))
+export const sort = curry((f, xs) => iterableFromIterable([...xs].sort(f)))
 
 /**
  * Returns a new iterable comprised by iterables created from the given iterable of length specified by the given length
@@ -592,7 +592,7 @@ export const zipWith = curry((f, xs, ys) => {
   return createIterable(function* () {
     for (let x of xs) {
       let {done, value} = iteratorB.next()
-      if (done) return; else yield f(x)(value)
+      if (done) return; else yield f(x, value)
     }
   })
 })

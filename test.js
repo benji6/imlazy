@@ -48,8 +48,8 @@ const fiveFiveFive = Object.freeze([5, 5, 5]);
 const positiveIntegers = range(1)(Infinity);
 const negativeIntegers = range(-1)(-Infinity);
 const infiniteIterableOfPositiveIntegers = repeat(positiveIntegers)(Infinity);
-const add = a => b => a + b;
-const subtract = a => b => a - b;
+const add = (a, b) => a + b;
+const subtract = (a, b) => a - b;
 const double = x => x * 2;
 const halve = x => x / 2;
 const takeThree = take(3);
@@ -333,9 +333,9 @@ syncTest('some', t => {
 
 syncTest('sort', t => {
   const processIterable = isFrozenToArray(t);
-  t.deepEquals(processIterable(sort(a => b => a > b)(oneTwoThreeFour)),
+  t.deepEquals(processIterable(sort((a, b) => a > b)(oneTwoThreeFour)),
                oneTwoThreeFour);
-  t.deepEquals(processIterable(sort(a => b => a < b)(oneTwoThreeFour)),
+  t.deepEquals(processIterable(sort((a, b) => a < b)(oneTwoThreeFour)),
                fourThreeTwoOne);
 });
 
