@@ -1,6 +1,6 @@
 {
   "name": "imlazy",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Functional, declarative, immutable and lazy as you like",
   "main": "src/index.js",
   "jsnext:main": "src/index.js",
@@ -18,7 +18,7 @@
   "bugs": {
     "url": "https://github.com/benji6/ilazy/issues"
   },
-  "keywords" : [
+  "keywords": [
     "circular",
     "data",
     "declarative",
