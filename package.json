@@ -1,8 +1,9 @@
 {
   "name": "imlazy",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "Functional, declarative, immutable and lazy as you like",
   "main": "src/index.js",
+  "jsnext:main": "src/index.js",
   "scripts": {
     "benchmark": "node_modules/.bin/babel-node benchmark",
     "docs": "node_modules/.bin/esdoc -c esdoc.json",
@@ -17,6 +18,21 @@
   "bugs": {
     "url": "https://github.com/benji6/ilazy/issues"
   },
+  "keywords" : [
+    "circular",
+    "data",
+    "declarative",
+    "functional",
+    "immutable",
+    "infinite",
+    "iterable",
+    "iteration",
+    "iterator",
+    "lazy",
+    "protocol",
+    "sequence",
+    "structure"
+  ],
   "homepage": "https://github.com/benji6/ilazy",
   "devDependencies": {
     "babel": "^6.0.15",
@@ -27,5 +43,17 @@
     "immutable": "^3.7.5",
     "ramda": "^0.18.0",
     "tape": "^4.2.2"
+  },
+  "browserify": {
+    "transform": [
+      [
+        "babelify",
+        {
+          "optional": [
+            "runtime"
+          ]
+        }
+      ]
+    ]
   }
 }

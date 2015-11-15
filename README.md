@@ -43,6 +43,22 @@ Because lazy and immutable! (And also very small!)
 
 - Want to be totally awesome? No problem!
 
+## Installation
+
+```bash
+npm i -S imlazy
+```
+
+**NB This library is written in ES2015 and as such you will either need to be using an ES2015 runtime or transpiling your code.**
+
+Preferred method of consumption is through [Rollup](https://github.com/rollup/rollup).
+
+If using Babel then ensure you have the babel-runtime package installed. This module should work with babelify with no further configuration. If using in node Babel will not transpile node_modules by default and you will have to modify its ignore regex, check out the docs for more info, here is a CLI example:
+
+```bash
+babel-node --ignore node_modules\/!circular-iterable/
+```
+
 ## Examples
 
 ```javascript
