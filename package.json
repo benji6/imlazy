@@ -1,7 +1,7 @@
 {
   "name": "imlazy",
   "version": "0.0.0",
-  "description": "Laziness is next to Godliness",
+  "description": "Functional, declarative, immutable and lazy as you like",
   "main": "src/index.js",
   "scripts": {
     "docs": "node_modules/.bin/esdoc -c esdoc.json",

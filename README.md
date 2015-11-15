@@ -1,12 +1,10 @@
 # imlazy
 
-Laziness is next to Godliness
+###### Functional, declarative, immutable and lazy as you like
 
 ## What is this?
 
 JS library, for dealing with iterables, iterators and generators.
-
-Functional, declarative, immutable and lazy as you like.
 
 imlazy can be used to create iterables, "transform" them (returning new iterables rather than mutating them) or query them.
 
