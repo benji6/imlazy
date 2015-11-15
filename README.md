@@ -8,7 +8,7 @@ JS library, for dealing with iterables, iterators and generators.
 
 Functional, declarative, immutable and lazy as you like.
 
-imlazy can be used to create iterables, "transform" them (returning new iterables rather than mutating them) or query them as detailed below.
+imlazy can be used to create iterables, "transform" them (returning new iterables rather than mutating them) or query them.
 
 Iterables returned by imlazy are simpy of the form:
 
