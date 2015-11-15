@@ -41,6 +41,8 @@ Because lazy and immutable! (And also very small!)
 
 - Scared of your data structures being mutated and having to deal with painful bugs caused by this? No problem!
 
+- Want to be totally awesome? No problem!
+
 ## Examples
 
 ```javascript
