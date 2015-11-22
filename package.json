@@ -1,6 +1,6 @@
 {
   "name": "imlazy",
-  "version": "1.1.3",
+  "version": "1.1.4",
   "description": "Functional, declarative, immutable and lazy as you like",
   "main": "dist/index.js",
   "jsnext:main": "src/index.js",
