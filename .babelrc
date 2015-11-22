@@ -1,3 +1,9 @@
 {
+  "env": {
+    "build": {
+      "plugins": ["transform-runtime"],
+      "presets": ["es2015"]
+    }
+  },
   "presets": ["es2015-node5"]
 }

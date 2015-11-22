@@ -51,9 +51,9 @@ Because lazy and immutable! (And also very small!)
 npm i -S imlazy
 ```
 
-**NB This library is written in ES2015 and as such you will either need to be using an ES2015 runtime or transpiling your code.**
+imlazy is written in ES2015 and as such the preferred method of consumption is as an ES2015 module using [Rollup](https://github.com/rollup/rollup). Rollup is awesome because it will only bundle the functions you actually use and that will reduce the weight of your builds.
 
-Preferred method of consumption is through [Rollup](https://github.com/rollup/rollup).
+However, imlazy will also work with out the box as the ES5 transpiled code is included in the package.
 
 ## Examples
 
