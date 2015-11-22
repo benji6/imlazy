@@ -11,12 +11,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/benji6/ilazy.git"
+    "url": "https://github.com/benji6/imlazy.git"
   },
   "author": "Ben Hall",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/benji6/ilazy/issues"
+    "url": "https://github.com/benji6/imlazy/issues"
   },
   "keywords": [
     "circular",
@@ -33,7 +33,7 @@
     "sequence",
     "structure"
   ],
-  "homepage": "https://github.com/benji6/ilazy",
+  "homepage": "https://github.com/benji6/imlazy",
   "devDependencies": {
     "babel": "^6.0.15",
     "babel-cli": "^6.1.18",
