@@ -63,7 +63,7 @@ import {filter, makeCircular, range, reduce, take} from 'imlazy'
 
 // all functions are autocurried for partial application
 const sum = reduce((val, acc) => val + acc, 0)
-const takeEight = take(8);
+const takeEight = take(8)
 const isEven = x => x % 2 === 0
 
 const positiveIntegers = range(1, Infinity) // => iterableOf(1, 2, 3, 4, 5, 6, 7, 8, ...)
