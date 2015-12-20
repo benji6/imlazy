@@ -6,7 +6,7 @@
   "jsnext:main": "src/index.js",
   "scripts": {
     "benchmark": "node_modules/.bin/babel-node benchmark",
-    "build": "rm -rf dist && mkdir dist && BABEL_ENV=build node_modules/.bin/babel src/index.js --out-file dist/index.js",
+    "build": "rm -rf dist && mkdir dist && rollup src/index.js | BABEL_ENV=build node_modules/.bin/babel -o dist/index.js",
     "docs": "node_modules/.bin/esdoc -c esdoc.json",
     "test": "node_modules/.bin/babel-node test"
   },
@@ -45,6 +45,7 @@
     "esdoc": "^0.4.3",
     "immutable": "^3.7.5",
     "ramda": "^0.18.0",
+    "rollup": "^0.21.2",
     "tape": "^4.2.2"
   },
   "browserify": {
