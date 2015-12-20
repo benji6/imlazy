@@ -39,7 +39,7 @@ import {adjust,
         takeWhile,
         transpose,
         zip,
-        zipWith} from './'
+        zipWith} from './src'
 
 const oneTwoThree = Object.freeze([1, 2, 3])
 const threeTwoOne = Object.freeze([3, 2, 1])
