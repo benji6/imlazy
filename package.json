@@ -8,7 +8,7 @@
     "benchmark": "node_modules/.bin/babel-node benchmark",
     "build": "rm -rf dist && mkdir dist && rollup src/index.js | BABEL_ENV=build node_modules/.bin/babel -o dist/index.js",
     "docs": "node_modules/.bin/esdoc -c esdoc.json",
-    "test": "node_modules/.bin/babel-node test"
+    "test": "node testDist && node_modules/.bin/babel-node testSrc"
   },
   "repository": {
     "type": "git",
