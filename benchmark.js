@@ -1,6 +1,9 @@
-import Benchmark from 'benchmark'
-import {filter, map} from './src/'
-import R from 'ramda';
+const Benchmark = require('benchmark')
+const imlazy = require('./')
+const R = require('ramda')
+
+const filter = imlazy.filter
+const map = imlazy.map
 
 const testData = Object.freeze(Array.from({length: 1024}, (_, i) => i))
 
@@ -26,10 +29,20 @@ const ramdaBenchmark = data => R.filter(isEven,
                                                        R.map(add10,
                                                              data))))
 
+const ramdaTransducerBenchmark = R.transduce(R.compose(
+  R.map(add10),
+  R.map(triple),
+  R.filter(divisibleBy5),
+  R.filter(isEven)
+), R.flip(R.append), [])
+
 new Benchmark.Suite()
-  .add('imlazy', function () {imlazyBenchmark(testData)})
-  .add('native', function () {nativeBenchmark(testData)})
-  .add('ramda', function () {ramdaBenchmark(testData)})
-  .on('cycle', ({target}) => process.stdout.write(`${String(target)}\n`))
-  .on('complete', function () {process.stdout.write(`Fastest is ${this.filter('fastest').pluck('name')}\n`)})
-  .run({async: true});
+  .add('imlazy', function () { imlazyBenchmark(testData) })
+  .add('native', function () { nativeBenchmark(testData) })
+  .add('ramda', function () { ramdaBenchmark(testData) })
+  .add('ramdaTransducer', function () { ramdaTransducerBenchmark(testData) })
+  .on('cycle', x => process.stdout.write(`${String(x.target)}\n`))
+  .on('complete', function () {
+    process.stdout.write(`Fastest is ${this.filter('fastest').pluck('name')}\n`)
+  })
+  .run({async: true})

@@ -51,9 +51,7 @@ Because lazy and immutable! (And also very small!)
 npm i -S imlazy
 ```
 
-imlazy is written in ES2015 and as such the preferred method of consumption is as an ES2015 module using [Rollup](https://github.com/rollup/rollup). Rollup is awesome because it will only bundle the functions you actually use and that will reduce the weight of your builds.
-
-However, imlazy will also work with out the box as the ES5 transpiled code is included in the package.
+imlazy is written in the node 5 subset of ES2015. If you want to run this code in an environment that doesn't support at least this subset I'm afraid you are on your own as I haven't found a satisfactory solution to this problem. If you have any ideas on how to solve this that would be massively appreciated.
 
 ## Examples
 
@@ -114,7 +112,7 @@ It is possible to contrive situations where the relative performance of imlazy w
 
 ## Project Scope
 
-At the moment the scope of this project is limited to manipulating iterables using the iteration protocols. It does not expose standard FP functions like curry, compose, identity, flip, tap etc. It also does not prescribe a notion of equality, so functions like [includes](https://tc39.github.io/Array.prototype.includes/), [has](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set/has), or [contains](http://ramdajs.com/docs/#contains) cannot exist. This could change going forwards.
+At the moment the scope of this project is limited to manipulating iterables using the iteration protocols. It does not expose standard FP functions like curry, compose, identity, flip, tap etc. It also does not prescribe a notion of equality, so functions like [includes](https://tc39.github.io/Array.prototype.includes/), [has](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set/has), or [contains](http://ramdajs.com/docs/#contains) cannot exist.
 
 ## Influences
 
