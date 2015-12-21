@@ -5,8 +5,9 @@
   "main": "index.js",
   "scripts": {
     "benchmark": "node benchmark",
-    "docs": "node_modules/.bin/esdoc -c esdoc.json",
+    "docs": "jsdoc index.js -d docs",
     "test": "node test",
+    "watch-docs": "nodemon --watch index.js --exec npm run docs",
     "watch-test": "nodemon --exec npm test"
   },
   "repository": {
@@ -38,6 +39,7 @@
     "benchmark": "^1.0.0",
     "esdoc": "^0.4.3",
     "immutable": "^3.7.5",
+    "jsdoc": "^3.4.0",
     "ramda": "^0.18.0",
     "tape": "^4.2.2"
   },
