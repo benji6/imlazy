@@ -50,7 +50,7 @@ const fourThreeTwoOne = Object.freeze([4, 3, 2, 1])
 const fiveFiveFive = Object.freeze([5, 5, 5])
 const positiveIntegers = range(1)(Infinity)
 const negativeIntegers = range(-1)(-Infinity)
-const infiniteIterableOfPositiveIntegers = repeat(positiveIntegers)(Infinity)
+const infiniteIterableOfPositiveIntegers = repeat(positiveIntegers)
 const add = (a, b) => a + b
 const subtract = (a, b) => a - b
 const double = x => x * 2
@@ -335,11 +335,11 @@ syncTest('remove', t => {
 syncTest('repeat', t => {
   const processIterable = isFrozenToArray(t)
   const repeatFive = repeat(5)
-  t.deepEquals(processIterable(repeatFive(3)),
+  t.deepEquals(processIterable(takeThree(repeatFive)),
                fiveFiveFive)
-  t.deepEquals(processIterable(repeatFive(3)),
+  t.deepEquals(processIterable(takeThree(repeatFive)),
                fiveFiveFive)
-  t.deepEquals(processIterable(takeThree(repeat(5, Infinity))),
+  t.deepEquals(processIterable(takeThree(repeat(5))),
                fiveFiveFive)
 })
 

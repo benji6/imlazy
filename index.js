@@ -419,10 +419,9 @@ module.exports.remove = curry((a, b, xs) => createIterable(function * () {
  * repeat42(3)) // => iterableOf(42, 42, 42)
  * repeat42(Infinity)) // => iterableOf(42, 42, 42, 42, 42, 42, 42, 42, 42...)
  */
-module.exports.repeat = curry((a, b) => createIterable(function * () {
-  var x = b
-  while (x--) yield a
-}))
+module.exports.repeat = a => createIterable(function * () {
+  while (true) yield a
+})
 
 /**
  * Returns a new iterable which is the reverse of the given iterable
