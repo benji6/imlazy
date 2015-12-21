@@ -1,6 +1,7 @@
 # imlazy
 
 [![npm version](https://badge.fury.io/js/imlazy.svg)](https://badge.fury.io/js/imlazy)
+[![Build Status](https://travis-ci.org/benji6/imlazy.svg?branch=master)](https://travis-ci.org/benji6/imlazy)
 
 ###### Functional, declarative, immutable and lazy as you like
 
@@ -100,15 +101,16 @@ In fact anything that has a [Symbol.iterator] property can be processed by this 
 There is a benchmark in the root of this repo comparing imlazy with Ramda and native array methods. When mapping twice then filtering twice over 1024 values on node 5 with babel es2015-node5 preset here are the results I get:
 
 ```bash
-imlazy x 1,373 ops/sec ±8.28% (65 runs sampled)
-native x 3,302 ops/sec ±6.12% (75 runs sampled)
-ramda x 14,924 ops/sec ±8.71% (63 runs sampled)
+imlazy x 2,276 ops/sec ±8.35% (68 runs sampled)
+native x 2,911 ops/sec ±9.79% (66 runs sampled)
+ramda x 13,054 ops/sec ±8.30% (60 runs sampled)
+ramdaTransducer x 4,262 ops/sec ±8.77% (56 runs sampled)
 Fastest is ramda
 ```
 
 Ramda blows the other two out the water and imlazy has the worst performance :(
 
-It is possible to contrive situations where the relative performance of imlazy would be better, for instance if only a small portion of the test data were actually ever used.
+It is possible to contrive situations where the relative performance of imlazy would be better, for instance if only a small portion of the test data were actually ever used. It's also possible that imlazy's performance will improve with future iterations of the v8 engine
 
 ## Project Scope
 
