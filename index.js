@@ -238,6 +238,16 @@ module.exports.intersperse = curry((a, xs) => createIterable(function * () {
 }))
 
 /**
+ * Returns true if the iterable has no values in it and false otherwise
+ * @param {Iterable} xs
+ * @return Boolean
+ * @example
+ * isEmpty([]) // => true
+ * isEmpty([0]) // => false
+ */
+module.exports.isEmpty = xs => xs[Symbol.iterator]().next().done
+
+/**
  * Returns a new iterable with values identical to the given iterable
  * @param {Iterable} xs
  * @return {Iterable}
@@ -324,7 +334,7 @@ module.exports.nth = curry((a, xs) => {
 })
 
 /**
- * Returns an iterable of two iterables, the first iterable contains every value from the given iterable where the given function returns truthy and teh second iterable contains every value from the given iterable where the given function returns falsy
+ * Returns an iterable of two iterables, the first iterable contains every value from the given iterable where the given function returns truthy and the second iterable contains every value from the given iterable where the given function returns falsy
  * @param {Number} n
  * @param {Iterable} xs
  * @return {Iterable}

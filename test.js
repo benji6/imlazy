@@ -18,6 +18,7 @@ const head = src.head
 const insert = src.insert
 const insertAll = src.insertAll
 const intersperse = src.intersperse
+const isEmpty = src.isEmpty
 const iterableFrom = src.iterableFrom
 const iterableOf = src.iterableOf
 const iterate = src.iterate
@@ -229,6 +230,12 @@ syncTest('iterableFrom', t => {
   const processIterable = isFrozenToArray(t)
   t.deepEquals(processIterable(iterableFrom(oneTwoThree)),
                oneTwoThree)
+})
+
+syncTest('isEmpty', t => {
+  t.equal(isEmpty([]), true)
+  t.equal(isEmpty([0]), false)
+  t.equal(isEmpty(range(1, Infinity)), false)
 })
 
 syncTest('iterableOf', t => {

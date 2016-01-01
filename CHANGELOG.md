@@ -1,5 +1,9 @@
 # Release Notes
 
+## 2.1.x
+
+Added `isEmpty`
+
 ## 2.0.x
 
 Abandoned all previous failed attempts at distributing ES5 compatible code
