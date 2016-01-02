@@ -41,7 +41,7 @@
     "esdoc": "^0.4.3",
     "immutable": "^3.7.5",
     "jsdoc": "^3.4.0",
-    "ramda": "^0.18.0"
+    "ramda": "^0.19.0"
   },
   "browserify": {
     "transform": [
