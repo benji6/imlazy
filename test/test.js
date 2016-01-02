@@ -1,7 +1,7 @@
-'use strict'
 const Immutable = require('immutable')
 const test = require('ava')
-const src = require('./')
+const src = require('../')
+import {add, oneTwoThree, oneTwoThreeFour} from './_tools'
 
 const adjust = src.adjust
 const append = src.append
@@ -30,7 +30,6 @@ const nth = src.nth
 const partition = src.partition
 const prepend = src.prepend
 const range = src.range
-const reduce = src.reduce
 const reject = src.reject
 const remove = src.remove
 const repeat = src.repeat
@@ -45,15 +44,12 @@ const takeWhile = src.takeWhile
 const transpose = src.transpose
 const zip = src.zip
 const zipWith = src.zipWith
-const oneTwoThree = Object.freeze([1, 2, 3])
 const threeTwoOne = Object.freeze([3, 2, 1])
-const oneTwoThreeFour = Object.freeze([1, 2, 3, 4])
 const fourThreeTwoOne = Object.freeze([4, 3, 2, 1])
 const fiveFiveFive = Object.freeze([5, 5, 5])
 const positiveIntegers = range(1)(Infinity)
 const negativeIntegers = range(-1)(-Infinity)
 const infiniteIterableOfPositiveIntegers = repeat(positiveIntegers)
-const add = (a, b) => a + b
 const subtract = (a, b) => a - b
 const double = x => x * 2
 const halve = x => x / 2
@@ -315,16 +311,6 @@ test('range', t => {
                threeTwoOne)
   t.same(processIterable(rangeFromThree(1)),
                threeTwoOne)
-})
-
-test('reduce', t => {
-  const sum = reduce(add)(0)
-  t.same(sum(oneTwoThree),
-               6)
-  t.same(sum(oneTwoThreeFour),
-               10)
-  t.same(reduce(add, 0, oneTwoThreeFour),
-               10)
 })
 
 test('reject', t => {
