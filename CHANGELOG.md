@@ -1,5 +1,9 @@
 # Release Notes
 
+## 2.2.x
+
+Added `reject`
+
 ## 2.1.x
 
 Added `isEmpty`

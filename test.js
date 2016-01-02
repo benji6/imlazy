@@ -31,6 +31,7 @@ const partition = src.partition
 const prepend = src.prepend
 const range = src.range
 const reduce = src.reduce
+const reject = src.reject
 const remove = src.remove
 const repeat = src.repeat
 const reverse = src.reverse
@@ -324,6 +325,14 @@ test('reduce', t => {
                10)
   t.same(reduce(add, 0, oneTwoThreeFour),
                10)
+})
+
+test('reject', t => {
+  const processIterable = isFrozenToArray(t)
+  t.same(
+    processIterable(take(3, reject(x => x <= 3, range(1, Infinity)))),
+    [4, 5, 6]
+  )
 })
 
 test('remove', t => {

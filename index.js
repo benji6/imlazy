@@ -125,6 +125,7 @@ module.exports.every = curry((f, xs) => {
  * @param {Function} f
  * @param {Iterable} xs
  * @return {Iterable}
+ * @see reject
  * @example
  * filter(x => x % 2 === 0,
  *        range(1, Infinity)) // => iterableOf(2, 4, 6, 8, 12, 14, 16, 18, ...)
@@ -397,6 +398,20 @@ module.exports.reduce = curry((f, a, xs) => {
   for (var x of xs) acc = f(acc, x)
   return acc
 })
+
+/**
+ * Returns a new iterable containing only values from the given iterable where the given function applied to that value returns falsy
+ * @param {Function} f
+ * @param {Iterable} xs
+ * @see filter
+ * @return {Iterable}
+ * @example
+ * reject(x => x % 2 === 0,
+ *        range(1, Infinity)) // => iterableOf(1, 3, 5, 7, 9, 11, 13, 15, ...)
+ */
+module.exports.reject = curry((f, xs) => createIterable(function * () {
+  for (var x of xs) if (!f(x)) yield x
+}))
 
 /**
  * Returns an iterable of the given iterable, excluding values from the given index for the given count
