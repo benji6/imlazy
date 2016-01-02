@@ -6,7 +6,7 @@
   "scripts": {
     "benchmark": "node benchmark",
     "docs": "jsdoc index.js -d docs",
-    "test": "node test",
+    "test": "ava",
     "watch-docs": "nodemon --watch index.js --exec npm run docs",
     "watch-test": "nodemon --exec npm test"
   },
@@ -36,12 +36,12 @@
   ],
   "homepage": "https://github.com/benji6/imlazy",
   "devDependencies": {
+    "ava": "^0.9.1",
     "benchmark": "^1.0.0",
     "esdoc": "^0.4.3",
     "immutable": "^3.7.5",
     "jsdoc": "^3.4.0",
-    "ramda": "^0.18.0",
-    "tape": "^4.2.2"
+    "ramda": "^0.18.0"
   },
   "browserify": {
     "transform": [
