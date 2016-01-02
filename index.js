@@ -128,7 +128,7 @@ module.exports.every = curry((f, xs) => {
  * @see reject
  * @example
  * filter(x => x % 2 === 0,
- *        range(1, Infinity)) // => iterableOf(2, 4, 6, 8, 12, 14, 16, 18, ...)
+ *        range(1, Infinity)) // => iterableOf(2, 4, 6, 8, 10, 12, 14, 16, ...)
  */
 module.exports.filter = curry((f, xs) => createIterable(function * () {
   for (var x of xs) if (f(x)) yield x
