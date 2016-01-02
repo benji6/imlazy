@@ -1,9 +1,16 @@
 const Immutable = require('immutable')
 const test = require('ava')
 const src = require('../')
-import {add, oneTwoThree, oneTwoThreeFour} from './_tools'
+import {
+  add,
+  double,
+  isFrozenToArray,
+  oneTwoThree,
+  oneTwoThreeFour,
+  positiveIntegers,
+  takeEight
+} from './_tools'
 
-const adjust = src.adjust
 const append = src.append
 const assoc = src.assoc
 const concat = src.concat
@@ -47,47 +54,18 @@ const zipWith = src.zipWith
 const threeTwoOne = Object.freeze([3, 2, 1])
 const fourThreeTwoOne = Object.freeze([4, 3, 2, 1])
 const fiveFiveFive = Object.freeze([5, 5, 5])
-const positiveIntegers = range(1)(Infinity)
 const negativeIntegers = range(-1)(-Infinity)
 const infiniteIterableOfPositiveIntegers = repeat(positiveIntegers)
 const subtract = (a, b) => a - b
-const double = x => x * 2
 const halve = x => x / 2
 const takeThree = take(3)
-const takeEight = take(8)
 const isEven = x => x % 2 === 0
-
-const B = a => b => c => a(b(c))
-
-const isFrozen = t => iterable => (t.throws(() => iterable.a = 1), iterable)
-const toArray = iterable => [...iterable]
-const isFrozenToArray = t => B(toArray)(isFrozen(t))
-const fibonacciGenerator = function * () {
-  var a = 1
-  var b = 1
-  while (true) {
-    yield a
-    const c = a + b
-    a = b
-    b = c
-  }
-}
 
 test('immutable interop', t => {
   const processIterable = isFrozenToArray(t)
   const immutableOneTwoThree = Immutable.List.of(1, 2, 3)
   t.same(processIterable(append(4, immutableOneTwoThree)),
                oneTwoThreeFour)
-})
-
-test('adjust', t => {
-  const processIterable = isFrozenToArray(t)
-  t.same(processIterable(takeEight(adjust(double)(2)(positiveIntegers))),
-               [1, 2, 6, 4, 5, 6, 7, 8])
-  t.same(processIterable(takeEight(adjust(double)(2)(positiveIntegers))),
-               [1, 2, 6, 4, 5, 6, 7, 8])
-  t.same(processIterable(takeEight(adjust(double, 2, fibonacciGenerator()))),
-               [1, 1, 4, 3, 5, 8, 13, 21])
 })
 
 test('append', t => {
