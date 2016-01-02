@@ -25,7 +25,6 @@ const head = src.head
 const insert = src.insert
 const insertAll = src.insertAll
 const intersperse = src.intersperse
-const isEmpty = src.isEmpty
 const iterableFrom = src.iterableFrom
 const iterableOf = src.iterableOf
 const iterate = src.iterate
@@ -199,12 +198,6 @@ test('iterableFrom', t => {
   const processIterable = isFrozenToArray(t)
   t.same(processIterable(iterableFrom(oneTwoThree)),
                oneTwoThree)
-})
-
-test('isEmpty', t => {
-  t.is(isEmpty([]), true)
-  t.is(isEmpty([0]), false)
-  t.is(isEmpty(range(1, Infinity)), false)
 })
 
 test('iterableOf', t => {
