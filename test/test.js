@@ -14,8 +14,6 @@ import {
 const append = src.append
 const assoc = src.assoc
 const concat = src.concat
-const drop = src.drop
-const dropWhile = src.dropWhile
 const every = src.every
 const filter = src.filter
 const find = src.find
@@ -95,27 +93,6 @@ test('concat', t => {
                [-1, -2, -3, -4, -5, -6, -7, -8])
   t.same(processIterable(takeEight(concat(negativeIntegers, negativeIntegers))),
                [-1, -2, -3, -4, -5, -6, -7, -8])
-})
-
-test('drop', t => {
-  const processIterable = isFrozenToArray(t)
-  const dropOne = drop(1)
-  t.same(processIterable(dropOne(oneTwoThreeFour)),
-               [2, 3, 4])
-  t.same(processIterable(dropOne(oneTwoThreeFour)),
-               [2, 3, 4])
-  t.same(processIterable(drop(3)(oneTwoThreeFour)),
-               [4])
-  t.same(processIterable(drop(30, oneTwoThree)),
-               [])
-})
-
-test('dropWhile', t => {
-  const processIterable = isFrozenToArray(t)
-  t.same(processIterable(dropWhile(a => a !== 3)(oneTwoThreeFour)),
-               [3, 4])
-  t.same(processIterable(dropWhile(a => a !== 12321, oneTwoThreeFour)),
-               [])
 })
 
 test('every', t => {
