@@ -3,7 +3,7 @@ const B = a => b => c => a(b(c))
 const createIterable = generator => Object.freeze({[Symbol.iterator]: generator})
 const generatorFromIterable = xs => function * () { yield* xs }
 const iterableFromIterable = B(createIterable)(generatorFromIterable)
-const isIterable = a => a[Symbol.iterator]
+const isIterable = a => Boolean(a[Symbol.iterator])
 const curry = f => {
   return function () {
     const xs = [].slice.call(arguments)
