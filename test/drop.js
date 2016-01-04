@@ -16,6 +16,7 @@ test('drop', t => {
   const twoThreeFour = dropOne(oneTwoThreeFour)
   t.same(processIterable(twoThreeFour), [2, 3, 4])
   t.same(processIterable(twoThreeFour), [2, 3, 4])
+  t.same(processIterable(twoThreeFour), [2, 3, 4])
   t.same(processIterable(takeThree(dropOne(positiveIntegers))), [2, 3, 4])
   t.same(processIterable(takeThree(dropOne(positiveIntegers))), [2, 3, 4])
   t.same(processIterable(drop(3)(oneTwoThreeFour)), [4])

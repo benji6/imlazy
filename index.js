@@ -4,6 +4,19 @@ const createIterable = generator => Object.freeze({[Symbol.iterator]: generator}
 const generatorFromIterable = xs => function * () { yield* xs }
 const iterableFromIterable = B(createIterable)(generatorFromIterable)
 const isIterable = a => Boolean(a[Symbol.iterator])
+const iteratorToGeneratorFactory = iterator => {
+  const cache = []
+  return function * () {
+    var i = 0
+    while (true) {
+      if (i >= cache.length) {
+        const next = iterator.next()
+        if (next.done) return; else cache.push(next.value)
+      }
+      yield cache[i++]
+    }
+  }
+}
 const curry = f => {
   return function () {
     const xs = [].slice.call(arguments)
@@ -79,13 +92,14 @@ module.exports.concat = curry((xs, ys) => createIterable(function * () {
  * @param {Iterable} xs
  * @return {Iterable}
  * @example
- * drop(2,
- *      range(1, Infinity)) // => iterableOf(3, 4, 5, 6, 7, 8, 9, 10, ...)
+ * drop(2, range(1, Infinity)) // => iterableOf(3, 4, 5, 6, 7, 8, 9, 10, ...)
  */
-module.exports.drop = curry((n, xs) => createIterable(function * () {
-  var i = n
-  for (var x of xs) if (i-- <= 0) yield x
-}))
+module.exports.drop = curry((n, xs) => {
+  const iterator = xs[Symbol.iterator]()
+  while (n--) iterator.next()
+  const generatorFactory = iteratorToGeneratorFactory(iterator)
+  return createIterable(function * () { yield * generatorFactory() })
+})
 
 /**
  * Returns a new iterable by applying the given function to each value in the given iterable only yielding values when false is returned
@@ -93,16 +107,21 @@ module.exports.drop = curry((n, xs) => createIterable(function * () {
  * @param {Iterable} xs
  * @return {Iterable}
  * @example
- * dropWhile(x => x <= 2,
- *           [1, 2, 3, 4, 3, 2, 1]) // => iterableOf(3, 4, 3, 2, 1)
+ * dropWhile(x => x <= 2, [1, 2, 3, 4, 3, 2, 1]) // => iterableOf(3, 4, 3, 2, 1)
  */
-module.exports.dropWhile = curry((f, xs) => createIterable(function * () {
-  var yielding = false
-  for (var x of xs) {
-    if (!f(x)) yielding = true
-    if (yielding) yield x
+module.exports.dropWhile = curry((f, xs) => {
+  const iteratorA = xs[Symbol.iterator]()
+  const iteratorB = xs[Symbol.iterator]()
+  var i = 0
+  while (true) {
+    const next = iteratorA.next()
+    if (next.done || !f(next.value)) break
+    i++
   }
-}))
+  while (i--) iteratorB.next()
+  const generatorFactory = iteratorToGeneratorFactory(iteratorB)
+  return createIterable(function * () { yield * generatorFactory() })
+})
 
 /**
  * Applies the given function to each value in the given iterable until that function returns falsy, in which case false is returned. If the iterable is completely traversed and falsy is never returned by the given function then true is returned
@@ -467,14 +486,16 @@ module.exports.reverse = xs => iterableFromIterable([...xs].reverse())
  *       4,
  *       range(1, Infinity)) // => iterableOf(3, 4)
  */
-module.exports.slice = curry((a, b, xs) => createIterable(function * () {
+module.exports.slice = curry((a, b, xs) => {
+  const iterator = xs[Symbol.iterator]()
   var i = a
-  var j = b
-  for (var x of xs) {
-    if (--j < 0) return
-    if (--i < 0) yield x
-  }
-}))
+  while (i--) iterator.next()
+  const generatorFactory = iteratorToGeneratorFactory(iterator)
+  return createIterable(function * () {
+    var j = b - a
+    for (var x of generatorFactory()) if (--j < 0) return; else yield x
+  })
+})
 
 /**
  * Applies the given function to each value in the given iterable until that function returns truthy, in which case true is returned. If the iterable is completely traversed and truthy is never returned by the given function then false is returned
@@ -528,10 +549,12 @@ module.exports.splitEvery = curry((a, xs) => createIterable(function * () {
  * @return {Iterable}
  * @example tail(range(1, Infinity)) // => iterableOf(2, 3, 4, 5, 6, 7, 8, 9, ...)
  */
-module.exports.tail = xs => createIterable(function * () {
-  var i = 1
-  for (var x of xs) if (i) i--; else yield x
-})
+module.exports.tail = xs => {
+  const iterator = xs[Symbol.iterator]()
+  iterator.next()
+  const generatorFactory = iteratorToGeneratorFactory(iterator)
+  return createIterable(function * () { yield * generatorFactory() })
+}
 
 /**
  * Returns an iterable of the first n elements of the given iterable
