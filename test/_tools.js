@@ -20,5 +20,6 @@ module.exports.isFrozen = t => iterable => (t.throws(() => iterable.a = 1), iter
 module.exports.toArray = iterable => [...iterable]
 module.exports.isFrozenToArray = t => B(module.exports.toArray)(module.exports.isFrozen(t))
 module.exports.double = x => x * 2
+module.exports.takeThree = take(3)
 module.exports.takeEight = take(8)
 module.exports.positiveIntegers = range(1)(Infinity)
