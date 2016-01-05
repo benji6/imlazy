@@ -24,3 +24,5 @@ module.exports.takeThree = take(3)
 module.exports.takeEight = take(8)
 module.exports.positiveIntegers = range(1)(Infinity)
 module.exports.halve = x => x / 2
+module.exports.threeTwoOne = Object.freeze([3, 2, 1])
+module.exports.negativeIntegers = range(-1)(-Infinity)

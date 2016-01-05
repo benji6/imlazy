@@ -5,16 +5,17 @@ import {
   add,
   double,
   isFrozenToArray,
+  negativeIntegers,
   oneTwoThree,
   oneTwoThreeFour,
   positiveIntegers,
   takeEight,
-  takeThree
+  takeThree,
+  threeTwoOne
 } from './_tools'
 
 const append = src.append
 const assoc = src.assoc
-const concat = src.concat
 const every = src.every
 const filter = src.filter
 const find = src.find
@@ -45,10 +46,8 @@ const takeWhile = src.takeWhile
 const transpose = src.transpose
 const zip = src.zip
 const zipWith = src.zipWith
-const threeTwoOne = Object.freeze([3, 2, 1])
 const fourThreeTwoOne = Object.freeze([4, 3, 2, 1])
 const fiveFiveFive = Object.freeze([5, 5, 5])
-const negativeIntegers = range(-1)(-Infinity)
 const infiniteIterableOfPositiveIntegers = repeat(positiveIntegers)
 const subtract = (a, b) => a - b
 const isEven = x => x % 2 === 0
@@ -76,19 +75,6 @@ test('assoc', t => {
                [1, 2, 3, 4, 100, 6, 7, 8])
   t.same(processIterable(takeEight(assoc(4)(100, positiveIntegers))),
                [1, 2, 3, 4, 100, 6, 7, 8])
-})
-
-test('concat', t => {
-  const concatOneTwoThree = concat(oneTwoThree)
-  const processIterable = isFrozenToArray(t)
-  t.same(processIterable(concatOneTwoThree(threeTwoOne)),
-               [1, 2, 3, 3, 2, 1])
-  t.same(processIterable(takeEight(concatOneTwoThree(negativeIntegers))),
-               [1, 2, 3, -1, -2, -3, -4, -5])
-  t.same(processIterable(takeEight(concat(negativeIntegers)(oneTwoThree))),
-               [-1, -2, -3, -4, -5, -6, -7, -8])
-  t.same(processIterable(takeEight(concat(negativeIntegers, negativeIntegers))),
-               [-1, -2, -3, -4, -5, -6, -7, -8])
 })
 
 test('every', t => {
