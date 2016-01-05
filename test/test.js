@@ -17,7 +17,6 @@ import {
 const append = src.append
 const assoc = src.assoc
 const every = src.every
-const filter = src.filter
 const find = src.find
 const findIndex = src.findIndex
 const flatten = src.flatten
@@ -82,12 +81,6 @@ test('every', t => {
                true)
   t.same(every(x => x === 30, fiveFiveFive),
                false)
-})
-
-test('filter', t => {
-  const processIterable = isFrozenToArray(t)
-  t.same(processIterable(filter(x => x <= 3, range(1, 100))),
-               oneTwoThree)
 })
 
 test('find', t => {
