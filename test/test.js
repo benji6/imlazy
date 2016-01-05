@@ -51,7 +51,6 @@ const fiveFiveFive = Object.freeze([5, 5, 5])
 const negativeIntegers = range(-1)(-Infinity)
 const infiniteIterableOfPositiveIntegers = repeat(positiveIntegers)
 const subtract = (a, b) => a - b
-const halve = x => x / 2
 const isEven = x => x % 2 === 0
 
 test('immutable interop', t => {
@@ -204,16 +203,6 @@ test('makeCircular', t => {
   const processIterable = isFrozenToArray(t)
   t.same(processIterable(takeEight(makeCircular(range(1)(3)))),
                [1, 2, 3, 1, 2, 3, 1, 2])
-})
-
-test('map', t => {
-  const processIterable = isFrozenToArray(t)
-  t.same(processIterable(map(halve)([2, 4, 6])),
-               oneTwoThree)
-  t.same(processIterable(map(halve, [2, 4, 6])),
-               oneTwoThree)
-  t.same(processIterable(map(halve, new Set([2, 4, 6]))),
-               oneTwoThree)
 })
 
 test('nth', t => {
