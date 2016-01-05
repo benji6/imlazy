@@ -20,7 +20,6 @@ const every = src.every
 const find = src.find
 const findIndex = src.findIndex
 const flatten = src.flatten
-const head = src.head
 const insert = src.insert
 const insertAll = src.insertAll
 const intersperse = src.intersperse
@@ -113,13 +112,6 @@ test('flatten', t => {
                [...oneTwoThree, ...oneTwoThreeFour, 5])
   t.same(processIterable(takeEight(flatten(infiniteIterableOfPositiveIntegers))),
                [1, 2, 3, 4, 5, 6, 7, 8])
-})
-
-test('head', t => {
-  t.same(head([]),
-               undefined)
-  t.same(head(positiveIntegers),
-               1)
 })
 
 test('insert', t => {
