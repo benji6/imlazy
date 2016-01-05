@@ -204,19 +204,6 @@ test('prepend', t => {
                [0, 1, 2, 3, 4, 5, 6, 7])
 })
 
-test('range', t => {
-  const rangeFromThree = range(3)
-  const processIterable = isFrozenToArray(t)
-  t.same(processIterable(range(1)(1)),
-               [1])
-  t.same(processIterable(range(1, 3)),
-               oneTwoThree)
-  t.same(processIterable(rangeFromThree(1)),
-               threeTwoOne)
-  t.same(processIterable(rangeFromThree(1)),
-               threeTwoOne)
-})
-
 test('remove', t => {
   const processIterable = isFrozenToArray(t)
   t.same(processIterable(takeEight(remove(2)(4)(positiveIntegers))),
