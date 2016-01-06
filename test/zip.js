@@ -11,6 +11,7 @@ import {
 
 test('zip', t => {
   const processIterable = isFrozenToArray(t)
+  const xss = takeThree(zip(positiveIntegers, positiveIntegers))
   t.same(
     processIterable(zip(oneTwoThree)(threeTwoOne)).map(processIterable),
     [[1, 3], [2, 2], [3, 1]]
@@ -24,7 +25,15 @@ test('zip', t => {
     [[3, 1], [2, 2], [1, 3]]
   )
   t.same(
-    processIterable(takeThree(zip(positiveIntegers, positiveIntegers))).map(processIterable),
+    processIterable(xss).map(processIterable),
+    [[1, 1], [2, 2], [3, 3]]
+  )
+  t.same(
+    processIterable(xss).map(processIterable),
+    [[1, 1], [2, 2], [3, 3]]
+  )
+  t.same(
+    processIterable(xss).map(processIterable),
     [[1, 1], [2, 2], [3, 3]]
   )
 })
