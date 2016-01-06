@@ -26,3 +26,4 @@ module.exports.positiveIntegers = range(1)(Infinity)
 module.exports.halve = x => x / 2
 module.exports.threeTwoOne = Object.freeze([3, 2, 1])
 module.exports.negativeIntegers = range(-1)(-Infinity)
+module.exports.subtract = (a, b) => a - b

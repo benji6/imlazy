@@ -2,7 +2,6 @@ const Immutable = require('immutable')
 const test = require('ava')
 const src = require('../')
 import {
-  add,
   double,
   isFrozenToArray,
   negativeIntegers,
@@ -42,12 +41,9 @@ const sort = src.sort
 const splitEvery = src.splitEvery
 const takeWhile = src.takeWhile
 const transpose = src.transpose
-const zip = src.zip
-const zipWith = src.zipWith
 const fourThreeTwoOne = Object.freeze([4, 3, 2, 1])
 const fiveFiveFive = Object.freeze([5, 5, 5])
 const infiniteIterableOfPositiveIntegers = repeat(positiveIntegers)
-const subtract = (a, b) => a - b
 const isEven = x => x % 2 === 0
 
 test('immutable interop', t => {
@@ -285,29 +281,4 @@ test('transpose', t => {
                [[1, -1, 1, 64], [2, -2, 2], [3, -3, 3], [-4, 4], [-5, 5], [-6, 6], [-7, 7], [-8, 8]])
   t.same(processIterable(takeThree(infiniteIterableOfPositiveIntegers)).map(takeThree).map(processIterable),
                [oneTwoThree, oneTwoThree, oneTwoThree])
-})
-
-test('zip', t => {
-  const processIterable = isFrozenToArray(t)
-  t.same(processIterable(zip(oneTwoThree)(threeTwoOne)).map(processIterable),
-               [[1, 3], [2, 2], [3, 1]])
-  t.same(processIterable(zip(oneTwoThreeFour)(threeTwoOne)).map(processIterable),
-               [[1, 3], [2, 2], [3, 1]])
-  t.same(processIterable(zip(threeTwoOne)(positiveIntegers)).map(processIterable),
-               [[3, 1], [2, 2], [1, 3]])
-  t.same(processIterable(takeThree(zip(positiveIntegers, positiveIntegers))).map(processIterable),
-               [[1, 1], [2, 2], [3, 3]])
-})
-
-test('zipWith', t => {
-  const processIterable = isFrozenToArray(t)
-  const zipWithSubtract = zipWith(subtract)
-  t.same(processIterable(zipWithSubtract(oneTwoThree)(threeTwoOne)),
-               [-2, 0, 2])
-  t.same(processIterable(zipWithSubtract(oneTwoThreeFour)(threeTwoOne)),
-               [-2, 0, 2])
-  t.same(processIterable(zipWithSubtract(threeTwoOne)(positiveIntegers)),
-               [2, 0, -2])
-  t.same(processIterable(takeThree(zipWith(add, positiveIntegers, positiveIntegers))),
-               [2, 4, 6])
 })
