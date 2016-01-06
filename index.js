@@ -33,9 +33,7 @@ const curry = f => {
  * @param {Iterable} xs
  * @return {Iterable}
  * @example
- * adjust(x => 10 * x,
- *        1,
- *        range(1, Infinity)) // => iterableOf(1, 20, 3, 4, 5, 6, 7, 8, ...)
+ * adjust(x => 10 * x, 1, range(1, Infinity)) // => iterableOf(1, 20, 3, 4, 5, 6, 7, 8, ...)
  */
 module.exports.adjust = curry((f, a, xs) => createIterable(function * () {
   var i = a

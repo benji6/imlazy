@@ -6,7 +6,7 @@ const B = a => b => c => a(b(c))
 module.exports.add = (a, b) => a + b
 module.exports.oneTwoThree = Object.freeze([1, 2, 3])
 module.exports.oneTwoThreeFour = Object.freeze([1, 2, 3, 4])
-module.exports.fibonacciGenerator = function * () {
+module.exports.fibonacciNumbers = {[Symbol.iterator]: function * () {
   var a = 1
   var b = 1
   while (true) {
@@ -15,10 +15,10 @@ module.exports.fibonacciGenerator = function * () {
     a = b
     b = c
   }
-}
-module.exports.isFrozen = t => iterable => (t.throws(() => iterable.a = 1), iterable)
-module.exports.toArray = iterable => [...iterable]
-module.exports.isFrozenToArray = t => B(module.exports.toArray)(module.exports.isFrozen(t))
+}}
+module.exports.isFrozen = t => iterable => (t.throws(_ => iterable.a = 1), iterable)
+module.exports.toArray = t => iterable => (t.same([...iterable], [...iterable]), [...iterable])
+module.exports.isFrozenToArray = t => B(module.exports.toArray(t))(module.exports.isFrozen(t))
 module.exports.double = x => x * 2
 module.exports.takeThree = take(3)
 module.exports.takeEight = take(8)
