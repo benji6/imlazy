@@ -55,15 +55,13 @@ module.exports.append = curry((a, xs) => createIterable(function * () {
 }))
 
 /**
- * Returns a new iterable with the given value at the given index
+ * Returns a new iterable identical to the supplied iterable except with the value at the given index replaced by the given value
  * @param {Number} index
  * @param {Any} value
  * @param {Iterable} xs
  * @return {Iterable}
  * @example
- * assoc(2,
- *       42,
- *       range(1, Infinity)) // => iterableOf(1, 2, 42, 4, 5, 6, 7, 8, ...)
+ * assoc(2, 42, range(1, Infinity)) // => iterableOf(1, 2, 42, 4, 5, 6, 7, 8, ...)
  */
 module.exports.assoc = curry((a, b, xs) => createIterable(function * () {
   var i = a
