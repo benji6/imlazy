@@ -3,6 +3,8 @@ const test = require('ava')
 const src = require('../')
 import {
   double,
+  fiveFiveFive,
+  infiniteIterableOfPositiveIntegers,
   isFrozenToArray,
   negativeIntegers,
   oneTwoThree,
@@ -14,10 +16,6 @@ import {
 } from './_tools'
 
 const append = src.append
-const every = src.every
-const find = src.find
-const findIndex = src.findIndex
-const flatten = src.flatten
 const insert = src.insert
 const insertAll = src.insertAll
 const intersperse = src.intersperse
@@ -41,8 +39,6 @@ const splitEvery = src.splitEvery
 const takeWhile = src.takeWhile
 const transpose = src.transpose
 const fourThreeTwoOne = Object.freeze([4, 3, 2, 1])
-const fiveFiveFive = Object.freeze([5, 5, 5])
-const infiniteIterableOfPositiveIntegers = repeat(positiveIntegers)
 const isEven = x => x % 2 === 0
 
 test('immutable interop', t => {
@@ -50,45 +46,6 @@ test('immutable interop', t => {
   const immutableOneTwoThree = Immutable.List.of(1, 2, 3)
   t.same(processIterable(append(4, immutableOneTwoThree)),
                oneTwoThreeFour)
-})
-
-test('every', t => {
-  t.same(every(x => x === 5)(fiveFiveFive),
-               true)
-  t.same(every(x => x === 30, fiveFiveFive),
-               false)
-})
-
-test('find', t => {
-  t.same(find(x => x === 1)(positiveIntegers),
-               1)
-  t.same(find(x => x === 3)(positiveIntegers),
-               3)
-  t.same(find(x => x === 4, oneTwoThree),
-               undefined)
-})
-
-test('findIndex', t => {
-  t.same(findIndex(x => x === -1)(negativeIntegers),
-               0)
-  t.same(findIndex(x => x === -30)(negativeIntegers),
-               29)
-  t.same(findIndex(x => x === -4, oneTwoThree),
-               undefined)
-})
-
-test('flatten', t => {
-  const processIterable = isFrozenToArray(t)
-  t.same(processIterable(flatten([oneTwoThree, threeTwoOne, oneTwoThreeFour])),
-               [...oneTwoThree, ...threeTwoOne, ...oneTwoThreeFour])
-  t.same(processIterable(flatten([1, oneTwoThree, threeTwoOne, oneTwoThreeFour])),
-               [1, ...oneTwoThree, ...threeTwoOne, ...oneTwoThreeFour])
-  t.same(processIterable(flatten([1, [[[[oneTwoThree]]]], threeTwoOne, oneTwoThreeFour])),
-               [1, ...oneTwoThree, ...threeTwoOne, ...oneTwoThreeFour])
-  t.same(processIterable(takeEight(flatten([oneTwoThree, positiveIntegers]))),
-               [...oneTwoThree, ...oneTwoThreeFour, 5])
-  t.same(processIterable(takeEight(flatten(infiniteIterableOfPositiveIntegers))),
-               [1, 2, 3, 4, 5, 6, 7, 8])
 })
 
 test('insert', t => {
