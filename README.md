@@ -59,10 +59,9 @@ npm i -S imlazy
 
 ```javascript
 
-import {filter, makeCircular, range, reduce, take} from 'imlazy'
+import {filter, makeCircular, range, reduce, sum, take} from 'imlazy'
 
 // all functions are autocurried for partial application
-const sum = reduce((val, acc) => val + acc, 0)
 const takeEight = take(8)
 const isEven = x => x % 2 === 0
 
