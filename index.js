@@ -515,10 +515,25 @@ module.exports.some = curry((f, xs) => {
  * @param {Iterable} xs
  * @return {Iterable}
  * @example
- * sort((a, b) => a - b,
- *      [5, 7, 3, 2]) // => iterableOf(2, 3, 5, 7)
+ * sort((a, b) => a - b, [5, 7, 3, 2]) // => iterableOf(2, 3, 5, 7)
  */
 module.exports.sort = curry((f, xs) => iterableFromIterable([...xs].sort(f)))
+
+/**
+ * Returns a new iterable of the given iterable sorted by the return value of the given function when applied to each value
+ * @param {f} function
+ * @param {Iterable} xs
+ * @return {Iterable}
+ * @example
+ * sortBy(x => x.value, [{value: 7}, {value: 0}, {value: 7}, {value: 3}])
+ * // => iterableOf({value: 0}, {value: 3}, {value: 7}, {value: 7})
+ */
+module.exports.sortBy = curry((f, xs) =>
+  iterableFromIterable([...xs].sort((a, b) => {
+    const c = f(a)
+    const d = f(b)
+    return c > d ? 1 : c < d ? -1 : 0
+  })))
 
 /**
  * Returns a new iterable comprised by iterables created from the given iterable of length specified by the given length
