@@ -16,12 +16,6 @@ import {
 } from './_tools'
 
 const append = src.append
-const insert = src.insert
-const insertAll = src.insertAll
-const intersperse = src.intersperse
-const iterableFrom = src.iterableFrom
-const iterableOf = src.iterableOf
-const iterate = src.iterate
 const last = src.last
 const length = src.length
 const makeCircular = src.makeCircular
@@ -46,50 +40,6 @@ test('immutable interop', t => {
   const immutableOneTwoThree = Immutable.List.of(1, 2, 3)
   t.same(processIterable(append(4, immutableOneTwoThree)),
                oneTwoThreeFour)
-})
-
-test('insert', t => {
-  const processIterable = isFrozenToArray(t)
-  t.same(processIterable(takeEight(insert(2)(20)(positiveIntegers))),
-               [1, 2, 20, 3, 4, 5, 6, 7])
-  t.same(processIterable(takeEight(insert(2, 20)(positiveIntegers))),
-               [1, 2, 20, 3, 4, 5, 6, 7])
-})
-
-test('insertAll', t => {
-  const processIterable = isFrozenToArray(t)
-  t.same(processIterable(takeEight(insertAll(2)([20, 21, 22])(positiveIntegers))),
-               [1, 2, 20, 21, 22, 3, 4, 5])
-  t.same(processIterable(takeEight(insertAll(2, negativeIntegers)(positiveIntegers))),
-               [1, 2, -1, -2, -3, -4, -5, -6])
-})
-
-test('intersperse', t => {
-  const processIterable = isFrozenToArray(t)
-  t.same(processIterable(takeEight(intersperse(2)(positiveIntegers))),
-               [1, 2, 2, 2, 3, 2, 4, 2])
-  t.same(processIterable(takeEight(intersperse(2, positiveIntegers))),
-               [1, 2, 2, 2, 3, 2, 4, 2])
-})
-
-test('iterableFrom', t => {
-  const processIterable = isFrozenToArray(t)
-  t.same(processIterable(iterableFrom(oneTwoThree)),
-               oneTwoThree)
-})
-
-test('iterableOf', t => {
-  const processIterable = isFrozenToArray(t)
-  t.same(processIterable(iterableOf(1, 2, 3)),
-               oneTwoThree)
-})
-
-test('iterate', t => {
-  const processIterable = isFrozenToArray(t)
-  t.same(processIterable(takeEight(iterate(double)(1))),
-               [1, 2, 4, 8, 16, 32, 64, 128])
-  t.same(processIterable(takeEight(iterate(double, 1))),
-               [1, 2, 4, 8, 16, 32, 64, 128])
 })
 
 test('last', t => {
