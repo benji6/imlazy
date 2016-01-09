@@ -14,7 +14,6 @@ import {
 } from './_tools'
 
 const append = src.append
-const assoc = src.assoc
 const every = src.every
 const find = src.find
 const findIndex = src.findIndex
@@ -51,24 +50,6 @@ test('immutable interop', t => {
   const immutableOneTwoThree = Immutable.List.of(1, 2, 3)
   t.same(processIterable(append(4, immutableOneTwoThree)),
                oneTwoThreeFour)
-})
-
-test('append', t => {
-  const processIterable = isFrozenToArray(t)
-  t.same(processIterable(append(4)([])),
-               [4])
-  t.same(processIterable(append(4, oneTwoThree)),
-               oneTwoThreeFour)
-})
-
-test('assoc', t => {
-  const processIterable = isFrozenToArray(t)
-  t.same(processIterable(takeEight(assoc(4)(100)(positiveIntegers))),
-               [1, 2, 3, 4, 100, 6, 7, 8])
-  t.same(processIterable(takeEight(assoc(4, 100)(positiveIntegers))),
-               [1, 2, 3, 4, 100, 6, 7, 8])
-  t.same(processIterable(takeEight(assoc(4)(100, positiveIntegers))),
-               [1, 2, 3, 4, 100, 6, 7, 8])
 })
 
 test('every', t => {
