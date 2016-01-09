@@ -16,14 +16,9 @@ import {
 } from './_tools'
 
 const append = src.append
-const last = src.last
-const length = src.length
-const makeCircular = src.makeCircular
 const map = src.map
-const nth = src.nth
 const partition = src.partition
 const prepend = src.prepend
-const range = src.range
 const remove = src.remove
 const repeat = src.repeat
 const reverse = src.reverse
@@ -40,36 +35,6 @@ test('immutable interop', t => {
   const immutableOneTwoThree = Immutable.List.of(1, 2, 3)
   t.same(processIterable(append(4, immutableOneTwoThree)),
                oneTwoThreeFour)
-})
-
-test('last', t => {
-  t.same(last([]),
-               undefined)
-  t.same(last(oneTwoThree),
-               3)
-})
-
-test('length', t => {
-  t.same(length(oneTwoThree),
-               3)
-})
-
-test('makeCircular', t => {
-  const processIterable = isFrozenToArray(t)
-  t.same(processIterable(takeEight(makeCircular(range(1)(3)))),
-               [1, 2, 3, 1, 2, 3, 1, 2])
-})
-
-test('nth', t => {
-  const second = nth(1)
-  t.same(nth(0)(positiveIntegers),
-               1)
-  t.same(nth(256, positiveIntegers),
-               257)
-  t.same(second(positiveIntegers),
-               2)
-  t.same(second(negativeIntegers),
-               -2)
 })
 
 test('partition', t => {
