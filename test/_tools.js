@@ -20,6 +20,7 @@ module.exports.fibonacciNumbers = {[Symbol.iterator]: function * () {
 module.exports.double = x => x * 2
 module.exports.fiveFiveFive = Object.freeze([5, 5, 5])
 module.exports.halve = x => x / 2
+module.exports.isEven = x => x % 2 === 0
 module.exports.isFrozen = t => iterable => (t.throws(_ => iterable.a = 1), iterable)
 module.exports.isFrozenToArray = t => B(module.exports.toArray(t))(module.exports.isFrozen(t))
 module.exports.negativeIntegers = range(-1)(-Infinity)

@@ -17,7 +17,6 @@ import {
 
 const append = src.append
 const map = src.map
-const partition = src.partition
 const prepend = src.prepend
 const remove = src.remove
 const repeat = src.repeat
@@ -28,7 +27,6 @@ const splitEvery = src.splitEvery
 const takeWhile = src.takeWhile
 const transpose = src.transpose
 const fourThreeTwoOne = Object.freeze([4, 3, 2, 1])
-const isEven = x => x % 2 === 0
 
 test('immutable interop', t => {
   const processIterable = isFrozenToArray(t)
@@ -36,15 +34,6 @@ test('immutable interop', t => {
   t.same(processIterable(append(4, immutableOneTwoThree)),
                oneTwoThreeFour)
 })
-
-test('partition', t => {
-  const processIterable = isFrozenToArray(t)
-  t.same(processIterable(partition(isEven)(oneTwoThreeFour)).map(processIterable),
-               [[2, 4], [1, 3]])
-  t.same(processIterable(partition(isEven, oneTwoThreeFour)).map(processIterable),
-               [[2, 4], [1, 3]])
-})
-
 test('prepend', t => {
   const processIterable = isFrozenToArray(t)
   t.same(processIterable(prepend(1)([])),
