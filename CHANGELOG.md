@@ -1,5 +1,9 @@
 # Release Notes
 
+## 2.4.x
+
+Added `sortBy`
+
 ## 2.3.x
 
 Added `sum`
