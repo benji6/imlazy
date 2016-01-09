@@ -1,5 +1,9 @@
 # Release Notes
 
+## 2.3.x
+
+Added `sum`
+
 ## 2.2.x
 
 Added `reject`
