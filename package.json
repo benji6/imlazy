@@ -1,6 +1,6 @@
 {
   "name": "imlazy",
-  "version": "2.2.2",
+  "version": "2.3.0",
   "description": "Functional, declarative, immutable and lazy as you like",
   "main": "index.js",
   "scripts": {
