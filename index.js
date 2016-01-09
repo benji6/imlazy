@@ -542,6 +542,19 @@ module.exports.splitEvery = curry((a, xs) => createIterable(function * () {
 }))
 
 /**
+ * Returns the sum of every element in the supplied iterable
+ * @param {Iterable} xs
+ * @return {Number}
+ * @example
+ * sum(iterableOf(1, 2, 3)) // => 6
+ */
+module.exports.sum = xs => {
+  let total = 0
+  for (const x of xs) total += x
+  return total
+}
+
+/**
  * Returns a new iterable of all but the first element of the given iterable
  * @param {Iterable} xs
  * @return {Iterable}
