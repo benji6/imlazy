@@ -1,5 +1,9 @@
 # Release Notes
 
+## 3.0.x
+
+Rename `makeCircular` to `cycle` for consistency with Haskell and Clojure
+
 ## 2.4.x
 
 Added `sortBy`
