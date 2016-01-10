@@ -316,9 +316,9 @@ module.exports.length = xs => [...xs].length
  * Returns a new iterable by infinitely repeating the given iterable
  * @param {Iterable} xs
  * @return {Iterable}
- * @example makeCircular([1, 2, 3]) // => iterableOf(1, 2, 3, 1, 2, 3, 1, 2, 3, ...)
+ * @example cycle([1, 2, 3]) // => iterableOf(1, 2, 3, 1, 2, 3, 1, 2, 3, ...)
  */
-module.exports.makeCircular = xs => createIterable(function * () {
+module.exports.cycle = xs => createIterable(function * () {
   while (true) yield* xs
 })
 

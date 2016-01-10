@@ -59,7 +59,7 @@ npm i -S imlazy
 
 ```javascript
 
-import {filter, makeCircular, range, reduce, sum, take} from 'imlazy'
+import {cycle, filter, range, reduce, sum, take} from 'imlazy'
 
 // all functions are autocurried for partial application
 const takeEight = take(8)
@@ -75,7 +75,7 @@ sum(twoFourSix) // => 12
 [...twoFourSix] // => [2, 4, 6]
 
 const oneTwoThree = range(1, 3) // => iterableOf(1, 2, 3)
-const circularOneTwoThree = makeCircular(oneTwoThree) // => iterableOf(1, 2, 3, 1, 2, 3, 1, 2, 3, ...)
+const circularOneTwoThree = cycle(oneTwoThree) // => iterableOf(1, 2, 3, 1, 2, 3, 1, 2, 3, ...)
 takeEight(circularOneTwoThree) // => iterableOf(1, 2, 3, 1, 2, 3, 1, 2)
 
 const fibonacciGenerator = function* () {
