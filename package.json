@@ -36,7 +36,7 @@
   ],
   "homepage": "https://github.com/benji6/imlazy",
   "devDependencies": {
-    "ava": "^0.9.1",
+    "ava": "^0.11.0",
     "benchmark": "^1.0.0",
     "concurrently": "^1.0.0",
     "esdoc": "^0.4.3",
