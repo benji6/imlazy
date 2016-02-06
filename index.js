@@ -37,7 +37,7 @@ const curry = f => {
  */
 module.exports.adjust = curry((f, a, xs) => createIterable(function * () {
   var i = a
-  for (var x of xs) if (i--) yield x; else yield f(x)
+  for (const x of xs) if (i--) yield x; else yield f(x)
 }))
 
 /**
@@ -65,7 +65,7 @@ module.exports.append = curry((a, xs) => createIterable(function * () {
  */
 module.exports.assoc = curry((a, b, xs) => createIterable(function * () {
   var i = a
-  for (var x of xs) if (i--) yield x; else yield b
+  for (const x of xs) if (i--) yield x; else yield b
 }))
 
 /**
@@ -131,7 +131,7 @@ module.exports.dropWhile = curry((f, xs) => {
  *       [1, 2, 3, 4]) // => false
  */
 module.exports.every = curry((f, xs) => {
-  for (var x of xs) if (!f(x)) return false
+  for (const x of xs) if (!f(x)) return false
   return true
 })
 
@@ -146,7 +146,7 @@ module.exports.every = curry((f, xs) => {
  *        range(1, Infinity)) // => iterableOf(2, 4, 6, 8, 10, 12, 14, 16, ...)
  */
 module.exports.filter = curry((f, xs) => createIterable(function * () {
-  for (var x of xs) if (f(x)) yield x
+  for (const x of xs) if (f(x)) yield x
 }))
 
 /**
@@ -161,7 +161,7 @@ module.exports.filter = curry((f, xs) => createIterable(function * () {
  *      [1, 2, 3, 4, 5, 6]) // => undefined
  */
 module.exports.find = curry((f, xs) => {
-  for (var x of xs) if (f(x)) return x
+  for (const x of xs) if (f(x)) return x
 })
 
 /**
@@ -177,7 +177,7 @@ module.exports.find = curry((f, xs) => {
  */
 module.exports.findIndex = curry((f, xs) => {
   var i = 0
-  for (var x of xs) if (f(x)) return i; else i++
+  for (const x of xs) if (f(x)) return i; else i++
 })
 
 /**
@@ -188,7 +188,7 @@ module.exports.findIndex = curry((f, xs) => {
  */
 module.exports.flatten = xs => createIterable(function * recur (ys) {
   if (!arguments.length) ys = xs
-  for (var y of ys) if (isIterable(y)) yield* recur(y); else yield y
+  for (const y of ys) if (isIterable(y)) yield* recur(y); else yield y
 })
 
 /**
@@ -212,7 +212,7 @@ module.exports.head = xs => xs[Symbol.iterator]().next().value
  */
 module.exports.insert = curry((a, b, xs) => createIterable(function * () {
   var i = a
-  for (var x of xs) if (i--) yield x; else {
+  for (const x of xs) if (i--) yield x; else {
     yield b
     yield x
   }
@@ -231,7 +231,7 @@ module.exports.insert = curry((a, b, xs) => createIterable(function * () {
  */
 module.exports.insertAll = curry((a, xs, ys) => createIterable(function * () {
   var i = a
-  for (var y of ys) if (i--) yield y; else {
+  for (const y of ys) if (i--) yield y; else {
     yield* xs
     yield y
   }
@@ -247,7 +247,7 @@ module.exports.insertAll = curry((a, xs, ys) => createIterable(function * () {
  *             range(1, Infinity)) // => iterableOf(1, 42, 2, 42, 3, 42, 4, 42, ...)
  */
 module.exports.intersperse = curry((a, xs) => createIterable(function * () {
-  for (var x of xs) {
+  for (const x of xs) {
     yield x
     yield a
   }
@@ -332,7 +332,7 @@ module.exports.cycle = xs => createIterable(function * () {
  *     range(1, Infinity)) // => iterableOf(2, 4, 6, 8, 10, 12, 14, 16, 18, ...)
  */
 module.exports.map = curry((f, xs) => createIterable(function * () {
-  for (var x of xs) yield f(x)
+  for (const x of xs) yield f(x)
 }))
 
 /**
@@ -346,7 +346,7 @@ module.exports.map = curry((f, xs) => createIterable(function * () {
  */
 module.exports.nth = curry((a, xs) => {
   var i = a
-  for (var x of xs) if (i-- <= 0) return x
+  for (const x of xs) if (i-- <= 0) return x
 })
 
 /**
@@ -361,7 +361,7 @@ module.exports.nth = curry((a, xs) => {
 module.exports.partition = curry((f, xs) => createIterable(function * () {
   const listA = []
   const listB = []
-  for (var x of xs) {
+  for (const x of xs) {
     if (f(x)) listA.push(x); else listB.push(x)
   }
   yield iterableFromIterable(listA)
@@ -410,7 +410,7 @@ module.exports.range = curry((a, b) => createIterable(function * () {
  */
 module.exports.reduce = curry((f, a, xs) => {
   var acc = a
-  for (var x of xs) acc = f(acc, x)
+  for (const x of xs) acc = f(acc, x)
   return acc
 })
 
@@ -425,7 +425,7 @@ module.exports.reduce = curry((f, a, xs) => {
  *        range(1, Infinity)) // => iterableOf(1, 3, 5, 7, 9, 11, 13, 15, ...)
  */
 module.exports.reject = curry((f, xs) => createIterable(function * () {
-  for (var x of xs) if (!f(x)) yield x
+  for (const x of xs) if (!f(x)) yield x
 }))
 
 /**
@@ -443,7 +443,7 @@ module.exports.remove = curry((a, b, xs) => createIterable(function * () {
   var i = a
   var j = b
   var yielding = true
-  for (var x of xs) {
+  for (const x of xs) {
     if (!i--) yielding = false
     if (yielding) yield x; else if (!--j) yielding = true
   }
@@ -489,7 +489,7 @@ module.exports.slice = curry((a, b, xs) => {
   const generatorFactory = iteratorToGeneratorFactory(iterator)
   return createIterable(function * () {
     var j = b - a
-    for (var x of generatorFactory()) if (--j < 0) return; else yield x
+    for (const x of generatorFactory()) if (--j < 0) return; else yield x
   })
 })
 
@@ -505,7 +505,7 @@ module.exports.slice = curry((a, b, xs) => {
  *      [1, 2, 3, 4]) // => true
  */
 module.exports.some = curry((f, xs) => {
-  for (var x of xs) if (f(x)) return true
+  for (const x of xs) if (f(x)) return true
   return false
 })
 
@@ -591,7 +591,7 @@ module.exports.tail = xs => {
  */
 module.exports.take = curry((a, xs) => createIterable(function * () {
   var i = a
-  for (var x of xs) if (!i--) return; else yield x
+  for (const x of xs) if (!i--) return; else yield x
 }))
 
 /**
@@ -604,7 +604,7 @@ module.exports.take = curry((a, xs) => createIterable(function * () {
  *           range(1, Infinity)) // => iterableOf(1, 2, 3, 4)
  */
 module.exports.takeWhile = curry((f, xs) => createIterable(function * () {
-  for (var x of xs) if (f(x)) yield x; else return
+  for (const x of xs) if (f(x)) yield x; else return
 }))
 
 /**
@@ -620,11 +620,11 @@ module.exports.takeWhile = curry((f, xs) => createIterable(function * () {
 module.exports.transpose = xss => createIterable(function * () {
   const done = () => null
   const _nth = (a, xs) => {
-    for (var x of xs) if (a-- <= 0) return x
+    for (const x of xs) if (a-- <= 0) return x
     return done
   }
   const createReturnGenerator = i => function * () {
-    for (var xs of xss) {
+    for (const xs of xss) {
       var value = _nth(i, xs)
       if (value !== done) yield value
     }
@@ -674,14 +674,12 @@ module.exports.zip = curry((xs, ys) => {
  *   range(1, Infinity)
  * ) // => iterableOf(3, 5, 8, 11)
  */
-module.exports.zipWith = curry((f, xs, ys) => {
-  return createIterable(function * () {
-    const iteratorB = ys[Symbol.iterator]()
-    for (const x of xs) {
-      const next = iteratorB.next()
-      const done = next.done
-      const value = next.value
-      if (done) return; else yield f(x, value)
-    }
-  })
-})
+module.exports.zipWith = curry((f, xs, ys) => createIterable(function * () {
+  const iteratorB = ys[Symbol.iterator]()
+  for (const x of xs) {
+    const next = iteratorB.next()
+    const done = next.done
+    const value = next.value
+    if (done) return; else yield f(x, value)
+  }
+}))
