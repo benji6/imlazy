@@ -39,10 +39,9 @@
     "ava": "^0.13.0",
     "benchmark": "^1.0.0",
     "concurrently": "^2.0.0",
-    "esdoc": "^0.4.3",
     "immutable": "^3.7.5",
     "jsdoc": "^3.4.0",
-    "ramda": "^0.20.0",
+    "ramda": "^0.20.1",
     "standard": "^5.4.1"
   }
 }
