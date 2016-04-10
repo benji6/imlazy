@@ -1,5 +1,4 @@
 'use strict'
-const B = a => b => c => a(b(c))
 const curry = f => {
   return function () {
     const xs = [].slice.call(arguments)
@@ -10,7 +9,6 @@ const curry = f => {
 }
 const genToIter = gen => Object.freeze({[Symbol.iterator]: gen})
 const isIterable = a => Boolean(a[Symbol.iterator])
-const iterToGen = xs => function * () { yield* xs }
 const iterToGenFactory = iterator => {
   const cache = []
   return function * () {
@@ -24,7 +22,7 @@ const iterToGenFactory = iterator => {
     }
   }
 }
-const iterToIter = B(genToIter)(iterToGen)
+const iterToIter = xs => genToIter(function * () { yield* xs })
 
 /**
  * Returns a new iterable with the given function applied to the value at the given index
