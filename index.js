@@ -1,10 +1,17 @@
 'use strict'
 const B = a => b => c => a(b(c))
-const createIterable = generator => Object.freeze({[Symbol.iterator]: generator})
-const generatorFromIterable = xs => function * () { yield* xs }
-const iterableFromIterable = B(createIterable)(generatorFromIterable)
+const curry = f => {
+  return function () {
+    const xs = [].slice.call(arguments)
+    return xs.length < f.length
+      ? curry(f.bind.apply(f, [null].concat(xs)))
+      : f.apply(undefined, xs)
+  }
+}
+const genToIter = gen => Object.freeze({[Symbol.iterator]: gen})
 const isIterable = a => Boolean(a[Symbol.iterator])
-const iteratorToGeneratorFactory = iterator => {
+const iterToGen = xs => function * () { yield* xs }
+const iterToGenFactory = iterator => {
   const cache = []
   return function * () {
     var i = 0
@@ -17,14 +24,7 @@ const iteratorToGeneratorFactory = iterator => {
     }
   }
 }
-const curry = f => {
-  return function () {
-    const xs = [].slice.call(arguments)
-    return xs.length < f.length
-      ? curry(f.bind.apply(f, [null].concat(xs)))
-      : f.apply(undefined, xs)
-  }
-}
+const iterToIter = B(genToIter)(iterToGen)
 
 /**
  * Returns a new iterable with the given function applied to the value at the given index
@@ -35,7 +35,7 @@ const curry = f => {
  * @example
  * adjust(x => 10 * x, 1, range(1, Infinity)) // => iterableOf(1, 20, 3, 4, 5, 6, 7, 8, ...)
  */
-module.exports.adjust = curry((f, a, xs) => createIterable(function * () {
+module.exports.adjust = curry((f, a, xs) => genToIter(function * () {
   var i = a
   for (const x of xs) if (i--) yield x; else yield f(x)
 }))
@@ -49,7 +49,7 @@ module.exports.adjust = curry((f, a, xs) => createIterable(function * () {
  * append(4,
  *        [1, 2, 3]) // => iterableOf(1, 2, 3, 4)
  */
-module.exports.append = curry((a, xs) => createIterable(function * () {
+module.exports.append = curry((a, xs) => genToIter(function * () {
   yield* xs
   yield a
 }))
@@ -63,7 +63,7 @@ module.exports.append = curry((a, xs) => createIterable(function * () {
  * @example
  * assoc(2, 42, range(1, Infinity)) // => iterableOf(1, 2, 42, 4, 5, 6, 7, 8, ...)
  */
-module.exports.assoc = curry((a, b, xs) => createIterable(function * () {
+module.exports.assoc = curry((a, b, xs) => genToIter(function * () {
   var i = a
   for (const x of xs) if (i--) yield x; else yield b
 }))
@@ -77,7 +77,7 @@ module.exports.assoc = curry((a, b, xs) => createIterable(function * () {
  * concat([100, 200],
  *        range(1, Infinity)) // => iterableOf(100, 200, 1, 2, 3, 4, 5, 6, 7, 8, ...)
  */
-module.exports.concat = curry((xs, ys) => createIterable(function * () {
+module.exports.concat = curry((xs, ys) => genToIter(function * () {
   yield* xs
   yield* ys
 }))
@@ -93,8 +93,8 @@ module.exports.concat = curry((xs, ys) => createIterable(function * () {
 module.exports.drop = curry((n, xs) => {
   const iterator = xs[Symbol.iterator]()
   while (n--) iterator.next()
-  const generatorFactory = iteratorToGeneratorFactory(iterator)
-  return createIterable(function * () { yield * generatorFactory() })
+  const generatorFactory = iterToGenFactory(iterator)
+  return genToIter(function * () { yield * generatorFactory() })
 })
 
 /**
@@ -115,8 +115,8 @@ module.exports.dropWhile = curry((f, xs) => {
     i++
   }
   while (i--) iteratorB.next()
-  const generatorFactory = iteratorToGeneratorFactory(iteratorB)
-  return createIterable(function * () { yield * generatorFactory() })
+  const generatorFactory = iterToGenFactory(iteratorB)
+  return genToIter(function * () { yield * generatorFactory() })
 })
 
 /**
@@ -145,7 +145,7 @@ module.exports.every = curry((f, xs) => {
  * filter(x => x % 2 === 0,
  *        range(1, Infinity)) // => iterableOf(2, 4, 6, 8, 10, 12, 14, 16, ...)
  */
-module.exports.filter = curry((f, xs) => createIterable(function * () {
+module.exports.filter = curry((f, xs) => genToIter(function * () {
   for (const x of xs) if (f(x)) yield x
 }))
 
@@ -186,7 +186,7 @@ module.exports.findIndex = curry((f, xs) => {
  * @return {Iterable}
  * @example flatten([1, [2, [3, [[4]]]], [range(1, Infinity)]) // => iterableOf(1, 2, 4, 4, 1, 2, 3, 4, 5, 6, 7, 8, ...)
  */
-module.exports.flatten = xs => createIterable(function * recur (ys) {
+module.exports.flatten = xs => genToIter(function * recur (ys) {
   if (!arguments.length) ys = xs
   for (const y of ys) if (isIterable(y)) yield* recur(y); else yield y
 })
@@ -210,7 +210,7 @@ module.exports.head = xs => xs[Symbol.iterator]().next().value
  *        42,
  *        range(1, Infinity)) // => iterableOf(1, 42, 2, 3, 4, 5, 6, 7, 8, ...)
  */
-module.exports.insert = curry((a, b, xs) => createIterable(function * () {
+module.exports.insert = curry((a, b, xs) => genToIter(function * () {
   var i = a
   for (const x of xs) if (i--) yield x; else {
     yield b
@@ -229,7 +229,7 @@ module.exports.insert = curry((a, b, xs) => createIterable(function * () {
  *           [42, 24, 3],
  *           [1, 2, 3]) // => iterableOf(1, 42, 24, 3, 2, 3)
  */
-module.exports.insertAll = curry((a, xs, ys) => createIterable(function * () {
+module.exports.insertAll = curry((a, xs, ys) => genToIter(function * () {
   var i = a
   for (const y of ys) if (i--) yield y; else {
     yield* xs
@@ -246,7 +246,7 @@ module.exports.insertAll = curry((a, xs, ys) => createIterable(function * () {
  * intersperse(42,
  *             range(1, Infinity)) // => iterableOf(1, 42, 2, 42, 3, 42, 4, 42, ...)
  */
-module.exports.intersperse = curry((a, xs) => createIterable(function * () {
+module.exports.intersperse = curry((a, xs) => genToIter(function * () {
   for (const x of xs) {
     yield x
     yield a
@@ -269,7 +269,7 @@ module.exports.isEmpty = xs => xs[Symbol.iterator]().next().done
  * @return {Iterable}
  * @example interableFrom([1, 2, 3]) // => iterableOf(1, 2, 3)
  */
-module.exports.iterableFrom = iterableFromIterable
+module.exports.iterableFrom = iterToIter
 
 /**
  * Returns an iterable of the arguments passed
@@ -278,7 +278,7 @@ module.exports.iterableFrom = iterableFromIterable
  * @example [...interableOf(1, 2, 3)] // => [1, 2, 3]
  */
 module.exports.iterableOf = function () {
-  return iterableFromIterable([].slice.call(arguments))
+  return iterToIter([].slice.call(arguments))
 }
 
 /**
@@ -290,7 +290,7 @@ module.exports.iterableOf = function () {
  * iterate(x => 2 * x,
  *         1) // => iterableOf(1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, ...)
  */
-module.exports.iterate = curry((f, a) => createIterable(function * () {
+module.exports.iterate = curry((f, a) => genToIter(function * () {
   var x = a
   yield x
   while (true) yield x = f(x)
@@ -318,7 +318,7 @@ module.exports.length = xs => [...xs].length
  * @return {Iterable}
  * @example cycle([1, 2, 3]) // => iterableOf(1, 2, 3, 1, 2, 3, 1, 2, 3, ...)
  */
-module.exports.cycle = xs => createIterable(function * () {
+module.exports.cycle = xs => genToIter(function * () {
   while (true) yield* xs
 })
 
@@ -331,7 +331,7 @@ module.exports.cycle = xs => createIterable(function * () {
  * map(x => 2 * x,
  *     range(1, Infinity)) // => iterableOf(2, 4, 6, 8, 10, 12, 14, 16, 18, ...)
  */
-module.exports.map = curry((f, xs) => createIterable(function * () {
+module.exports.map = curry((f, xs) => genToIter(function * () {
   for (const x of xs) yield f(x)
 }))
 
@@ -358,14 +358,14 @@ module.exports.nth = curry((a, xs) => {
  * partition(x => x % 2 === 0,
  *           [1, 2, 3, 4]) // => iterableOf(iterableOf(2, 4), iterableOf(1, 3))
 */
-module.exports.partition = curry((f, xs) => createIterable(function * () {
+module.exports.partition = curry((f, xs) => genToIter(function * () {
   const listA = []
   const listB = []
   for (const x of xs) {
     if (f(x)) listA.push(x); else listB.push(x)
   }
-  yield iterableFromIterable(listA)
-  yield iterableFromIterable(listB)
+  yield iterToIter(listA)
+  yield iterToIter(listB)
 }))
 
 /**
@@ -377,7 +377,7 @@ module.exports.partition = curry((f, xs) => createIterable(function * () {
  * prepend(42,
  *         range(1, Infinity)) // => iterableOf(42, 1, 2, 3, 4, 5, 6, 7, 8, ...)
  */
-module.exports.prepend = curry((a, xs) => createIterable(function * () {
+module.exports.prepend = curry((a, xs) => genToIter(function * () {
   yield a
   yield* xs
 }))
@@ -392,7 +392,7 @@ module.exports.prepend = curry((a, xs) => createIterable(function * () {
  * range(1, Infinity)) // => iterableOf(1, 2, 3, 4, 5, 6, 7, 8, ...)
  * range(-1, -Infinity)) // => iterableOf(-1, -2, -3, -4, -5, -6, -7, -8, ...)
  */
-module.exports.range = curry((a, b) => createIterable(function * () {
+module.exports.range = curry((a, b) => genToIter(function * () {
   var n = a
   if (n < b) while (n <= b) yield n++; else while (n >= b) yield n--
 }))
@@ -424,7 +424,7 @@ module.exports.reduce = curry((f, a, xs) => {
  * reject(x => x % 2 === 0,
  *        range(1, Infinity)) // => iterableOf(1, 3, 5, 7, 9, 11, 13, 15, ...)
  */
-module.exports.reject = curry((f, xs) => createIterable(function * () {
+module.exports.reject = curry((f, xs) => genToIter(function * () {
   for (const x of xs) if (!f(x)) yield x
 }))
 
@@ -439,7 +439,7 @@ module.exports.reject = curry((f, xs) => createIterable(function * () {
  *        4,
  *        range(1, Infinity)) // => iterableOf(1, 2, 7, 8, 9, 10, 11, 12, ...)
  */
-module.exports.remove = curry((a, b, xs) => createIterable(function * () {
+module.exports.remove = curry((a, b, xs) => genToIter(function * () {
   var i = a
   var j = b
   var yielding = true
@@ -459,7 +459,7 @@ module.exports.remove = curry((a, b, xs) => createIterable(function * () {
  * repeat42(3)) // => iterableOf(42, 42, 42)
  * repeat42(Infinity)) // => iterableOf(42, 42, 42, 42, 42, 42, 42, 42, 42...)
  */
-module.exports.repeat = a => createIterable(function * () {
+module.exports.repeat = a => genToIter(function * () {
   while (true) yield a
 })
 
@@ -469,7 +469,7 @@ module.exports.repeat = a => createIterable(function * () {
  * @return {Iterable}
  * @example reverse([1, 2, 3]) // => iterableOf(3, 2, 1)
  */
-module.exports.reverse = xs => iterableFromIterable([...xs].reverse())
+module.exports.reverse = xs => iterToIter([...xs].reverse())
 
 /**
  * Returns an iterable of the given iterable starting at the given startIndex and ending one before the given endIndex
@@ -486,8 +486,8 @@ module.exports.slice = curry((a, b, xs) => {
   const iterator = xs[Symbol.iterator]()
   var i = a
   while (i--) iterator.next()
-  const generatorFactory = iteratorToGeneratorFactory(iterator)
-  return createIterable(function * () {
+  const generatorFactory = iterToGenFactory(iterator)
+  return genToIter(function * () {
     var j = b - a
     for (const x of generatorFactory()) if (--j < 0) return; else yield x
   })
@@ -517,7 +517,7 @@ module.exports.some = curry((f, xs) => {
  * @example
  * sort((a, b) => a - b, [5, 7, 3, 2]) // => iterableOf(2, 3, 5, 7)
  */
-module.exports.sort = curry((f, xs) => iterableFromIterable([...xs].sort(f)))
+module.exports.sort = curry((f, xs) => iterToIter([...xs].sort(f)))
 
 /**
  * Returns a new iterable of the given iterable sorted by the return value of the given function when applied to each value
@@ -529,7 +529,7 @@ module.exports.sort = curry((f, xs) => iterableFromIterable([...xs].sort(f)))
  * // => iterableOf({value: 0}, {value: 3}, {value: 7}, {value: 7})
  */
 module.exports.sortBy = curry((f, xs) =>
-  iterableFromIterable([...xs].sort((a, b) => {
+  iterToIter([...xs].sort((a, b) => {
     const c = f(a)
     const d = f(b)
     return c > d ? 1 : c < d ? -1 : 0
@@ -545,7 +545,7 @@ module.exports.sortBy = curry((f, xs) =>
  * splitEveryThree([1, 2, 3, 4]) // => iterableOf(iterableOf(1, 2, 3), iterableOf(4))
  * splitEveryThree(range(1, Infinity)) // => iterableOf(iterableOf(1, 2, 3), iterableOf(4, 5, 6), iterableOf(7, 8, 9), ...)
  */
-module.exports.splitEvery = curry((a, xs) => createIterable(function * () {
+module.exports.splitEvery = curry((a, xs) => genToIter(function * () {
   var i = 0
   while (true) {
     var yieldVal = module.exports.slice(i * a, (i + 1) * a, xs)
@@ -576,8 +576,8 @@ module.exports.sum = xs => {
 module.exports.tail = xs => {
   const iterator = xs[Symbol.iterator]()
   iterator.next()
-  const generatorFactory = iteratorToGeneratorFactory(iterator)
-  return createIterable(function * () { yield * generatorFactory() })
+  const generatorFactory = iterToGenFactory(iterator)
+  return genToIter(function * () { yield * generatorFactory() })
 }
 
 /**
@@ -589,7 +589,7 @@ module.exports.tail = xs => {
  * take(3,
  *      range(1, Infinity)) // => iterableOf(1, 2, 3)
  */
-module.exports.take = curry((a, xs) => createIterable(function * () {
+module.exports.take = curry((a, xs) => genToIter(function * () {
   var i = a
   for (const x of xs) if (!i--) return; else yield x
 }))
@@ -603,7 +603,7 @@ module.exports.take = curry((a, xs) => createIterable(function * () {
  * takeWhile(x => x < 5,
  *           range(1, Infinity)) // => iterableOf(1, 2, 3, 4)
  */
-module.exports.takeWhile = curry((f, xs) => createIterable(function * () {
+module.exports.takeWhile = curry((f, xs) => genToIter(function * () {
   for (const x of xs) if (f(x)) yield x; else return
 }))
 
@@ -617,7 +617,7 @@ module.exports.takeWhile = curry((f, xs) => createIterable(function * () {
  *                                 //               iterableOf(2, 5, 8),
  *                                 //               iterableOf(3, 6, 9))
  */
-module.exports.transpose = xss => createIterable(function * () {
+module.exports.transpose = xss => genToIter(function * () {
   const done = () => null
   const _nth = (a, xs) => {
     for (const x of xs) if (a-- <= 0) return x
@@ -632,7 +632,7 @@ module.exports.transpose = xss => createIterable(function * () {
   for (var i = 0; ; i++) {
     var returnGenerator = createReturnGenerator(i)
     if (returnGenerator().next().done) return
-    yield createIterable(returnGenerator)
+    yield genToIter(returnGenerator)
   }
 })
 
@@ -650,13 +650,13 @@ module.exports.transpose = xss => createIterable(function * () {
  *                                       //    )
  */
 module.exports.zip = curry((xs, ys) => {
-  return createIterable(function * () {
+  return genToIter(function * () {
     const iteratorB = ys[Symbol.iterator]()
     for (const x of xs) {
       var next = iteratorB.next()
       var done = next.done
       var value = next.value
-      if (done) return; else yield iterableFromIterable([x, value])
+      if (done) return; else yield iterToIter([x, value])
     }
   })
 })
@@ -674,7 +674,7 @@ module.exports.zip = curry((xs, ys) => {
  *   range(1, Infinity)
  * ) // => iterableOf(3, 5, 8, 11)
  */
-module.exports.zipWith = curry((f, xs, ys) => createIterable(function * () {
+module.exports.zipWith = curry((f, xs, ys) => genToIter(function * () {
   const iteratorB = ys[Symbol.iterator]()
   for (const x of xs) {
     const next = iteratorB.next()
