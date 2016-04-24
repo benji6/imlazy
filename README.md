@@ -35,18 +35,6 @@ const someReturnedValue = someFunction(...someIterable);
 
 All functions exposed by imlazy are curried and data-last which makes them ideal for partial application and functional programming.
 
-## Why?
-
-Because lazy and immutable! (And also very small!)
-
-- Want to operate on infinite or cicrular data strutures? No problem!
-
-- Want to compose multiple transformations without having to worry about traversing data structures multiple times? No problem!
-
-- Scared of your data structures being mutated and having to deal with painful bugs caused by this? No problem!
-
-- Want to be totally awesome? No problem!
-
 ## Installation
 
 ```bash
@@ -98,23 +86,25 @@ In fact anything that has a [Symbol.iterator] property can be processed by this 
 
 ## Performance
 
-There is a benchmark in the root of this repo comparing imlazy with Ramda and native array methods. When mapping twice then filtering twice over 1024 values on node 5 here are the results I get:
+There is a benchmark in the root of this repo comparing imlazy with Ramda and native array methods. The `infiniteIterable` benchmarks map, filter and take over an infinite iterable and the `array` benchmarks map and filter over an array.
 
 ```bash
-imlazy x 2,276 ops/sec ±8.35% (68 runs sampled)
-native x 2,911 ops/sec ±9.79% (66 runs sampled)
-ramda x 13,054 ops/sec ±8.30% (60 runs sampled)
-ramdaTransducer x 4,262 ops/sec ±8.77% (56 runs sampled)
+infiniteIterable - imlazy x 185 ops/sec ±2.91% (79 runs sampled)
+infiniteIterable - ramdaTransducer x 1,132 ops/sec ±4.39% (81 runs sampled)
+array - imlazy x 1,692 ops/sec ±3.97% (81 runs sampled)
+array - ramdaTransducer x 20,944 ops/sec ±4.89% (84 runs sampled)
+array - native x 4,053 ops/sec ±3.77% (85 runs sampled)
+array - ramda x 29,448 ops/sec ±4.53% (88 runs sampled)
 Fastest is ramda
 ```
 
-Ramda blows the other two out the water and imlazy has the worst performance :(
+Ramda's transducers are significantly faster than imlazy over both infinite iterables and arrays.
 
-It is possible to contrive situations where the relative performance of imlazy would be better, for instance if only a small portion of the test data were actually ever used. It's also possible that imlazy's performance will improve with future iterations of the v8 engine
+It will be interesting to see whether performance will improve with future iterations of the v8 engine.
 
 ## Project Scope
 
-At the moment the scope of this project is limited to manipulating iterables using the iteration protocols. It does not expose standard FP functions like curry, compose, identity, flip, tap etc. It also does not prescribe a notion of equality, so functions like [includes](https://tc39.github.io/Array.prototype.includes/), [has](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set/has), or [contains](http://ramdajs.com/docs/#contains) cannot exist.
+The scope of this project is limited to manipulating iterables using the iteration protocols. It does not expose standard FP functions like curry, compose, identity, flip, tap etc. It also does not prescribe a notion of equality, so functions like [includes](https://tc39.github.io/Array.prototype.includes/), [has](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set/has), or [contains](http://ramdajs.com/docs/#contains) cannot exist.
 
 ## Influences
 
