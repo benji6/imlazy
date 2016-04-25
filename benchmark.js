@@ -32,20 +32,20 @@ const ramdaBenchmark = data => R.filter(isEven,
                                                  R.map(triple,
                                                        R.map(add10, data))))
 
-const ramdaTransducerArrayBenchmark = R.transduce(R.compose(
+const ramdaTransducerArrayBenchmark = R.into([], R.compose(
   R.map(add10),
   R.map(triple),
   R.filter(divisibleBy5),
   R.filter(isEven)
-), (xs, x) => (xs.push(x), xs), [])
+))
 
-const ramdaTransducerInfiniteBenchmark = R.transduce(R.compose(
+const ramdaTransducerInfiniteBenchmark = R.into([], R.compose(
   R.map(add10),
   R.map(triple),
   R.filter(divisibleBy5),
   R.filter(isEven),
   R.take(length)
-), (xs, x) => (xs.push(x), xs), [])
+))
 
 const imlazyInfiniteBenchmark = data => Array.from(I.take(
   length,
