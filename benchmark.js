@@ -61,6 +61,6 @@ new Benchmark.Suite()
   .add('array - ramda', function () { ramdaBenchmark(testArray) })
   .on('cycle', x => process.stdout.write(`${String(x.target)}\n`))
   .on('complete', function () {
-    process.stdout.write(`Fastest is ${this.filter('fastest').pluck('name')}\n`)
+    process.stdout.write(`Fastest is ${this.filter('fastest').map('name')}\n`)
   })
   .run({async: true})
