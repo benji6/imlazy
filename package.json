@@ -38,10 +38,10 @@
   "devDependencies": {
     "ava": "^0.13.0",
     "benchmark": "^1.0.0",
-    "concurrently": "^2.0.0",
-    "immutable": "^3.7.5",
+    "concurrently": "^2.1.0",
+    "immutable": "^3.8.1",
     "jsdoc": "^3.4.0",
-    "ramda": "^0.20.1",
-    "standard": "^5.4.1"
+    "ramda": "^0.21.0",
+    "standard": "^7.1.0"
   }
 }

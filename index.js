@@ -22,7 +22,7 @@ const iterToGenFactory = iterator => {
     }
   }
 }
-const iterToIter = xs => genToIter(function * () { yield* xs })
+const iterToIter = xs => genToIter(function * () { yield * xs })
 
 /**
  * Returns a new iterable with the given function applied to the value at the given index
@@ -48,7 +48,7 @@ module.exports.adjust = curry((f, a, xs) => genToIter(function * () {
  *        [1, 2, 3]) // => iterableOf(1, 2, 3, 4)
  */
 module.exports.append = curry((a, xs) => genToIter(function * () {
-  yield* xs
+  yield * xs
   yield a
 }))
 
@@ -76,8 +76,8 @@ module.exports.assoc = curry((a, b, xs) => genToIter(function * () {
  *        range(1, Infinity)) // => iterableOf(100, 200, 1, 2, 3, 4, 5, 6, 7, 8, ...)
  */
 module.exports.concat = curry((xs, ys) => genToIter(function * () {
-  yield* xs
-  yield* ys
+  yield * xs
+  yield * ys
 }))
 
 /**
@@ -186,7 +186,7 @@ module.exports.findIndex = curry((f, xs) => {
  */
 module.exports.flatten = xs => genToIter(function * recur (ys) {
   if (!arguments.length) ys = xs
-  for (const y of ys) if (isIterable(y)) yield* recur(y); else yield y
+  for (const y of ys) if (isIterable(y)) yield * recur(y); else yield y
 })
 
 /**
@@ -210,9 +210,11 @@ module.exports.head = xs => xs[Symbol.iterator]().next().value
  */
 module.exports.insert = curry((a, b, xs) => genToIter(function * () {
   var i = a
-  for (const x of xs) if (i--) yield x; else {
-    yield b
-    yield x
+  for (const x of xs) {
+    if (i--) yield x; else {
+      yield b
+      yield x
+    }
   }
 }))
 
@@ -229,9 +231,11 @@ module.exports.insert = curry((a, b, xs) => genToIter(function * () {
  */
 module.exports.insertAll = curry((a, xs, ys) => genToIter(function * () {
   var i = a
-  for (const y of ys) if (i--) yield y; else {
-    yield* xs
-    yield y
+  for (const y of ys) {
+    if (i--) yield y; else {
+      yield * xs
+      yield y
+    }
   }
 }))
 
@@ -317,7 +321,7 @@ module.exports.length = xs => [...xs].length
  * @example cycle([1, 2, 3]) // => iterableOf(1, 2, 3, 1, 2, 3, 1, 2, 3, ...)
  */
 module.exports.cycle = xs => genToIter(function * () {
-  while (true) yield* xs
+  while (true) yield * xs
 })
 
 /**
@@ -377,7 +381,7 @@ module.exports.partition = curry((f, xs) => genToIter(function * () {
  */
 module.exports.prepend = curry((a, xs) => genToIter(function * () {
   yield a
-  yield* xs
+  yield * xs
 }))
 
 /**
