@@ -23,6 +23,7 @@ const iterToGenFactory = iterator => {
   }
 }
 const iterToIter = xs => genToIter(function * () { yield * xs })
+const sym = Symbol()
 
 /**
  * Returns a new iterable with the given function applied to the value at the given index
@@ -197,6 +198,19 @@ module.exports.flatten = xs => genToIter(function * recur (ys) {
  */
 module.exports.head = xs => xs[Symbol.iterator]().next().value
 
+/**
+ * Returns a new iterable of all but the last element of the given iterable
+ * @param {Iterable} xs
+ * @return {Iterable}
+ * @example init(range(1, 5)) // => iterableOf(1, 2, 3, 4)
+ */
+module.exports.init = xs => genToIter(function * () {
+  let last = sym
+  for (const x of xs) {
+    if (last !== sym) yield last
+    last = x
+  }
+})
 /**
  * Returns a new iterable with the given value inserted at the given index in the given iterable
  * @param {Number} index
@@ -677,9 +691,9 @@ module.exports.zip = curry((xs, ys) => {
  * ) // => iterableOf(3, 5, 8, 11)
  */
 module.exports.zipWith = curry((f, xs, ys) => genToIter(function * () {
-  const iteratorB = ys[Symbol.iterator]()
+  const iteratorY = ys[Symbol.iterator]()
   for (const x of xs) {
-    const next = iteratorB.next()
+    const next = iteratorY.next()
     const done = next.done
     const value = next.value
     if (done) return; else yield f(x, value)
