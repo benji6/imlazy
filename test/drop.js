@@ -1,7 +1,7 @@
 import test from 'ava'
 import {drop} from '../'
 import {
-  isFrozenToArray,
+  testAndToArray,
   oneTwoThree,
   oneTwoThreeFour,
   positiveIntegers,
@@ -9,7 +9,7 @@ import {
 } from './_tools'
 
 test('drop', t => {
-  const processIterable = isFrozenToArray(t)
+  const processIterable = testAndToArray(t)
   const dropOne = drop(1)
   t.same(processIterable(dropOne(oneTwoThreeFour)), [2, 3, 4])
   t.same(processIterable(dropOne(oneTwoThreeFour)), [2, 3, 4])

@@ -1,14 +1,14 @@
 import test from 'ava'
 import {takeWhile} from '../'
 import {
-  isFrozenToArray,
+  testAndToArray,
   oneTwoThree,
   oneTwoThreeFour,
   positiveIntegers
 } from './_tools'
 
 test('takeWhile', t => {
-  const processIterable = isFrozenToArray(t)
+  const processIterable = testAndToArray(t)
   t.same(
     processIterable(takeWhile(a => a !== 5)(oneTwoThreeFour)),
     oneTwoThreeFour

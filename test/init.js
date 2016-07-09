@@ -1,14 +1,14 @@
 import test from 'ava'
 import {init} from '../'
 import {
-  isFrozenToArray,
+  testAndToArray,
   oneTwoThreeFour,
   positiveIntegers,
   takeEight
 } from './_tools'
 
 test('init', t => {
-  const processIterable = isFrozenToArray(t)
+  const processIterable = testAndToArray(t)
   const initPositiveIntegers = init(positiveIntegers)
 
   t.same(

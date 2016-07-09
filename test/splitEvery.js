@@ -1,14 +1,14 @@
 import test from 'ava'
 import {splitEvery} from '../'
 import {
-  isFrozenToArray,
+  testAndToArray,
   oneTwoThreeFour,
   positiveIntegers,
   takeThree
 } from './_tools'
 
 test('splitEvery', t => {
-  const processIterable = isFrozenToArray(t)
+  const processIterable = testAndToArray(t)
   const splitEveryThree = splitEvery(3)
   t.same(
     processIterable(splitEveryThree(oneTwoThreeFour)).map(processIterable),

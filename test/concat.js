@@ -1,7 +1,7 @@
 import test from 'ava'
 import {concat} from '../'
 import {
-  isFrozenToArray,
+  testAndToArray,
   negativeIntegers,
   oneTwoThree,
   takeEight,
@@ -10,7 +10,7 @@ import {
 
 test('concat', t => {
   const concatOneTwoThree = concat(oneTwoThree)
-  const processIterable = isFrozenToArray(t)
+  const processIterable = testAndToArray(t)
   const oneTwoThreeThreeTwoOne = concatOneTwoThree(threeTwoOne)
   t.same(processIterable(oneTwoThreeThreeTwoOne), [1, 2, 3, 3, 2, 1])
   t.same(processIterable(oneTwoThreeThreeTwoOne), [1, 2, 3, 3, 2, 1])

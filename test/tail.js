@@ -1,9 +1,9 @@
 import test from 'ava'
 import {tail} from '../'
-import {isFrozenToArray, positiveIntegers, takeEight} from './_tools'
+import {testAndToArray, positiveIntegers, takeEight} from './_tools'
 
 test('tail', t => {
-  const processIterable = isFrozenToArray(t)
+  const processIterable = testAndToArray(t)
   t.same(processIterable(tail([])), [])
   const tailPositiveIntegers = tail(positiveIntegers)
   t.same(

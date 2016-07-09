@@ -2,12 +2,12 @@ import test from 'ava'
 import {sort} from '../'
 import {
   fourThreeTwoOne,
-  isFrozenToArray,
+  testAndToArray,
   oneTwoThreeFour
 } from './_tools'
 
 test('sort', t => {
-  const processIterable = isFrozenToArray(t)
+  const processIterable = testAndToArray(t)
   t.same(
     processIterable(sort((a, b) => a > b)(oneTwoThreeFour)),
     oneTwoThreeFour

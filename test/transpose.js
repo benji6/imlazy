@@ -2,7 +2,7 @@ import test from 'ava'
 import {transpose} from '../'
 import {
   infiniteIterableOfPositiveIntegers,
-  isFrozenToArray,
+  testAndToArray,
   negativeIntegers,
   oneTwoThree,
   oneTwoThreeFour,
@@ -12,7 +12,7 @@ import {
 } from './_tools'
 
 test('transpose', t => {
-  const processIterable = isFrozenToArray(t)
+  const processIterable = testAndToArray(t)
   t.same(
     processIterable(transpose([oneTwoThreeFour, oneTwoThree, oneTwoThree]))
       .map(processIterable),

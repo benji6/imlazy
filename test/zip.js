@@ -1,7 +1,7 @@
 import test from 'ava'
 import {zip} from '../'
 import {
-  isFrozenToArray,
+  testAndToArray,
   oneTwoThree,
   oneTwoThreeFour,
   positiveIntegers,
@@ -10,7 +10,7 @@ import {
 } from './_tools'
 
 test('zip', t => {
-  const processIterable = isFrozenToArray(t)
+  const processIterable = testAndToArray(t)
   const xss = takeThree(zip(positiveIntegers, positiveIntegers))
   t.same(
     processIterable(zip(oneTwoThree)(threeTwoOne)).map(processIterable),

@@ -2,7 +2,7 @@ import test from 'ava'
 import {flatten} from '../'
 import {
   infiniteIterableOfPositiveIntegers,
-  isFrozenToArray,
+  testAndToArray,
   oneTwoThree,
   oneTwoThreeFour,
   positiveIntegers,
@@ -11,7 +11,7 @@ import {
 } from './_tools'
 
 test('flatten', t => {
-  const processIterable = isFrozenToArray(t)
+  const processIterable = testAndToArray(t)
   t.same(
     processIterable(flatten([oneTwoThree, threeTwoOne, oneTwoThreeFour])),
     [...oneTwoThree, ...threeTwoOne, ...oneTwoThreeFour]

@@ -1,4 +1,5 @@
 'use strict'
+
 const curry = f => {
   return function () {
     const xs = [].slice.call(arguments)
@@ -7,8 +8,24 @@ const curry = f => {
       : f.apply(undefined, xs)
   }
 }
-const genToIter = gen => Object.freeze({[Symbol.iterator]: gen})
+
+const toString = module.exports._toString = xs => function imlazyToStringThunk () {
+  const tooLong = [...module.exports.take(11, xs)].length === 11
+  return `(${module.exports.reduce(
+    (str, x) => `${str}${String(x)} `,
+    '',
+    module.exports.take(10, xs)
+  ).slice(0, -1)}${tooLong ? '...' : ''})`
+}
+
+const genToIter = gen => {
+  const xs = {[Symbol.iterator]: gen}
+  Object.defineProperty(xs, 'toString', {value: toString(xs)})
+  return Object.freeze(xs)
+}
+
 const isIterable = a => Boolean(a[Symbol.iterator])
+
 const iterToGenFactory = iterator => {
   const cache = []
   return function * () {
@@ -22,7 +39,9 @@ const iterToGenFactory = iterator => {
     }
   }
 }
+
 const iterToIter = xs => genToIter(function * () { yield * xs })
+
 const sym = Symbol()
 
 /**

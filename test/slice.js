@@ -1,7 +1,7 @@
 import test from 'ava'
 import {slice} from '../'
 import {
-  isFrozenToArray,
+  testAndToArray,
   oneTwoThree,
   oneTwoThreeFour,
   positiveIntegers
@@ -9,7 +9,7 @@ import {
 
 test('slice', t => {
   const sliceFromZero = slice(0)
-  const processIterable = isFrozenToArray(t)
+  const processIterable = testAndToArray(t)
   const twoThree = slice(1)(20)(oneTwoThree)
   t.same(processIterable(sliceFromZero(3)(oneTwoThreeFour)), oneTwoThree)
   t.same(processIterable(slice(1)(2)(oneTwoThree)), [2])

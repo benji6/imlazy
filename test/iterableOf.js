@@ -1,8 +1,8 @@
 import test from 'ava'
 import {iterableOf} from '../'
-import {isFrozenToArray, oneTwoThree} from './_tools'
+import {testAndToArray, oneTwoThree} from './_tools'
 
 test('iterableOf', t => {
-  const processIterable = isFrozenToArray(t)
+  const processIterable = testAndToArray(t)
   t.same(processIterable(iterableOf(1, 2, 3)), oneTwoThree)
 })

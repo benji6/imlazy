@@ -1,13 +1,13 @@
 import test from 'ava'
 import {prepend} from '../'
 import {
-  isFrozenToArray,
+  testAndToArray,
   positiveIntegers,
   takeEight
 } from './_tools'
 
 test('prepend', t => {
-  const processIterable = isFrozenToArray(t)
+  const processIterable = testAndToArray(t)
   t.same(processIterable(prepend(1)([])), [1])
   t.same(
     processIterable(takeEight(prepend(0, positiveIntegers))),

@@ -2,7 +2,7 @@ import test from 'ava'
 import {map} from '../'
 import {
   double,
-  isFrozenToArray,
+  testAndToArray,
   oneTwoThree,
   oneTwoThreeFour,
   positiveIntegers,
@@ -10,7 +10,7 @@ import {
 } from './_tools'
 
 test('take', t => {
-  const processIterable = isFrozenToArray(t)
+  const processIterable = testAndToArray(t)
   t.same(processIterable(takeThree([1])), [1])
   t.same(processIterable(takeThree(oneTwoThreeFour)), oneTwoThree)
   t.same(processIterable(takeThree(positiveIntegers)), oneTwoThree)

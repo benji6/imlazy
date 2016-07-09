@@ -1,10 +1,10 @@
 import test from 'ava'
 import {map, range, take} from '../'
-import {isFrozenToArray, oneTwoThree, threeTwoOne} from './_tools'
+import {testAndToArray, oneTwoThree, threeTwoOne} from './_tools'
 
 test('range', t => {
   const rangeFromThree = range(3)
-  const processIterable = isFrozenToArray(t)
+  const processIterable = testAndToArray(t)
   const positiveIntegers = map(x => x, range(1, Infinity))
   t.same(processIterable(range(1)(1)), [1])
   t.same(processIterable(range(1, 3)), oneTwoThree)

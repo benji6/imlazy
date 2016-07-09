@@ -2,7 +2,7 @@ import test from 'ava'
 import {zipWith} from '../'
 import {
   add,
-  isFrozenToArray,
+  testAndToArray,
   oneTwoThree,
   oneTwoThreeFour,
   positiveIntegers,
@@ -12,7 +12,7 @@ import {
 } from './_tools'
 
 test('zipWith', t => {
-  const processIterable = isFrozenToArray(t)
+  const processIterable = testAndToArray(t)
   const zipWithSubtract = zipWith(subtract)
   const twoFourSix = takeThree(zipWith(add, positiveIntegers, positiveIntegers))
   t.same(

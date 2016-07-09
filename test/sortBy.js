@@ -1,9 +1,9 @@
 import test from 'ava'
 import {sortBy} from '../'
-import {isFrozenToArray} from './_tools'
+import {testAndToArray} from './_tools'
 
 test('sort', t => {
-  const processIterable = isFrozenToArray(t)
+  const processIterable = testAndToArray(t)
   t.same(
     processIterable(sortBy(a => a[0])([[7, 2], [0, 1], [7, 5], [3, 8]])),
     [[0, 1], [3, 8], [7, 2], [7, 5]]

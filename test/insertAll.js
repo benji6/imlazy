@@ -1,14 +1,14 @@
 import test from 'ava'
 import {insertAll} from '../'
 import {
-  isFrozenToArray,
+  testAndToArray,
   negativeIntegers,
   positiveIntegers,
   takeEight
 } from './_tools'
 
 test('insertAll', t => {
-  const processIterable = isFrozenToArray(t)
+  const processIterable = testAndToArray(t)
   t.same(
     processIterable(takeEight(insertAll(2)([20, 21, 22])(positiveIntegers))),
     [1, 2, 20, 21, 22, 3, 4, 5]

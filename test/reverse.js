@@ -1,12 +1,12 @@
 import test from 'ava'
 import {reverse} from '../'
 import {
-  isFrozenToArray,
+  testAndToArray,
   oneTwoThree,
   threeTwoOne
 } from './_tools'
 
 test('reverse', t => {
-  const processIterable = isFrozenToArray(t)
+  const processIterable = testAndToArray(t)
   t.same(processIterable(reverse(oneTwoThree)), threeTwoOne)
 })
