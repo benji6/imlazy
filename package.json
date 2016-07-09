@@ -41,6 +41,7 @@
     "concurrently": "^2.2.0",
     "immutable": "^3.8.1",
     "jsdoc": "^3.4.0",
+    "nodemon": "^1.9.2",
     "ramda": "^0.21.0",
     "standard": "^7.1.2"
   }
