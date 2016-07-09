@@ -677,17 +677,14 @@ module.exports.transpose = xss => genToIter(function * () {
  *                                       //      iterableOf(7, 4)
  *                                       //    )
  */
-module.exports.zip = curry((xs, ys) => {
-  return genToIter(function * () {
-    const iteratorB = ys[Symbol.iterator]()
-    for (const x of xs) {
-      var next = iteratorB.next()
-      var done = next.done
-      var value = next.value
-      if (done) return; else yield iterToIter([x, value])
-    }
-  })
-})
+module.exports.zip = curry((xs, ys) => genToIter(function * () {
+  const iteratorY = ys[Symbol.iterator]()
+  for (const x of xs) {
+    const next = iteratorY.next()
+    const done = next.done
+    if (done) return; else yield iterToIter([x, next.value])
+  }
+}))
 
 /**
  * Returns a new iterable with values as the result of calling the given function with the corresponding element from the first and second given iterables respectively. The length of the returned iterable is the same as the shortest iterable supplied
