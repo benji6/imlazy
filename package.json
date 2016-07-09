@@ -6,9 +6,11 @@
   "scripts": {
     "benchmark": "node benchmark",
     "docs": "jsdoc index.js -d docs",
-    "test": "concurrently standard ava",
+    "spec": "ava",
+    "test": "concurrently standard 'npm run spec'",
     "watch-docs": "nodemon --watch index.js --exec npm run docs",
-    "watch-test": "nodemon --exec npm test"
+    "watch-spec": "nodemon --exec npm run spec",
+    "watch-test": "nodemon --exec npm t"
   },
   "repository": {
     "type": "git",
