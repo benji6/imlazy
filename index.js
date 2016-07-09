@@ -195,6 +195,9 @@ module.exports.flatten = xs => genToIter(function * recur (ys) {
  * @param {Iterable} xs
  * @return {Any}
  * @example head(range(1, Infinity)) // => 1
+ * @see init
+ * @see last
+ * @see tail
  */
 module.exports.head = xs => xs[Symbol.iterator]().next().value
 
@@ -203,6 +206,9 @@ module.exports.head = xs => xs[Symbol.iterator]().next().value
  * @param {Iterable} xs
  * @return {Iterable}
  * @example init(range(1, 5)) // => iterableOf(1, 2, 3, 4)
+ * @see head
+ * @see last
+ * @see tail
  */
 module.exports.init = xs => genToIter(function * () {
   let last = sym
@@ -317,6 +323,9 @@ module.exports.iterate = curry((f, a) => genToIter(function * () {
  * @param {Iterable} xs
  * @return {Any}
  * @example last([1, 2, 3]) // => 3
+ * @see head
+ * @see init
+ * @see tail
  */
 module.exports.last = xs => [...xs].pop()
 
@@ -588,6 +597,9 @@ module.exports.sum = xs => {
  * @param {Iterable} xs
  * @return {Iterable}
  * @example tail(range(1, Infinity)) // => iterableOf(2, 3, 4, 5, 6, 7, 8, 9, ...)
+ * @see head
+ * @see init
+ * @see last
  */
 module.exports.tail = xs => {
   const iterator = xs[Symbol.iterator]()
