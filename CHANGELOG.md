@@ -1,5 +1,9 @@
 # Release Notes
 
+## 4.0.x
+
+Override default `toString` method with custom behaviour for iterables returned from imlazy
+
 ## 3.0.x
 
 Rename `makeCircular` to `cycle` for consistency with Haskell and Clojure
