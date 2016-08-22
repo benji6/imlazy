@@ -1,13 +1,13 @@
 import test from 'ava'
 import {append} from '../'
 import {
-  isFrozenToArray,
+  testAndToArray,
   oneTwoThree,
   oneTwoThreeFour
 } from './_tools'
 
 test('append', t => {
-  const processIterable = isFrozenToArray(t)
-  t.same(processIterable(append(4)([])), [4])
-  t.same(processIterable(append(4, oneTwoThree)), oneTwoThreeFour)
+  const processIterable = testAndToArray(t)
+  t.deepEqual(processIterable(append(4)([])), [4])
+  t.deepEqual(processIterable(append(4, oneTwoThree)), oneTwoThreeFour)
 })

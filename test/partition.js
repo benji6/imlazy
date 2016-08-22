@@ -2,17 +2,17 @@ import test from 'ava'
 import {partition} from '../'
 import {
   isEven,
-  isFrozenToArray,
+  testAndToArray,
   oneTwoThreeFour
 } from './_tools'
 
 test('partition', t => {
-  const processIterable = isFrozenToArray(t)
-  t.same(
+  const processIterable = testAndToArray(t)
+  t.deepEqual(
     processIterable(partition(isEven)(oneTwoThreeFour)).map(processIterable),
     [[2, 4], [1, 3]]
   )
-  t.same(
+  t.deepEqual(
     processIterable(partition(isEven, oneTwoThreeFour)).map(processIterable),
     [[2, 4], [1, 3]]
   )

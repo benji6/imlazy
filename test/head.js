@@ -3,7 +3,7 @@ import {head} from '../'
 import {positiveIntegers, oneTwoThree} from './_tools'
 
 test('head', t => {
-  t.same(head([]), undefined)
-  t.same(head(positiveIntegers), 1)
-  t.same(head(oneTwoThree), 1)
+  t.deepEqual(head([]), undefined)
+  t.deepEqual(head(positiveIntegers), 1)
+  t.deepEqual(head(oneTwoThree), 1)
 })

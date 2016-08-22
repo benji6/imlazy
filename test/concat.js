@@ -1,7 +1,7 @@
 import test from 'ava'
 import {concat} from '../'
 import {
-  isFrozenToArray,
+  testAndToArray,
   negativeIntegers,
   oneTwoThree,
   takeEight,
@@ -10,20 +10,20 @@ import {
 
 test('concat', t => {
   const concatOneTwoThree = concat(oneTwoThree)
-  const processIterable = isFrozenToArray(t)
+  const processIterable = testAndToArray(t)
   const oneTwoThreeThreeTwoOne = concatOneTwoThree(threeTwoOne)
-  t.same(processIterable(oneTwoThreeThreeTwoOne), [1, 2, 3, 3, 2, 1])
-  t.same(processIterable(oneTwoThreeThreeTwoOne), [1, 2, 3, 3, 2, 1])
-  t.same(processIterable(oneTwoThreeThreeTwoOne), [1, 2, 3, 3, 2, 1])
-  t.same(
+  t.deepEqual(processIterable(oneTwoThreeThreeTwoOne), [1, 2, 3, 3, 2, 1])
+  t.deepEqual(processIterable(oneTwoThreeThreeTwoOne), [1, 2, 3, 3, 2, 1])
+  t.deepEqual(processIterable(oneTwoThreeThreeTwoOne), [1, 2, 3, 3, 2, 1])
+  t.deepEqual(
     processIterable(takeEight(concatOneTwoThree(negativeIntegers))),
     [1, 2, 3, -1, -2, -3, -4, -5]
   )
-  t.same(
+  t.deepEqual(
     processIterable(takeEight(concat(negativeIntegers)(oneTwoThree))),
     [-1, -2, -3, -4, -5, -6, -7, -8]
   )
-  t.same(
+  t.deepEqual(
     processIterable(takeEight(concat(negativeIntegers, negativeIntegers))),
     [-1, -2, -3, -4, -5, -6, -7, -8]
   )

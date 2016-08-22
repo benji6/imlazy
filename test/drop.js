@@ -1,7 +1,7 @@
 import test from 'ava'
 import {drop} from '../'
 import {
-  isFrozenToArray,
+  testAndToArray,
   oneTwoThree,
   oneTwoThreeFour,
   positiveIntegers,
@@ -9,16 +9,16 @@ import {
 } from './_tools'
 
 test('drop', t => {
-  const processIterable = isFrozenToArray(t)
+  const processIterable = testAndToArray(t)
   const dropOne = drop(1)
-  t.same(processIterable(dropOne(oneTwoThreeFour)), [2, 3, 4])
-  t.same(processIterable(dropOne(oneTwoThreeFour)), [2, 3, 4])
+  t.deepEqual(processIterable(dropOne(oneTwoThreeFour)), [2, 3, 4])
+  t.deepEqual(processIterable(dropOne(oneTwoThreeFour)), [2, 3, 4])
   const twoThreeFour = dropOne(oneTwoThreeFour)
-  t.same(processIterable(twoThreeFour), [2, 3, 4])
-  t.same(processIterable(twoThreeFour), [2, 3, 4])
-  t.same(processIterable(twoThreeFour), [2, 3, 4])
-  t.same(processIterable(takeThree(dropOne(positiveIntegers))), [2, 3, 4])
-  t.same(processIterable(takeThree(dropOne(positiveIntegers))), [2, 3, 4])
-  t.same(processIterable(drop(3)(oneTwoThreeFour)), [4])
-  t.same(processIterable(drop(30, oneTwoThree)), [])
+  t.deepEqual(processIterable(twoThreeFour), [2, 3, 4])
+  t.deepEqual(processIterable(twoThreeFour), [2, 3, 4])
+  t.deepEqual(processIterable(twoThreeFour), [2, 3, 4])
+  t.deepEqual(processIterable(takeThree(dropOne(positiveIntegers))), [2, 3, 4])
+  t.deepEqual(processIterable(takeThree(dropOne(positiveIntegers))), [2, 3, 4])
+  t.deepEqual(processIterable(drop(3)(oneTwoThreeFour)), [4])
+  t.deepEqual(processIterable(drop(30, oneTwoThree)), [])
 })

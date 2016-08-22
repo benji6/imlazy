@@ -1,20 +1,20 @@
 import test from 'ava'
 import {tail} from '../'
-import {isFrozenToArray, positiveIntegers, takeEight} from './_tools'
+import {testAndToArray, positiveIntegers, takeEight} from './_tools'
 
 test('tail', t => {
-  const processIterable = isFrozenToArray(t)
-  t.same(processIterable(tail([])), [])
+  const processIterable = testAndToArray(t)
+  t.deepEqual(processIterable(tail([])), [])
   const tailPositiveIntegers = tail(positiveIntegers)
-  t.same(
+  t.deepEqual(
     processIterable(takeEight(tailPositiveIntegers)),
     [2, 3, 4, 5, 6, 7, 8, 9]
   )
-  t.same(
+  t.deepEqual(
     processIterable(takeEight(tailPositiveIntegers)),
     [2, 3, 4, 5, 6, 7, 8, 9]
   )
-  t.same(
+  t.deepEqual(
     processIterable(takeEight(tailPositiveIntegers)),
     [2, 3, 4, 5, 6, 7, 8, 9]
   )

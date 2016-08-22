@@ -2,7 +2,7 @@ import test from 'ava'
 import {flatten} from '../'
 import {
   infiniteIterableOfPositiveIntegers,
-  isFrozenToArray,
+  testAndToArray,
   oneTwoThree,
   oneTwoThreeFour,
   positiveIntegers,
@@ -11,24 +11,24 @@ import {
 } from './_tools'
 
 test('flatten', t => {
-  const processIterable = isFrozenToArray(t)
-  t.same(
+  const processIterable = testAndToArray(t)
+  t.deepEqual(
     processIterable(flatten([oneTwoThree, threeTwoOne, oneTwoThreeFour])),
     [...oneTwoThree, ...threeTwoOne, ...oneTwoThreeFour]
   )
-  t.same(
+  t.deepEqual(
     processIterable(flatten([1, oneTwoThree, threeTwoOne, oneTwoThreeFour])),
     [1, ...oneTwoThree, ...threeTwoOne, ...oneTwoThreeFour]
   )
-  t.same(
+  t.deepEqual(
     processIterable(flatten([1, [[[[oneTwoThree]]]], threeTwoOne, oneTwoThreeFour])),
     [1, ...oneTwoThree, ...threeTwoOne, ...oneTwoThreeFour]
   )
-  t.same(
+  t.deepEqual(
     processIterable(takeEight(flatten([oneTwoThree, positiveIntegers]))),
     [...oneTwoThree, ...oneTwoThreeFour, 5]
   )
-  t.same(
+  t.deepEqual(
     processIterable(takeEight(flatten(infiniteIterableOfPositiveIntegers))),
     [1, 2, 3, 4, 5, 6, 7, 8]
   )
