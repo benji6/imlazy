@@ -9,15 +9,15 @@ import {
 
 test('takeWhile', t => {
   const processIterable = testAndToArray(t)
-  t.same(
+  t.deepEqual(
     processIterable(takeWhile(a => a !== 5)(oneTwoThreeFour)),
     oneTwoThreeFour
   )
-  t.same(
+  t.deepEqual(
     processIterable(takeWhile(a => a !== 4)(oneTwoThreeFour)),
     oneTwoThree
   )
-  t.same(
+  t.deepEqual(
     processIterable(takeWhile(a => a !== 4, positiveIntegers)),
     oneTwoThree
   )

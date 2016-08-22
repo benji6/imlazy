@@ -8,6 +8,6 @@ import {
 
 test('append', t => {
   const processIterable = testAndToArray(t)
-  t.same(processIterable(append(4)([])), [4])
-  t.same(processIterable(append(4, oneTwoThree)), oneTwoThreeFour)
+  t.deepEqual(processIterable(append(4)([])), [4])
+  t.deepEqual(processIterable(append(4, oneTwoThree)), oneTwoThreeFour)
 })

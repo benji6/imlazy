@@ -3,5 +3,5 @@ import {length} from '../'
 import {oneTwoThree} from './_tools'
 
 test('length', t => {
-  t.same(length(oneTwoThree), 3)
+  t.deepEqual(length(oneTwoThree), 3)
 })

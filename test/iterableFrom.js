@@ -4,5 +4,5 @@ import {testAndToArray, oneTwoThree} from './_tools'
 
 test('iterableFrom', t => {
   const processIterable = testAndToArray(t)
-  t.same(processIterable(iterableFrom(oneTwoThree)), oneTwoThree)
+  t.deepEqual(processIterable(iterableFrom(oneTwoThree)), oneTwoThree)
 })

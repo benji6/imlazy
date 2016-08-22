@@ -8,8 +8,8 @@ import {
 test('filter', t => {
   const processIterable = testAndToArray(t)
   const anotherOneTwoThree = filter(x => x <= 3, range(1, 100))
-  t.same(processIterable(filter(x => x <= 3)(range(1, 100))), oneTwoThree)
-  t.same(processIterable(anotherOneTwoThree), oneTwoThree)
-  t.same(processIterable(anotherOneTwoThree), oneTwoThree)
-  t.same(processIterable(anotherOneTwoThree), oneTwoThree)
+  t.deepEqual(processIterable(filter(x => x <= 3)(range(1, 100))), oneTwoThree)
+  t.deepEqual(processIterable(anotherOneTwoThree), oneTwoThree)
+  t.deepEqual(processIterable(anotherOneTwoThree), oneTwoThree)
+  t.deepEqual(processIterable(anotherOneTwoThree), oneTwoThree)
 })

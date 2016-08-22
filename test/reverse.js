@@ -8,5 +8,5 @@ import {
 
 test('reverse', t => {
   const processIterable = testAndToArray(t)
-  t.same(processIterable(reverse(oneTwoThree)), threeTwoOne)
+  t.deepEqual(processIterable(reverse(oneTwoThree)), threeTwoOne)
 })

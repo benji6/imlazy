@@ -8,11 +8,11 @@ import {
 
 test('sort', t => {
   const processIterable = testAndToArray(t)
-  t.same(
+  t.deepEqual(
     processIterable(sort((a, b) => a > b)(oneTwoThreeFour)),
     oneTwoThreeFour
   )
-  t.same(
+  t.deepEqual(
     processIterable(sort((a, b) => a < b, oneTwoThreeFour)),
     fourThreeTwoOne
   )

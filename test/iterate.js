@@ -8,11 +8,11 @@ import {
 
 test('iterate', t => {
   const processIterable = testAndToArray(t)
-  t.same(
+  t.deepEqual(
     processIterable(takeEight(iterate(double)(1))),
     [1, 2, 4, 8, 16, 32, 64, 128]
   )
-  t.same(
+  t.deepEqual(
     processIterable(takeEight(iterate(double, 1))),
     [1, 2, 4, 8, 16, 32, 64, 128]
   )

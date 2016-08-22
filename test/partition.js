@@ -8,11 +8,11 @@ import {
 
 test('partition', t => {
   const processIterable = testAndToArray(t)
-  t.same(
+  t.deepEqual(
     processIterable(partition(isEven)(oneTwoThreeFour)).map(processIterable),
     [[2, 4], [1, 3]]
   )
-  t.same(
+  t.deepEqual(
     processIterable(partition(isEven, oneTwoThreeFour)).map(processIterable),
     [[2, 4], [1, 3]]
   )

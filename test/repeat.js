@@ -9,7 +9,7 @@ import {
 test('repeat', t => {
   const processIterable = testAndToArray(t)
   const repeatFive = repeat(5)
-  t.same(processIterable(takeThree(repeatFive)), fiveFiveFive)
-  t.same(processIterable(takeThree(repeatFive)), fiveFiveFive)
-  t.same(processIterable(takeThree(repeat(5))), fiveFiveFive)
+  t.deepEqual(processIterable(takeThree(repeatFive)), fiveFiveFive)
+  t.deepEqual(processIterable(takeThree(repeatFive)), fiveFiveFive)
+  t.deepEqual(processIterable(takeThree(repeat(5))), fiveFiveFive)
 })
