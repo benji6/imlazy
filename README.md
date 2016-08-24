@@ -66,8 +66,8 @@ import {cycle, filter, range, reduce, sum, take} from 'imlazy'
 const takeEight = take(8)
 const isEven = x => x % 2 === 0
 
-const positiveIntegers = range(1, Infinity) // => (1 2 3 4 5 6 7 8...)
-const positiveEvenIntegers = filter(isEven, positiveIntegers) // => (2 4 6 8...)
+const positiveIntegers = range(1, Infinity) // => (1 2 3 4 5 6 7 8 9 10...)
+const positiveEvenIntegers = filter(isEven, positiveIntegers) // => (2 4 6 8 10 12 14 16 18 20...)
 const twoFourSix = take(3, positiveEvenIntegers) // => (2 4 6)
 sum(twoFourSix) // => 12
 
@@ -76,7 +76,7 @@ sum(twoFourSix) // => 12
 [...twoFourSix] // => [2, 4, 6]
 
 const oneTwoThree = range(1, 3) // => (1 2 3)
-const circularOneTwoThree = cycle(oneTwoThree) // => (1 2 3 1 2 3 1 2 3...)
+const circularOneTwoThree = cycle(oneTwoThree) // => (1 2 3 1 2 3 1 2 3 1...)
 takeEight(circularOneTwoThree) // => (1 2 3 1 2 3 1 2)
 
 const fibonacciGenerator = function* () {
