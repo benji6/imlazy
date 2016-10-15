@@ -101,12 +101,12 @@ In fact anything that has a [Symbol.iterator] property can be processed by this 
 There is a benchmark in the root of this repo comparing imlazy with Ramda and native array methods. The `infiniteIterable` benchmarks map, filter and take over an infinite iterable and the `array` benchmarks map and filter over an array
 
 ```bash
-infiniteIterable - imlazy x 76.36 ops/sec ±1.50% (66 runs sampled)
-infiniteIterable - ramdaTransducer x 3,462 ops/sec ±0.64% (92 runs sampled)
-array - imlazy x 945 ops/sec ±0.86% (88 runs sampled)
-array - ramdaTransducer x 32,370 ops/sec ±0.69% (92 runs sampled)
-array - native x 947 ops/sec ±0.42% (91 runs sampled)
-array - ramda x 28,812 ops/sec ±0.52% (93 runs sampled)
+infiniteIterable - imlazy x 176 ops/sec ±2.60% (71 runs sampled)
+infiniteIterable - ramdaTransducer x 1,137 ops/sec ±5.70% (72 runs sampled)
+array - imlazy x 1,803 ops/sec ±3.35% (80 runs sampled)
+array - ramdaTransducer x 20,539 ops/sec ±2.89% (82 runs sampled)
+array - native x 4,152 ops/sec ±4.54% (81 runs sampled)
+array - ramda x 28,174 ops/sec ±3.58% (83 runs sampled)
 ```
 
 Ramda's transducers are significantly faster than imlazy over both infinite iterables and arrays

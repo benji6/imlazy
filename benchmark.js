@@ -12,47 +12,53 @@ const testInfiniteIterable = {[Symbol.iterator]: function * () {
 }}
 
 const add10 = x => x + 10
+const triple = x => 3 * x
 const divisibleBy5 = x => x % 5 === 0
 const isEven = x => x % 2 === 0
-const triple = x => 3 * x
 
-const imLazyTransform = R.compose(
-  I.filter(isEven),
-  I.filter(divisibleBy5),
-  I.map(triple),
-  I.map(add10)
-)
+const imlazyArrayBenchmark = data => Array.from(I.filter(isEven,
+                                                         I.filter(divisibleBy5,
+                                                                  I.map(triple,
+                                                                        I.map(add10, data)))))
 
-const ramdaTransform = R.compose(
-  R.filter(isEven),
-  R.filter(divisibleBy5),
-  R.map(triple),
-  R.map(add10)
-)
-
-const imlazyArrayBenchmark = data => Array.from(imLazyTransform(data))
-
-const nativeArrayBenchmark = data => data
+const nativeBenchmark = data => data
   .map(add10)
   .map(triple)
   .filter(divisibleBy5)
   .filter(isEven)
 
-const ramdaArrayBenchmark = ramdaTransform
+const ramdaBenchmark = data => R.filter(isEven,
+                                        R.filter(divisibleBy5,
+                                                 R.map(triple,
+                                                       R.map(add10, data))))
 
-const ramdaTransducerArrayBenchmark = R.into([], ramdaTransform)
+const ramdaTransducerArrayBenchmark = R.into([], R.compose(
+  R.map(add10),
+  R.map(triple),
+  R.filter(divisibleBy5),
+  R.filter(isEven)
+))
 
-const ramdaTransducerInfiniteBenchmark = R.into([], R.compose(R.take(length), ramdaTransform))
+const ramdaTransducerInfiniteBenchmark = R.into([], R.compose(
+  R.map(add10),
+  R.map(triple),
+  R.filter(divisibleBy5),
+  R.filter(isEven),
+  R.take(length)
+))
 
-const imlazyInfiniteBenchmark = data => Array.from(I.take(length, imLazyTransform(data)))
+const imlazyInfiniteBenchmark = data => Array.from(I.take(
+  length,
+  I.filter(isEven, I.filter(divisibleBy5, I.map(triple, I.map(add10, data))))
+))
 
 new Benchmark.Suite()
   .add('infiniteIterable - imlazy', function () { imlazyInfiniteBenchmark(testInfiniteIterable) })
   .add('infiniteIterable - ramdaTransducer', function () { ramdaTransducerInfiniteBenchmark(testInfiniteIterable) })
   .add('array - imlazy', function () { imlazyArrayBenchmark(testArray) })
   .add('array - ramdaTransducer', function () { ramdaTransducerArrayBenchmark(testArray) })
-  .add('array - native', function () { nativeArrayBenchmark(testArray) })
-  .add('array - ramda', function () { ramdaArrayBenchmark(testArray) })
+  .add('array - native', function () { nativeBenchmark(testArray) })
+  .add('array - ramda', function () { ramdaBenchmark(testArray) })
   .on('cycle', x => process.stdout.write(`${String(x.target)}\n`))
   .on('complete', function () {
     process.stdout.write(`Fastest is ${this.filter('fastest').map('name')}\n`)
