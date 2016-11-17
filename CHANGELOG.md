@@ -1,5 +1,9 @@
 # Release Notes
 
+## 5.0.x
+
+Drop support for node 5 in favor of node 6
+
 ## 4.0.x
 
 Override default `toString` method with custom behaviour for iterables returned from imlazy

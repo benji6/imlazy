@@ -41,7 +41,7 @@ All functions exposed by imlazy are curried and data-last which makes them ideal
 npm i -S imlazy
 ```
 
-***N.B. imlazy is written in the node 5 subset of ES2015. If you want to run this code in an environment that doesn't support at least this subset I'm afraid you are on your own as I haven't found a satisfactory solution to this problem***
+***N.B. imlazy is written in ES2015. It runs fine in node 6 but will not run in a non ES2015 environment***
 
 ## Getting Started
 
