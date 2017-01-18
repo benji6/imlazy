@@ -4,6 +4,17 @@ const range = require('../').range
 const repeat = require('../').repeat
 const take = require('../').take
 
+const spreadUpTo1024 = xs => {
+  const ys = []
+  for (const x of xs) {
+    ys.push(x)
+    if (ys.length === 1024) return ys
+  }
+  return ys
+}
+
+const deepToArray = iter => spreadUpTo1024(iter).map(x => x[Symbol.iterator] ? spreadUpTo1024(x) : x)
+
 module.exports.add = (a, b) => a + b
 module.exports.oneTwoThree = Object.freeze([1, 2, 3])
 module.exports.oneTwoThreeFour = Object.freeze([1, 2, 3, 4])
@@ -25,7 +36,7 @@ module.exports.isEven = x => x % 2 === 0
 module.exports.testAndToArray = t => iter => {
   t.throws(_ => { iter.a = 1 })
   t.is(iter.toString.name, 'imlazyToStringThunk')
-  t.deepEqual([...iter], [...iter])
+  t.deepEqual(deepToArray(iter), deepToArray(iter))
   return [...iter]
 }
 module.exports.negativeIntegers = range(-1)(-Infinity)
