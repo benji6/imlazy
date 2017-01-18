@@ -16,7 +16,7 @@ Iterables returned by imlazy are of the form:
 
 ```javascript
 
-const someIterable = Object.freeze({[Symbol.Iterator]: function* () {
+const someIterable = Object.freeze({[Symbol.iterator]: function* () {
   // do some stuff
 }});
 
