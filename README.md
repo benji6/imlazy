@@ -14,8 +14,7 @@ imlazy can be used to create iterables, "transform" them (returning new iterable
 
 Iterables returned by imlazy are of the form:
 
-```javascript
-
+```js
 const someIterable = Object.freeze({[Symbol.iterator]: function* () {
   // do some stuff
 }});
@@ -26,11 +25,9 @@ Therefore they are lazy and immutable
 
 If you want to turn them into arrays or feed them into a function etc then just spread them (don't spread anything infinite or circular!):
 
-```javascript
-
+```js
 const someArray = [...someIterable];
 const someReturnedValue = someFunction(...someIterable);
-
 ```
 
 All functions exposed by imlazy are curried and data-last which makes them ideal for partial application and functional programming
@@ -49,7 +46,7 @@ npm i -S imlazy
 
 imlazy implements a custom `toString` method for the iterables it returns which is useful for debugging. Just invoke `String` on an iterable returned by one of imlazy's functions, for instance:
 
-```javascript
+```js
 String(range(1, 8)) // => (1 2 3 4 5 6 7 8)
 String(range(1, Infinity)) // => (1 2 3 4 5 6 7 8 9 10...)
 ```
@@ -58,8 +55,7 @@ The custom `toString` method can handle infinite iterables (in which case it lis
 
 ### Code Examples
 
-```javascript
-
+```js
 import {cycle, filter, range, reduce, sum, take} from 'imlazy'
 
 // all functions are autocurried for partial application
@@ -85,7 +81,6 @@ const fibonacciGenerator = function* () {
 }
 
 takeEight(fibonacciGenerator()) // => (1 1 2 3 5 8 13 21)
-
 ```
 
 ## [Click Here for Documentation](http://benji6.github.io/imlazy/docs/)
