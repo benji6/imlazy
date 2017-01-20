@@ -87,9 +87,20 @@ takeEight(fibonacciGenerator()) // => (1 1 2 3 5 8 13 21)
 
 ## Interoperability
 
+### Symbol.iterator
+
 This library works with all native iterable types including the Generator, String, Array, TypedArray, Map and Set types
 
-In fact anything that has a [Symbol.iterator] property can be processed by this library and that includes custom data structures. For instance, the functions in this library can be used to process [immutable-js](https://github.com/facebook/immutable-js) iterables
+In fact anything that has a `Symbol.iterator` property can be processed by this library and that includes custom data structures like iterables from [immutable-js](https://github.com/facebook/immutable-js)
+
+### Static Land
+
+<a href="https://github.com/rpominov/static-land"><img width="131" height="82" src="https://raw.githubusercontent.com/rpominov/static-land/master/logo/logo.png" /></a>
+
+This library implements the following [Static Land](https://github.com/rpominov/static-land) algebraic types:
+  - `Functor`
+  - `Foldable`
+  - `Semigroup`
 
 ## Performance
 
