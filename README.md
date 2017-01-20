@@ -100,18 +100,20 @@ In fact anything that has a [Symbol.iterator] property can be processed by this 
 
 There is a benchmark in the root of this repo comparing imlazy with Ramda and native array methods. The `infiniteIterable` benchmarks map, filter and take over an infinite iterable and the `array` benchmarks map and filter over an array
 
+These are the results on my machine when using node v7.4.0:
+
 ```bash
-infiniteIterable - imlazy x 176 ops/sec ±2.60% (71 runs sampled)
-infiniteIterable - ramdaTransducer x 1,137 ops/sec ±5.70% (72 runs sampled)
-array - imlazy x 1,803 ops/sec ±3.35% (80 runs sampled)
-array - ramdaTransducer x 20,539 ops/sec ±2.89% (82 runs sampled)
-array - native x 4,152 ops/sec ±4.54% (81 runs sampled)
-array - ramda x 28,174 ops/sec ±3.58% (83 runs sampled)
+infiniteIterable - imlazy x 113 ops/sec ±0.20% (80 runs sampled)
+infiniteIterable - ramdaTransducer x 555 ops/sec ±0.93% (91 runs sampled)
+array - imlazy x 1,263 ops/sec ±1.01% (91 runs sampled)
+array - ramdaTransducer x 20,968 ops/sec ±1.10% (93 runs sampled)
+array - native x 3,764 ops/sec ±0.46% (95 runs sampled)
+array - ramda x 29,460 ops/sec ±0.56% (94 runs sampled)
 ```
 
 Ramda's transducers are significantly faster than imlazy over both infinite iterables and arrays
 
-It will be interesting to see whether performance will improve with future iterations of the v8 engine
+The [six-speed](https://github.com/kpdecker/six-speed) test results suggest that performance could be significantly improved in future iterations of the V8 engine
 
 ## Project Scope
 
