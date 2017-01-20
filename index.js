@@ -131,6 +131,13 @@ module.exports.dropWhile = curry((f, xs) => {
 })
 
 /**
+ * Returns an empty iterable
+ * @return {Iterable}
+ * @example empty() // => ()
+ */
+module.exports.empty = () => genToIter(function * () {})
+
+/**
  * Applies the given function to each value in the given iterable until that function returns falsy, in which case false is returned. If the iterable is completely traversed and falsy is never returned by the given function then true is returned
  * @param {Function} f
  * @param {Iterable} xs

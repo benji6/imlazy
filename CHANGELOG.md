@@ -1,5 +1,9 @@
 # Release Notes
 
+## Unreleased
+
+Added `empty`
+
 ## 5.0.x
 
 Drop support for node 5 in favor of node 6

@@ -100,7 +100,7 @@ In fact anything that has a `Symbol.iterator` property can be processed by this 
 This library implements the following [Static Land](https://github.com/rpominov/static-land) algebraic types:
   - `Functor`
   - `Foldable`
-  - `Semigroup`
+  - `Semigroup` `Monoid`
 
 ## Performance
 
