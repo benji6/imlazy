@@ -56,7 +56,7 @@ The custom `toString` method can handle infinite iterables (in which case it lis
 ### Code Examples
 
 ```js
-import {cycle, filter, range, reduce, sum, take} from 'imlazy'
+const {cycle, filter, range, reduce, sum, take} = require('imlazy')
 
 // all functions are autocurried for partial application
 const takeEight = take(8)
