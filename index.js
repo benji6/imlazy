@@ -54,6 +54,18 @@ module.exports.adjust = curry((f, a, xs) => genToIter(function * () {
 }))
 
 /**
+ * Applies an iterable of functions to an iterable of values
+ * @param {Iterable} fs
+ * @param {Iterable} xs
+ * @return {Iterable}
+ * @example
+ * ap(iterableOf(x => x * 2, x => x + 3), oneTwoThree) // => (2 4 6 4 5 6)
+ */
+module.exports.ap = curry((fs, xs) => genToIter(function * () {
+  for (const f of fs) for (const x of xs) yield f(x)
+}))
+
+/**
  * Returns a new iterable of the given iterable followed by the given value
  * @param {Any} value
  * @param {Iterable} xs
