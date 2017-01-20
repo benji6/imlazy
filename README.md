@@ -98,9 +98,12 @@ In fact anything that has a `Symbol.iterator` property can be processed by this 
 <a href="https://github.com/rpominov/static-land"><img width="131" height="82" src="https://raw.githubusercontent.com/rpominov/static-land/master/logo/logo.png" /></a>
 
 This library implements the following [Static Land](https://github.com/rpominov/static-land) algebraic types:
-  - `Functor` `Apply`
-  - `Foldable`
-  - `Semigroup` `Monoid`
+- `Functor`
+  - `Apply`
+    - `Applicative`
+- `Foldable`
+- `Semigroup`
+  - `Monoid`
 
 ## Performance
 

@@ -2,8 +2,14 @@
 
 ## Unreleased
 
-Added `ap`
-Added `empty`
+### Added
+
+- `ap`
+- `empty`
+
+### Changed
+
+- Renamed `iterableOf` to `of`
 
 ## 5.0.x
 

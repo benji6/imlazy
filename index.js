@@ -59,7 +59,7 @@ module.exports.adjust = curry((f, a, xs) => genToIter(function * () {
  * @param {Iterable} xs
  * @return {Iterable}
  * @example
- * ap(iterableOf(x => x * 2, x => x + 3), oneTwoThree) // => (2 4 6 4 5 6)
+ * ap(of(x => x * 2, x => x + 3), oneTwoThree) // => (2 4 6 4 5 6)
  */
 module.exports.ap = curry((fs, xs) => genToIter(function * () {
   for (const f of fs) for (const x of xs) yield f(x)
@@ -312,14 +312,6 @@ module.exports.isEmpty = xs => xs[Symbol.iterator]().next().done
 module.exports.iterableFrom = iterToIter
 
 /**
- * Returns an iterable of the arguments passed
- * @param {Any} ...values
- * @return {Iterable}
- * @example [...interableOf(1, 2, 3)] // => [1, 2, 3]
- */
-module.exports.iterableOf = (...xs) => iterToIter(xs)
-
-/**
  * Returns an infinite iterable with the first value as the given initial value and all other values defined by applying the given function to the previous value
  * @param {f} function
  * @param {Any} initialValue
@@ -386,6 +378,14 @@ module.exports.nth = curry((a, xs) => {
   let i = a
   for (const x of xs) if (i-- <= 0) return x
 })
+
+/**
+ * Returns an iterable of the arguments passed
+ * @param {Any} ...values
+ * @return {Iterable}
+ * @example [...interableOf(1, 2, 3)] // => [1, 2, 3]
+ */
+module.exports.of = (...xs) => iterToIter(xs)
 
 /**
  * Returns an iterable of two iterables, the first iterable contains every value from the given iterable where the given function returns truthy and the second iterable contains every value from the given iterable where the given function returns falsy
@@ -586,7 +586,7 @@ module.exports.splitEvery = curry((a, xs) => genToIter(function * () {
  * @param {Iterable} xs
  * @return {Number}
  * @example
- * sum(iterableOf(1, 2, 3)) // => 6
+ * sum(of(1, 2, 3)) // => 6
  */
 module.exports.sum = xs => {
   let total = 0
