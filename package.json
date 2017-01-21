@@ -1,7 +1,7 @@
 {
   "name": "imlazy",
   "version": "6.0.0",
-  "description": "Functional, declarative, immutable and lazy as you like",
+  "description": "Functional programming with lazy immutable iterables",
   "main": "index.js",
   "scripts": {
     "benchmark": "node benchmark",

@@ -4,7 +4,7 @@
 [![Build Status](https://travis-ci.org/benji6/imlazy.svg?branch=master)](https://travis-ci.org/benji6/imlazy)
 [![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](http://standardjs.com/)
 
-###### Functional, declarative, immutable and lazy as you like
+###### Functional programming with lazy immutable iterables
 
 ## What is this?
 
