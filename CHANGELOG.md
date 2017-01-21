@@ -1,16 +1,14 @@
 # Release Notes
 
-## Unreleased
+## 6.0.x
 
-### Added
+changed:
+- Renamed `iterableOf` to `of`
 
+added:
 - `ap`
 - `chain`
 - `empty`
-
-### Changed
-
-- Renamed `iterableOf` to `of`
 
 ## 5.0.x
 
