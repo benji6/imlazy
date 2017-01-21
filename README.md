@@ -101,6 +101,8 @@ This library implements the following [Static Land](https://github.com/rpominov/
 - `Functor`
   - `Apply`
     - `Applicative`
+    - `Chain`
+      - `Monad`
 - `Foldable`
 - `Semigroup`
   - `Monoid`

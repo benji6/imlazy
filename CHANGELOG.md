@@ -5,6 +5,7 @@
 ### Added
 
 - `ap`
+- `chain`
 - `empty`
 
 ### Changed

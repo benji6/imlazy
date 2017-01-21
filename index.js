@@ -345,6 +345,16 @@ module.exports.last = xs => [...xs].pop()
 module.exports.length = xs => [...xs].length
 
 /**
+ * Maps a function over a list and concatenates the results
+ * @param {Iterable} xs
+ * @return {Iterable}
+ * @example chain(x => of(x, x), oneTwoThree) // => (1 1 2 2 3 3)
+ */
+module.exports.chain = curry((f, xs) => genToIter(function * () {
+  for (const x of xs) yield * f(x)
+}))
+
+/**
  * Returns a new iterable by infinitely repeating the given iterable
  * @param {Iterable} xs
  * @return {Iterable}
