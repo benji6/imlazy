@@ -2,13 +2,13 @@ import test from 'ava'
 import {empty, equals, map} from '../'
 import {oneTwoThree, oneTwoThreeFour} from './_tools'
 
-const nestedOneTwoThree = map(x => oneTwoThree, oneTwoThree)
+const nestedOneTwoThree = map(() => oneTwoThree, oneTwoThree)
 
 test('equals', t => {
   t.false(equals([1], empty()))
   t.false(equals(oneTwoThree, empty()))
   t.false(equals(oneTwoThree, [1, 2]))
-  t.false(equals(nestedOneTwoThree, map(x => oneTwoThreeFour, oneTwoThree)))
+  t.false(equals(nestedOneTwoThree, map(() => oneTwoThreeFour, oneTwoThree)))
   t.false(equals([() => {}], [() => {}]))
   t.false(equals([1, [2, {a: 5, b: 6}]], [1, [2, {a: 5}]]))
 

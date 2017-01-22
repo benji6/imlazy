@@ -3,7 +3,7 @@ import {partition} from '../'
 import {
   isEven,
   testAndToArray,
-  oneTwoThreeFour
+  oneTwoThreeFour,
 } from './_tools'
 
 test('partition', t => {

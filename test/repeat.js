@@ -3,7 +3,7 @@ import {repeat} from '../'
 import {
   fiveFiveFive,
   testAndToArray,
-  takeThree
+  takeThree,
 } from './_tools'
 
 test('repeat', t => {

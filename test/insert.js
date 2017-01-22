@@ -3,7 +3,7 @@ import {insert} from '../'
 import {
   testAndToArray,
   positiveIntegers,
-  takeEight
+  takeEight,
 } from './_tools'
 
 test('insert', t => {

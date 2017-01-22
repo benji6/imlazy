@@ -4,7 +4,7 @@ import {
   oneTwoThree,
   positiveIntegers,
   takeEight,
-  testAndToArray
+  testAndToArray,
 } from './_tools'
 
 test('ap', t => {

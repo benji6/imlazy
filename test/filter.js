@@ -2,7 +2,7 @@ import test from 'ava'
 import {filter, range} from '../'
 import {
   testAndToArray,
-  oneTwoThree
+  oneTwoThree,
 } from './_tools'
 
 test('filter', t => {

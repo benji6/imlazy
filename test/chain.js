@@ -4,7 +4,7 @@ import {
   testAndToArray,
   oneTwoThree,
   positiveIntegers,
-  takeEight
+  takeEight,
 } from './_tools'
 
 test('chain', t => {

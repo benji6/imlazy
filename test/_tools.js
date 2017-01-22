@@ -16,9 +16,9 @@ const deepToArray = iter => spreadUpTo1024(iter).map(x => x[Symbol.iterator] ? s
 module.exports.add = (a, b) => a + b
 module.exports.oneTwoThree = Object.freeze([1, 2, 3])
 module.exports.oneTwoThreeFour = Object.freeze([1, 2, 3, 4])
-module.exports.fibonacciNumbers = {[Symbol.iterator]: function * () {
-  var a = 1
-  var b = 1
+module.exports.fibonacciNumbers = {* [Symbol.iterator] () {
+  let a = 1
+  let b = 1
   while (true) {
     yield a
     const c = a + b
@@ -27,12 +27,12 @@ module.exports.fibonacciNumbers = {[Symbol.iterator]: function * () {
   }
 }}
 module.exports.double = x => x * 2
-module.exports.emptyIterable = {[Symbol.iterator]: function * () {}}
+module.exports.emptyIterable = {* [Symbol.iterator] () {}}
 module.exports.fiveFiveFive = Object.freeze([5, 5, 5])
 module.exports.halve = x => x / 2
 module.exports.isEven = x => x % 2 === 0
 module.exports.testAndToArray = t => iter => {
-  t.throws(_ => { iter.a = 1 })
+  t.throws(() => iter.a = 1)
   t.is(iter.toString.name, 'imlazyToStringThunk')
   t.deepEqual(deepToArray(iter), deepToArray(iter))
   return [...iter]

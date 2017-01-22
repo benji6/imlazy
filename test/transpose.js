@@ -8,7 +8,7 @@ import {
   oneTwoThreeFour,
   positiveIntegers,
   takeEight,
-  takeThree
+  takeThree,
 } from './_tools'
 
 test('transpose', t => {

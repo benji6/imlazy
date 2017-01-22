@@ -5,7 +5,7 @@ import {
   fibonacciNumbers,
   testAndToArray,
   positiveIntegers,
-  takeEight
+  takeEight,
 } from './_tools'
 
 test('adjust', t => {

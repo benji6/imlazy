@@ -3,7 +3,7 @@ import {sort} from '../'
 import {
   fourThreeTwoOne,
   testAndToArray,
-  oneTwoThreeFour
+  oneTwoThreeFour,
 } from './_tools'
 
 test('sort', t => {

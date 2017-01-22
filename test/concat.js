@@ -5,7 +5,7 @@ import {
   negativeIntegers,
   oneTwoThree,
   takeEight,
-  threeTwoOne
+  threeTwoOne,
 } from './_tools'
 
 test('concat', t => {

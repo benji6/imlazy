@@ -4,7 +4,7 @@ import {
   testAndToArray,
   oneTwoThree,
   oneTwoThreeFour,
-  positiveIntegers
+  positiveIntegers,
 } from './_tools'
 
 test('takeWhile', t => {

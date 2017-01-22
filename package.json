@@ -6,8 +6,9 @@
   "scripts": {
     "benchmark": "node benchmark",
     "docs": "jsdoc index.js -d docs",
+    "lint": "eslint .",
     "spec": "ava",
-    "test": "concurrently standard 'npm run spec'",
+    "test": "concurrently 'npm run lint' 'npm run spec'",
     "watch-docs": "nodemon --watch index.js --exec npm run docs",
     "watch-spec": "nodemon --exec npm run spec",
     "watch-test": "nodemon --exec npm t"
@@ -41,11 +42,12 @@
     "ava": "^0.17.0",
     "benchmark": "^2.1.0",
     "concurrently": "^3.1.0",
+    "eslint": "^3.14.0",
+    "eslint-config-benji6": "^0.5.0",
     "immutable": "^3.8.1",
     "jsdoc": "^3.4.0",
     "nodemon": "^1.9.2",
-    "ramda": "^0.23.0",
-    "standard": "^8.3.0"
+    "ramda": "^0.23.0"
   },
   "dependencies": {
     "lodash.isequalwith": "^4.4.0"

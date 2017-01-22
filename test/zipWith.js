@@ -8,7 +8,7 @@ import {
   positiveIntegers,
   subtract,
   takeThree,
-  threeTwoOne
+  threeTwoOne,
 } from './_tools'
 
 test('zipWith', t => {

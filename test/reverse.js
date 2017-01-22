@@ -3,7 +3,7 @@ import {reverse} from '../'
 import {
   testAndToArray,
   oneTwoThree,
-  threeTwoOne
+  threeTwoOne,
 } from './_tools'
 
 test('reverse', t => {

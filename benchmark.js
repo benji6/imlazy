@@ -6,7 +6,7 @@ const R = require('ramda')
 
 const length = 1024
 const testArray = Array.from({length}, (_, i) => i)
-const testInfiniteIterable = {[Symbol.iterator]: function * () {
+const testInfiniteIterable = {* [Symbol.iterator] () {
   let i = 0
   while (true) yield i++
 }}
@@ -53,12 +53,12 @@ const imlazyInfiniteBenchmark = data => Array.from(I.take(
 ))
 
 new Benchmark.Suite()
-  .add('infiniteIterable - imlazy', function () { imlazyInfiniteBenchmark(testInfiniteIterable) })
-  .add('infiniteIterable - ramdaTransducer', function () { ramdaTransducerInfiniteBenchmark(testInfiniteIterable) })
-  .add('array - imlazy', function () { imlazyArrayBenchmark(testArray) })
-  .add('array - ramdaTransducer', function () { ramdaTransducerArrayBenchmark(testArray) })
-  .add('array - native', function () { nativeBenchmark(testArray) })
-  .add('array - ramda', function () { ramdaBenchmark(testArray) })
+  .add('infiniteIterable - imlazy', () => { imlazyInfiniteBenchmark(testInfiniteIterable) })
+  .add('infiniteIterable - ramdaTransducer', () => { ramdaTransducerInfiniteBenchmark(testInfiniteIterable) })
+  .add('array - imlazy', () => { imlazyArrayBenchmark(testArray) })
+  .add('array - ramdaTransducer', () => { ramdaTransducerArrayBenchmark(testArray) })
+  .add('array - native', () => { nativeBenchmark(testArray) })
+  .add('array - ramda', () => { ramdaBenchmark(testArray) })
   .on('cycle', x => process.stdout.write(`${String(x.target)}\n`))
   .on('complete', function () {
     process.stdout.write(`Fastest is ${this.filter('fastest').map('name')}\n`)

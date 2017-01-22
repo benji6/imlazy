@@ -3,7 +3,7 @@ import {assoc} from '../'
 import {
   testAndToArray,
   positiveIntegers,
-  takeEight
+  takeEight,
 } from './_tools'
 
 test('assoc', t => {

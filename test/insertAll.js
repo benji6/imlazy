@@ -4,7 +4,7 @@ import {
   testAndToArray,
   negativeIntegers,
   positiveIntegers,
-  takeEight
+  takeEight,
 } from './_tools'
 
 test('insertAll', t => {

@@ -3,7 +3,7 @@ import {iterate} from '../'
 import {
   double,
   testAndToArray,
-  takeEight
+  takeEight,
 } from './_tools'
 
 test('iterate', t => {

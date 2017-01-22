@@ -3,7 +3,7 @@ import {remove} from '../'
 import {
   testAndToArray,
   positiveIntegers,
-  takeEight
+  takeEight,
 } from './_tools'
 
 test('remove', t => {

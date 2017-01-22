@@ -6,7 +6,7 @@ import {
   oneTwoThree,
   oneTwoThreeFour,
   positiveIntegers,
-  takeThree
+  takeThree,
 } from './_tools'
 
 test('take', t => {

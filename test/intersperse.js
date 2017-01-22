@@ -3,7 +3,7 @@ import {intersperse} from '../'
 import {
   testAndToArray,
   positiveIntegers,
-  takeEight
+  takeEight,
 } from './_tools'
 
 test('intersperse', t => {

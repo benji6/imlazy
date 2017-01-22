@@ -7,7 +7,7 @@ import {
   oneTwoThreeFour,
   positiveIntegers,
   takeEight,
-  threeTwoOne
+  threeTwoOne,
 } from './_tools'
 
 test('flatten', t => {

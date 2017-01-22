@@ -154,6 +154,7 @@ module.exports.empty = () => genToIter(function * () {})
 /**
  * Returns `true` if arguments are equivalent and `false` otherwise. Equality of iterable values is determined element by element recursively and equality of non-iterable values is checked via `lodash.equals`
  * @param {Any} x
+ * @param {Any} y
  * @return {Boolean}
  * @example
  * equals(range(1, 3), range(1, 3)) // => true
@@ -321,7 +322,7 @@ module.exports.intersperse = curry((a, xs) => genToIter(function * () {
 /**
  * Returns true if the iterable has no values in it and false otherwise
  * @param {Iterable} xs
- * @return Boolean
+ * @return {Boolean}
  * @example
  * isEmpty([]) // => true
  * isEmpty([0]) // => false
@@ -416,7 +417,7 @@ module.exports.nth = curry((a, xs) => {
 
 /**
  * Returns an iterable of the arguments passed
- * @param {Any} ...values
+ * @param {Any} xs
  * @return {Iterable}
  * @example [...interableOf(1, 2, 3)] // => [1, 2, 3]
  */
@@ -515,8 +516,8 @@ module.exports.remove = curry((a, b, xs) => genToIter(function * () {
 
 /**
  * Returns a new iterable where every value is the given value and there are as many values as the given count
- * @param {Number} value
- * @param {Number} count
+ * @param {Number} a
+ * @param {Number} b
  * @return {Iterable}
  * @example
  * const repeat42 = repeat(42)
@@ -610,7 +611,7 @@ module.exports.sortBy = curry((f, xs) =>
 module.exports.splitEvery = curry((a, xs) => genToIter(function * () {
   let i = 0
   while (true) {
-    let yieldVal = module.exports.slice(i * a, (i + 1) * a, xs)
+    const yieldVal = module.exports.slice(i * a, (i + 1) * a, xs)
     if (module.exports.length(yieldVal)) yield yieldVal; else return
     i++
   }
@@ -672,7 +673,7 @@ module.exports.takeWhile = curry((f, xs) => genToIter(function * () {
 
 /**
  * Returns a new iterable which is a transposition of the given iterable (columns and rows swapped)
- * @param {Iterable} xs
+ * @param {Iterable} xss
  * @return {Iterable}
  * @example transpose([
  *   [1, 2, 3],
@@ -688,12 +689,12 @@ module.exports.transpose = xss => genToIter(function * () {
   }
   const createReturnGenerator = i => function * () {
     for (const xs of xss) {
-      let value = _nth(i, xs)
+      const value = _nth(i, xs)
       if (value !== done) yield value
     }
   }
   for (let i = 0; ; i++) {
-    let returnGenerator = createReturnGenerator(i)
+    const returnGenerator = createReturnGenerator(i)
     if (returnGenerator().next().done) return
     yield genToIter(returnGenerator)
   }

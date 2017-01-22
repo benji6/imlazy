@@ -4,7 +4,7 @@ import {
   testAndToArray,
   oneTwoThreeFour,
   positiveIntegers,
-  takeThree
+  takeThree,
 } from './_tools'
 
 test('splitEvery', t => {

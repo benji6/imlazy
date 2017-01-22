@@ -3,7 +3,7 @@ import {prepend} from '../'
 import {
   testAndToArray,
   positiveIntegers,
-  takeEight
+  takeEight,
 } from './_tools'
 
 test('prepend', t => {

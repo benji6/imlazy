@@ -4,7 +4,7 @@ import {
   emptyIterable,
   oneTwoThree,
   oneTwoThreeFour,
-  positiveIntegers
+  positiveIntegers,
 } from '../_tools'
 
 test('_toString', t => {

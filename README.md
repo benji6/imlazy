@@ -2,7 +2,6 @@
 
 [![npm version](https://badge.fury.io/js/imlazy.svg)](https://badge.fury.io/js/imlazy)
 [![Build Status](https://travis-ci.org/benji6/imlazy.svg?branch=master)](https://travis-ci.org/benji6/imlazy)
-[![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](http://standardjs.com/)
 
 ###### Functional programming with lazy immutable iterables
 

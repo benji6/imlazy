@@ -6,7 +6,7 @@ import {
   oneTwoThreeFour,
   positiveIntegers,
   takeThree,
-  threeTwoOne
+  threeTwoOne,
 } from './_tools'
 
 test('zip', t => {

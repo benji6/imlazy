@@ -3,7 +3,7 @@ import {append} from '../'
 import {
   testAndToArray,
   oneTwoThree,
-  oneTwoThreeFour
+  oneTwoThreeFour,
 } from './_tools'
 
 test('append', t => {
