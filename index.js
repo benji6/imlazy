@@ -1,5 +1,7 @@
 'use strict'
 
+const isEqualWith = require('lodash.isequalwith')
+
 const curry = f => (...xs) => xs.length < f.length
   ? curry(f.bind(...[null, ...xs]))
   : f(...xs)
@@ -148,6 +150,29 @@ module.exports.dropWhile = curry((f, xs) => {
  * @example empty() // => ()
  */
 module.exports.empty = () => genToIter(function * () {})
+
+/**
+ * Returns `true` if arguments are equivalent and `false` otherwise. Equality of iterable values is determined element by element recursively and equality of non-iterable values is checked via `lodash.equals`
+ * @param {Any} x
+ * @return {Boolean}
+ * @example
+ * equals(range(1, 3), range(1, 3)) // => true
+ * equals(range(1, 3), [1, 2, 3]) // => true
+ * equals([[1, 2], 3], [[1, 2], 3]) // => true
+ * equals([1, [2, {a: 5, b: 6}]], [1, [2, {a: 5, b: 6}]]) // => true
+ * equals([1, [2, {a: 5, b: 6}]], [1, [2, {a: 5}]]) // => false
+ * equals(range(1, 3), [1, 2]) // => false
+ */
+const customizer = (x, y) => {
+  if (isIterable(x) && isIterable(y)) {
+    const xs = [...x]
+    const ys = [...y]
+    if (xs.length !== ys.length) return false
+    for (let i = 0; i < xs.length; i++) if (!module.exports.equals(xs[i], ys[i])) return false
+    return true
+  }
+}
+module.exports.equals = curry((x, y) => isEqualWith(x, y, customizer))
 
 /**
  * Applies the given function to each value in the given iterable until that function returns falsy, in which case false is returned. If the iterable is completely traversed and falsy is never returned by the given function then true is returned

@@ -46,5 +46,8 @@
     "nodemon": "^1.9.2",
     "ramda": "^0.23.0",
     "standard": "^8.3.0"
+  },
+  "dependencies": {
+    "lodash.isequalwith": "^4.4.0"
   }
 }

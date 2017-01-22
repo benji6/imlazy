@@ -106,6 +106,7 @@ This library implements the following [Static Land](https://github.com/rpominov/
 - `Foldable`
 - `Semigroup`
   - `Monoid`
+- `Setoid`
 
 ## Performance
 
@@ -128,7 +129,7 @@ The [six-speed](https://github.com/kpdecker/six-speed) test results suggest that
 
 ## Project Scope
 
-The scope of this project is limited to manipulating iterables using the iteration protocols. It does not expose standard FP functions like curry, compose, identity, flip, tap etc. It also does not prescribe a notion of equality, so functions like [includes](https://tc39.github.io/Array.prototype.includes/), [has](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set/has), or [contains](http://ramdajs.com/docs/#contains) cannot exist
+The scope of this project is limited to manipulating iterables using the iteration protocols. It does not expose standard FP functions like curry, compose, identity, flip, tap etc
 
 ## Influences
 

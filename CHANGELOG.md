@@ -1,5 +1,10 @@
 # Release Notes
 
+## 6.1.x
+
+added:
+- `equals`
+
 ## 6.0.x
 
 changed:

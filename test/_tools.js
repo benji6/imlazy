@@ -1,8 +1,6 @@
 'use strict'
 
-const range = require('../').range
-const repeat = require('../').repeat
-const take = require('../').take
+const {range, repeat, take} = require('../')
 
 const spreadUpTo1024 = xs => {
   const ys = []
