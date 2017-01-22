@@ -151,6 +151,16 @@ module.exports.dropWhile = curry((f, xs) => {
  */
 module.exports.empty = () => genToIter(function * () {})
 
+const shouldSpread = x => isIterable(x) && typeof x.length !== 'number'
+const customizer = (x, y) => {
+  const shouldSpreadX = shouldSpread(x)
+  const shouldSpreadY = shouldSpread(y)
+  if (shouldSpreadX || shouldSpreadY) {
+    const xs = shouldSpreadX ? [...x] : x
+    const ys = shouldSpreadY ? [...y] : y
+    return module.exports.equals(xs, ys)
+  }
+}
 /**
  * Returns `true` if arguments are equivalent and `false` otherwise. Equality of iterable values is determined element by element recursively and equality of non-iterable values is checked via `lodash.equals`
  * @param {Any} x
@@ -164,16 +174,6 @@ module.exports.empty = () => genToIter(function * () {})
  * equals([1, [2, {a: 5, b: 6}]], [1, [2, {a: 5}]]) // => false
  * equals(range(1, 3), [1, 2]) // => false
  */
-const shouldSpread = x => isIterable(x) && typeof x.length !== 'number'
-const customizer = (x, y) => {
-  const shouldSpreadX = shouldSpread(x)
-  const shouldSpreadY = shouldSpread(y)
-  if (shouldSpreadX || shouldSpreadY) {
-    const xs = shouldSpreadX ? [...x] : x
-    const ys = shouldSpreadY ? [...y] : y
-    return module.exports.equals(xs, ys)
-  }
-}
 module.exports.equals = curry((x, y) => isEqualWith(x, y, customizer))
 
 /**
