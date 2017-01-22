@@ -164,13 +164,14 @@ module.exports.empty = () => genToIter(function * () {})
  * equals([1, [2, {a: 5, b: 6}]], [1, [2, {a: 5}]]) // => false
  * equals(range(1, 3), [1, 2]) // => false
  */
+const shouldSpread = x => isIterable(x) && typeof x.length !== 'number'
 const customizer = (x, y) => {
-  if (isIterable(x) && isIterable(y)) {
-    const xs = [...x]
-    const ys = [...y]
-    if (xs.length !== ys.length) return false
-    for (let i = 0; i < xs.length; i++) if (!module.exports.equals(xs[i], ys[i])) return false
-    return true
+  const shouldSpreadX = shouldSpread(x)
+  const shouldSpreadY = shouldSpread(y)
+  if (shouldSpreadX || shouldSpreadY) {
+    const xs = shouldSpreadX ? [...x] : x
+    const ys = shouldSpreadY ? [...y] : y
+    return module.exports.equals(xs, ys)
   }
 }
 module.exports.equals = curry((x, y) => isEqualWith(x, y, customizer))

@@ -11,7 +11,9 @@ test('equals', t => {
   t.false(equals(nestedOneTwoThree, map(() => oneTwoThreeFour, oneTwoThree)))
   t.false(equals([() => {}], [() => {}]))
   t.false(equals([1, [2, {a: 5, b: 6}]], [1, [2, {a: 5}]]))
+  t.false(equals('string', 'stringy'))
 
+  t.true(equals('string', 'string'))
   t.true(equals(empty(), empty()))
   t.true(equals(empty(), []))
   t.true(equals([], empty()))
