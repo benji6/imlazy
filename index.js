@@ -252,6 +252,20 @@ module.exports.flatten = xs => genToIter(function * recur (ys = xs) {
 module.exports.head = xs => xs[Symbol.iterator]().next().value
 
 /**
+ * Checks whether the supplied iterable contains the supplied value. Equality is checked using the `equals` function defined by this library
+ * @param {Any} y
+ * @param {Iterable} xs
+ * @return {Boolean}
+ * @example
+ * includes(1, range(1, 5)) // => true
+ * includes(10, range(1, 5)) // => false
+ */
+module.exports.includes = curry((y, xs) => {
+  for (const x of xs) if (module.exports.equals(x, y)) return true
+  return false
+})
+
+/**
  * Returns a new iterable of all but the last element of the given iterable
  * @param {Iterable} xs
  * @return {Iterable}
@@ -267,6 +281,7 @@ module.exports.init = xs => genToIter(function * () {
     last = x
   }
 })
+
 /**
  * Returns a new iterable with the given value inserted at the given index in the given iterable
  * @param {Number} index
