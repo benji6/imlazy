@@ -1,5 +1,10 @@
 # Release Notes
 
+## 6.2.x
+
+added:
+- `includes`
+
 ## 6.1.x
 
 added:
