@@ -1,10 +1,10 @@
-import test from 'ava'
-import {prepend} from '../'
-import {
+const test = require('tape')
+const {prepend} = require('../')
+const {
   testAndToArray,
   positiveIntegers,
   takeEight,
-} from './_tools'
+} = require('./_tools')
 
 test('prepend', t => {
   const processIterable = testAndToArray(t)
@@ -13,4 +13,5 @@ test('prepend', t => {
     processIterable(takeEight(prepend(0, positiveIntegers))),
     [0, 1, 2, 3, 4, 5, 6, 7]
   )
+  t.end()
 })

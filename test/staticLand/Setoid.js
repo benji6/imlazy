@@ -1,5 +1,5 @@
-import test from 'ava'
-import {equals, of} from '../../'
+const test = require('tape')
+const {equals, of} = require('../../')
 
 const a = of('foo')
 const a_ = of('foo')
@@ -15,4 +15,5 @@ test('Setoid', t => {
   t.true(equals(a, a_), 'Transitivity')
   t.true(equals(a_, a__), 'Transitivity')
   t.true(equals(a, a__), 'Transitivity')
+  t.end()
 })

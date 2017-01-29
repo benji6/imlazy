@@ -1,12 +1,12 @@
-import test from 'ava'
-import {concat} from '../'
-import {
+const test = require('tape')
+const {concat} = require('../')
+const {
   testAndToArray,
   negativeIntegers,
   oneTwoThree,
   takeEight,
   threeTwoOne,
-} from './_tools'
+} = require('./_tools')
 
 test('concat', t => {
   const concatOneTwoThree = concat(oneTwoThree)
@@ -27,4 +27,5 @@ test('concat', t => {
     processIterable(takeEight(concat(negativeIntegers, negativeIntegers))),
     [-1, -2, -3, -4, -5, -6, -7, -8]
   )
+  t.end()
 })

@@ -1,12 +1,12 @@
-import test from 'ava'
-import {drop} from '../'
-import {
+const test = require('tape')
+const {drop} = require('../')
+const {
   testAndToArray,
   oneTwoThree,
   oneTwoThreeFour,
   positiveIntegers,
   takeThree,
-} from './_tools'
+} = require('./_tools')
 
 test('drop', t => {
   const processIterable = testAndToArray(t)
@@ -21,4 +21,5 @@ test('drop', t => {
   t.deepEqual(processIterable(takeThree(dropOne(positiveIntegers))), [2, 3, 4])
   t.deepEqual(processIterable(drop(3)(oneTwoThreeFour)), [4])
   t.deepEqual(processIterable(drop(30, oneTwoThree)), [])
+  t.end()
 })

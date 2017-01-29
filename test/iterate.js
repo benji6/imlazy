@@ -1,10 +1,10 @@
-import test from 'ava'
-import {iterate} from '../'
-import {
+const test = require('tape')
+const {iterate} = require('../')
+const {
   double,
   testAndToArray,
   takeEight,
-} from './_tools'
+} = require('./_tools')
 
 test('iterate', t => {
   const processIterable = testAndToArray(t)
@@ -16,4 +16,5 @@ test('iterate', t => {
     processIterable(takeEight(iterate(double, 1))),
     [1, 2, 4, 8, 16, 32, 64, 128]
   )
+  t.end()
 })

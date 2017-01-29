@@ -1,6 +1,6 @@
-import test from 'ava'
-import {tail} from '../'
-import {testAndToArray, positiveIntegers, takeEight} from './_tools'
+const test = require('tape')
+const {tail} = require('../')
+const {testAndToArray, positiveIntegers, takeEight} = require('./_tools')
 
 test('tail', t => {
   const processIterable = testAndToArray(t)
@@ -18,4 +18,5 @@ test('tail', t => {
     processIterable(takeEight(tailPositiveIntegers)),
     [2, 3, 4, 5, 6, 7, 8, 9]
   )
+  t.end()
 })

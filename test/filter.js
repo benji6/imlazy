@@ -1,9 +1,9 @@
-import test from 'ava'
-import {filter, range} from '../'
-import {
+const test = require('tape')
+const {filter, range} = require('../')
+const {
   testAndToArray,
   oneTwoThree,
-} from './_tools'
+} = require('./_tools')
 
 test('filter', t => {
   const processIterable = testAndToArray(t)
@@ -12,4 +12,5 @@ test('filter', t => {
   t.deepEqual(processIterable(anotherOneTwoThree), oneTwoThree)
   t.deepEqual(processIterable(anotherOneTwoThree), oneTwoThree)
   t.deepEqual(processIterable(anotherOneTwoThree), oneTwoThree)
+  t.end()
 })

@@ -1,11 +1,11 @@
-import test from 'ava'
-import {init} from '../'
-import {
+const test = require('tape')
+const {init} = require('../')
+const {
   testAndToArray,
   oneTwoThreeFour,
   positiveIntegers,
   takeEight,
-} from './_tools'
+} = require('./_tools')
 
 test('init', t => {
   const processIterable = testAndToArray(t)
@@ -27,4 +27,5 @@ test('init', t => {
     processIterable(init(oneTwoThreeFour)),
     [1, 2, 3]
   )
+  t.end()
 })

@@ -1,10 +1,10 @@
-import test from 'ava'
-import {sort} from '../'
-import {
+const test = require('tape')
+const {sort} = require('../')
+const {
   fourThreeTwoOne,
   testAndToArray,
   oneTwoThreeFour,
-} from './_tools'
+} = require('./_tools')
 
 test('sort', t => {
   const processIterable = testAndToArray(t)
@@ -16,4 +16,5 @@ test('sort', t => {
     processIterable(sort((a, b) => a < b, oneTwoThreeFour)),
     fourThreeTwoOne
   )
+  t.end()
 })

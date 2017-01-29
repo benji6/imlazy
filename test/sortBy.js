@@ -1,6 +1,6 @@
-import test from 'ava'
-import {sortBy} from '../'
-import {testAndToArray} from './_tools'
+const test = require('tape')
+const {sortBy} = require('../')
+const {testAndToArray} = require('./_tools')
 
 test('sort', t => {
   const processIterable = testAndToArray(t)
@@ -12,4 +12,5 @@ test('sort', t => {
     processIterable(sortBy(x => x.value, [{value: 7}, {value: 0}, {value: 7}, {value: 3}])),
     [{value: 0}, {value: 3}, {value: 7}, {value: 7}]
   )
+  t.end()
 })

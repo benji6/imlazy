@@ -1,10 +1,10 @@
-import test from 'ava'
-import {intersperse} from '../'
-import {
+const test = require('tape')
+const {intersperse} = require('../')
+const {
   testAndToArray,
   positiveIntegers,
   takeEight,
-} from './_tools'
+} = require('./_tools')
 
 test('intersperse', t => {
   const processIterable = testAndToArray(t)
@@ -16,4 +16,5 @@ test('intersperse', t => {
     processIterable(takeEight(intersperse(2, positiveIntegers))),
     [1, 2, 2, 2, 3, 2, 4, 2]
   )
+  t.end()
 })

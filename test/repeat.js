@@ -1,10 +1,10 @@
-import test from 'ava'
-import {repeat} from '../'
-import {
+const test = require('tape')
+const {repeat} = require('../')
+const {
   fiveFiveFive,
   testAndToArray,
   takeThree,
-} from './_tools'
+} = require('./_tools')
 
 test('repeat', t => {
   const processIterable = testAndToArray(t)
@@ -12,4 +12,5 @@ test('repeat', t => {
   t.deepEqual(processIterable(takeThree(repeatFive)), fiveFiveFive)
   t.deepEqual(processIterable(takeThree(repeatFive)), fiveFiveFive)
   t.deepEqual(processIterable(takeThree(repeat(5))), fiveFiveFive)
+  t.end()
 })

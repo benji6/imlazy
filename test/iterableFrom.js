@@ -1,8 +1,9 @@
-import test from 'ava'
-import {iterableFrom} from '../'
-import {testAndToArray, oneTwoThree} from './_tools'
+const test = require('tape')
+const {iterableFrom} = require('../')
+const {testAndToArray, oneTwoThree} = require('./_tools')
 
 test('iterableFrom', t => {
   const processIterable = testAndToArray(t)
   t.deepEqual(processIterable(iterableFrom(oneTwoThree)), oneTwoThree)
+  t.end()
 })

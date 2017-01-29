@@ -1,11 +1,11 @@
-import test from 'ava'
-import {splitEvery} from '../'
-import {
+const test = require('tape')
+const {splitEvery} = require('../')
+const {
   testAndToArray,
   oneTwoThreeFour,
   positiveIntegers,
   takeThree,
-} from './_tools'
+} = require('./_tools')
 
 test('splitEvery', t => {
   const processIterable = testAndToArray(t)
@@ -18,4 +18,5 @@ test('splitEvery', t => {
     processIterable(takeThree(splitEveryThree(positiveIntegers))).map(processIterable),
     [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
   )
+  t.end()
 })

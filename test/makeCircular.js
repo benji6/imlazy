@@ -1,6 +1,6 @@
-import test from 'ava'
-import {cycle, range} from '../'
-import {testAndToArray, takeEight} from './_tools'
+const test = require('tape')
+const {cycle, range} = require('../')
+const {testAndToArray, takeEight} = require('./_tools')
 
 test('cycle', t => {
   const processIterable = testAndToArray(t)
@@ -8,4 +8,5 @@ test('cycle', t => {
     processIterable(takeEight(cycle(range(1)(3)))),
     [1, 2, 3, 1, 2, 3, 1, 2]
   )
+  t.end()
 })

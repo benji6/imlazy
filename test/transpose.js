@@ -1,6 +1,6 @@
-import test from 'ava'
-import {transpose} from '../'
-import {
+const test = require('tape')
+const {transpose} = require('../')
+const {
   infiniteIterableOfPositiveIntegers,
   testAndToArray,
   negativeIntegers,
@@ -9,7 +9,7 @@ import {
   positiveIntegers,
   takeEight,
   takeThree,
-} from './_tools'
+} = require('./_tools')
 
 test('transpose', t => {
   const processIterable = testAndToArray(t)
@@ -29,4 +29,5 @@ test('transpose', t => {
       .map(processIterable),
     [oneTwoThree, oneTwoThree, oneTwoThree]
   )
+  t.end()
 })

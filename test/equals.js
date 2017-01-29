@@ -1,6 +1,6 @@
-import test from 'ava'
-import {empty, equals, map} from '../'
-import {oneTwoThree, oneTwoThreeFour} from './_tools'
+const test = require('tape')
+const {empty, equals, map} = require('../')
+const {oneTwoThree, oneTwoThreeFour} = require('./_tools')
 
 const nestedOneTwoThree = map(() => oneTwoThree, oneTwoThree)
 
@@ -26,4 +26,5 @@ test('equals', t => {
   t.true(equals([1, [2, {a: 5, b: 6}]], [1, [2, {a: 5, b: 6}]]))
 
   t.true(equals(nestedOneTwoThree, nestedOneTwoThree))
+  t.end()
 })

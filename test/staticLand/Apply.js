@@ -1,5 +1,5 @@
-import test from 'ava'
-import {ap, equals, map, of} from '../../'
+const test = require('tape')
+const {ap, equals, map, of} = require('../../')
 
 const a = of(x => x.length)
 const u = of(x => x + 'bar')
@@ -10,4 +10,5 @@ test('Apply', t => {
     ap(ap(map(f => g => x => f(g(x)), a), u), v),
     ap(a, ap(u, v))
   ), 'Composition')
+  t.end()
 })

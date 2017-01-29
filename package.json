@@ -7,7 +7,7 @@
     "benchmark": "node benchmark",
     "docs": "jsdoc index.js -d docs",
     "lint": "eslint .",
-    "spec": "ava",
+    "spec": "tape 'test/**/*.js' | faucet",
     "test": "concurrently 'npm run lint' 'npm run spec'",
     "watch-docs": "nodemon --watch index.js --exec npm run docs",
     "watch-spec": "nodemon --exec npm run spec",
@@ -38,18 +38,19 @@
     "structure"
   ],
   "homepage": "https://github.com/benji6/imlazy",
+  "dependencies": {
+    "lodash.isequalwith": "^4.4.0"
+  },
   "devDependencies": {
-    "ava": "^0.17.0",
     "benchmark": "^2.1.0",
     "concurrently": "^3.1.0",
     "eslint": "^3.14.0",
     "eslint-config-benji6": "^0.6.0",
+    "faucet": "0.0.1",
     "immutable": "^3.8.1",
     "jsdoc": "^3.4.0",
     "nodemon": "^1.9.2",
-    "ramda": "^0.23.0"
-  },
-  "dependencies": {
-    "lodash.isequalwith": "^4.4.0"
+    "ramda": "^0.23.0",
+    "tape": "^4.6.3"
   }
 }

@@ -1,11 +1,11 @@
-import test from 'ava'
-import {slice} from '../'
-import {
+const test = require('tape')
+const {slice} = require('../')
+const {
   testAndToArray,
   oneTwoThree,
   oneTwoThreeFour,
   positiveIntegers,
-} from './_tools'
+} = require('./_tools')
 
 test('slice', t => {
   const sliceFromZero = slice(0)
@@ -25,4 +25,5 @@ test('slice', t => {
     processIterable(sliceFromZero(3)(slice(0, Infinity, positiveIntegers))),
     oneTwoThree
   )
+  t.end()
 })

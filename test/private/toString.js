@@ -1,11 +1,11 @@
-import test from 'ava'
-import {_toString, map, zip} from '../../'
-import {
+const test = require('tape')
+const {_toString, map, zip} = require('../../')
+const {
   emptyIterable,
   oneTwoThree,
   oneTwoThreeFour,
   positiveIntegers,
-} from '../_tools'
+} = require('../_tools')
 
 test('_toString', t => {
   t.is(
@@ -44,4 +44,5 @@ test('_toString', t => {
     _toString(map(() => positiveIntegers, positiveIntegers))(),
     '((1 2 3 4 5 6 7 8 9 10...) (1 2 3 4 5 6 7 8 9 10...) (1 2 3 4 5 6 7 8 9 10...) (1 2 3 4 5 6 7 8 9 10...) (1 2 3 4 5 6 7 8 9 10...) (1 2 3 4 5 6 7 8 9 10...) (1 2 3 4 5 6 7 8 9 10...) (1 2 3 4 5 6 7 8 9 10...) (1 2 3 4 5 6 7 8 9 10...) (1 2 3 4 5 6 7 8 9 10...)...)'
   )
+  t.end()
 })

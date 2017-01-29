@@ -1,6 +1,6 @@
-import test from 'ava'
-import {flatten} from '../'
-import {
+const test = require('tape')
+const {flatten} = require('../')
+const {
   infiniteIterableOfPositiveIntegers,
   testAndToArray,
   oneTwoThree,
@@ -8,7 +8,7 @@ import {
   positiveIntegers,
   takeEight,
   threeTwoOne,
-} from './_tools'
+} = require('./_tools')
 
 test('flatten', t => {
   const processIterable = testAndToArray(t)
@@ -32,4 +32,5 @@ test('flatten', t => {
     processIterable(takeEight(flatten(infiniteIterableOfPositiveIntegers))),
     [1, 2, 3, 4, 5, 6, 7, 8]
   )
+  t.end()
 })

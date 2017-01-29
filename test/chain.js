@@ -1,11 +1,11 @@
-import test from 'ava'
-import {chain, of} from '../'
-import {
+const test = require('tape')
+const {chain, of} = require('../')
+const {
   testAndToArray,
   oneTwoThree,
   positiveIntegers,
   takeEight,
-} from './_tools'
+} = require('./_tools')
 
 test('chain', t => {
   const processIterable = testAndToArray(t)
@@ -13,6 +13,7 @@ test('chain', t => {
     processIterable(chain(x => of(x, x), oneTwoThree)),
     [1, 1, 2, 2, 3, 3]
   )
+  t.end()
 })
 
 test('chain', t => {
@@ -21,4 +22,5 @@ test('chain', t => {
     processIterable(takeEight(chain(x => of(x, x), positiveIntegers))),
     [1, 1, 2, 2, 3, 3, 4, 4]
   )
+  t.end()
 })

@@ -1,7 +1,7 @@
-import Immutable from 'immutable'
-import {append} from '../../'
-import {testAndToArray, oneTwoThreeFour} from '../_tools'
-import test from 'ava'
+const Immutable = require('immutable')
+const {append} = require('../../')
+const {testAndToArray, oneTwoThreeFour} = require('../_tools')
+const test = require('tape')
 
 test('immutable interop', t => {
   const processIterable = testAndToArray(t)
@@ -10,4 +10,5 @@ test('immutable interop', t => {
     processIterable(append(4, immutableOneTwoThree)),
     oneTwoThreeFour
   )
+  t.end()
 })

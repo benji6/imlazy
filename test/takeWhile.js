@@ -1,11 +1,11 @@
-import test from 'ava'
-import {takeWhile} from '../'
-import {
+const test = require('tape')
+const {takeWhile} = require('../')
+const {
   testAndToArray,
   oneTwoThree,
   oneTwoThreeFour,
   positiveIntegers,
-} from './_tools'
+} = require('./_tools')
 
 test('takeWhile', t => {
   const processIterable = testAndToArray(t)
@@ -21,4 +21,5 @@ test('takeWhile', t => {
     processIterable(takeWhile(a => a !== 4, positiveIntegers)),
     oneTwoThree
   )
+  t.end()
 })

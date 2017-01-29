@@ -1,13 +1,13 @@
-import test from 'ava'
-import {zip} from '../'
-import {
+const test = require('tape')
+const {zip} = require('../')
+const {
   testAndToArray,
   oneTwoThree,
   oneTwoThreeFour,
   positiveIntegers,
   takeThree,
   threeTwoOne,
-} from './_tools'
+} = require('./_tools')
 
 test('zip', t => {
   const processIterable = testAndToArray(t)
@@ -36,4 +36,5 @@ test('zip', t => {
     processIterable(xss).map(processIterable),
     [[1, 1], [2, 2], [3, 3]]
   )
+  t.end()
 })

@@ -1,10 +1,10 @@
-import test from 'ava'
-import {partition} from '../'
-import {
+const test = require('tape')
+const {partition} = require('../')
+const {
   isEven,
   testAndToArray,
   oneTwoThreeFour,
-} from './_tools'
+} = require('./_tools')
 
 test('partition', t => {
   const processIterable = testAndToArray(t)
@@ -16,4 +16,5 @@ test('partition', t => {
     processIterable(partition(isEven, oneTwoThreeFour)).map(processIterable),
     [[2, 4], [1, 3]]
   )
+  t.end()
 })

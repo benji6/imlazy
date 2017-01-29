@@ -1,12 +1,12 @@
-import test from 'ava'
-import {adjust} from '../'
-import {
+const test = require('tape')
+const {adjust} = require('../')
+const {
   double,
   fibonacciNumbers,
   testAndToArray,
   positiveIntegers,
   takeEight,
-} from './_tools'
+} = require('./_tools')
 
 test('adjust', t => {
   const processIterable = testAndToArray(t)
@@ -23,4 +23,5 @@ test('adjust', t => {
     processIterable(takeEight(adjust(double, 2, fibonacciNumbers))),
     [1, 1, 4, 3, 5, 8, 13, 21]
   )
+  t.end()
 })

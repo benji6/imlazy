@@ -1,6 +1,6 @@
-import test from 'ava'
-import {zipWith} from '../'
-import {
+const test = require('tape')
+const {zipWith} = require('../')
+const {
   add,
   testAndToArray,
   oneTwoThree,
@@ -9,7 +9,7 @@ import {
   subtract,
   takeThree,
   threeTwoOne,
-} from './_tools'
+} = require('./_tools')
 
 test('zipWith', t => {
   const processIterable = testAndToArray(t)
@@ -39,4 +39,5 @@ test('zipWith', t => {
     processIterable(twoFourSix),
     [2, 4, 6]
   )
+  t.end()
 })
