@@ -604,7 +604,8 @@ module.exports.takeWhile = curry((f, xs) => genToIter(function * () {
 /**
  * Returns a new iterable which is a transposition of the given iterable (columns and rows swapped)
  * @sig [[a]] -> [[a]]
- * @example transpose([
+ * @example
+ * transpose([
  *   [1, 2, 3],
  *   [4, 5, 6],
  *   [7, 8, 9],
@@ -632,10 +633,7 @@ module.exports.transpose = xss => genToIter(function * () {
 /**
  * Returns a new iterable with values as iterables of length 2 with the first element as the corresponding element from the first given iterable and the second element as the corresponding element from the second given iterable. The length of the returned iterable is the same as the shortest iterable supplied
  * @sig [a] -> [b] -> [[a b]]
- * @example zip(
- *   [2, 3, 5, 7],
- *   range(1, Infinity)
- * ) // => ((2 1) (3 2) (5 3) (7 4))
+ * @example zip([2, 3, 5, 7], range(1, Infinity)) // => ((2 1) (3 2) (5 3) (7 4))
  */
 module.exports.zip = curry((xs, ys) => genToIter(function * () {
   const iteratorY = ys[Symbol.iterator]()
@@ -649,11 +647,7 @@ module.exports.zip = curry((xs, ys) => genToIter(function * () {
  * Returns a new iterable with values as the result of calling the given function with the corresponding element from the first and second given iterables respectively. The length of the returned iterable is the same as the shortest iterable supplied
  * @sig ((a, b) -> c) -> [a] -> [b] -> [c]
  * @example
- * zipWith(
- *   (a, b) => a + b
- *   [2, 3, 5, 7],
- *   range(1, Infinity)
- * ) // => (3 5 8 11)
+ * zipWith((a, b) => a + b, [2, 3, 5, 7], range(1, Infinity)) // => (3 5 8 11)
  */
 module.exports.zipWith = curry((f, xs, ys) => genToIter(function * () {
   const iteratorY = ys[Symbol.iterator]()
