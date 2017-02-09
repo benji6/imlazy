@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "benchmark": "node benchmark",
-    "docs": "jsdoc index.js -d docs",
+    "docs": "node docs",
+    "docs-watch": "nodemon --watch docs.js --watch index.js --watch docs/src -e css docs",
     "lint": "eslint .",
     "spec": "tape 'test/**/*.js' | faucet",
     "test": "concurrently 'npm run lint' 'npm run spec'",
@@ -44,11 +45,13 @@
   "devDependencies": {
     "benchmark": "^2.1.0",
     "concurrently": "^3.1.0",
+    "dox": "0.9.0",
     "eslint": "^3.14.0",
     "eslint-config-benji6": "^1.0.0",
     "faucet": "0.0.1",
+    "highlight.js": "9.9.0",
+    "html-minifier": "3.3.1",
     "immutable": "^3.8.1",
-    "jsdoc": "^3.4.0",
     "nodemon": "^1.9.2",
     "ramda": "^0.23.0",
     "tape": "^4.6.3"
