@@ -9,7 +9,7 @@
     "docs-watch": "nodemon --watch docs.js --watch index.js --watch docs/src -e css docs",
     "lint": "eslint .",
     "spec": "tape 'test/**/*.js' | faucet",
-    "test": "concurrently 'npm run lint' 'npm run spec'",
+    "test": "npm run lint && npm run spec",
     "watch-docs": "nodemon --watch index.js --exec npm run docs",
     "watch-spec": "nodemon --exec npm run spec",
     "watch-test": "nodemon --exec npm t"
@@ -44,7 +44,6 @@
   },
   "devDependencies": {
     "benchmark": "^2.1.0",
-    "concurrently": "^3.1.0",
     "dox": "0.9.0",
     "eslint": "^3.14.0",
     "eslint-config-benji6": "^1.0.0",
