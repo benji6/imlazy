@@ -82,7 +82,7 @@ const fibonacciGenerator = function* () {
 takeEight(fibonacciGenerator()) // => (1 1 2 3 5 8 13 21)
 ```
 
-## [Click Here for Documentation](http://benji6.github.io/imlazy/public)
+## [Click Here for Documentation](https://benji6.github.io/imlazy/public)
 
 ## Interoperability
 
