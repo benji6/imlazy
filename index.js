@@ -349,9 +349,9 @@ module.exports.chain = curry((f, xs) => genToIter(function * () {
  * @sig [a] -> [a]
  * @example cycle([1, 2, 3]) // => (1 2 3 1 2 3 1 2 3 1...)
  */
-module.exports.cycle = xs => genToIter(function * () {
-  while (true) yield * xs
-})
+module.exports.cycle = xs => module.exports.isEmpty(xs)
+  ? module.exports.empty()
+  : genToIter(function * () { while (true) yield * xs })
 
 /**
  * Returns a new Iterable by applying the given function to every value in the given iterable
