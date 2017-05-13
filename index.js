@@ -459,12 +459,11 @@ module.exports.remove = curry((a, b, xs) => genToIter(function * () {
 }))
 
 /**
- * Returns a new iterable where every value is the given value and there are as many values as the given count
+ * Returns an infinite iterable of the given value
  * @sig a -> [a]
  * @example
- * const repeat42 = repeat(42)
- * repeat42(3)) // => (42 42 42)
- * repeat42(Infinity)) // => (42 42 42 42 42 42 42 42 42 42...)
+ * repeat(42) // => (42 42 42 42 42 42 42 42 42 42...)
+ * take(3, repeat('hi')) // => ('hi' 'hi' 'hi')
  */
 module.exports.repeat = a => genToIter(function * () {
   while (true) yield a
