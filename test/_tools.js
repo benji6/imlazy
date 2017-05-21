@@ -1,6 +1,6 @@
 'use strict'
 
-const {range, repeat, take} = require('../')
+const {map, range, repeat, take} = require('../')
 
 const spreadUpTo1024 = xs => {
   const ys = []
@@ -44,4 +44,8 @@ module.exports.subtract = (a, b) => a - b
 module.exports.takeEight = take(8)
 module.exports.takeThree = take(3)
 module.exports.threeTwoOne = Object.freeze([3, 2, 1])
+module.exports.throwOnThird = map(n => {
+  if (n === 3) throw new Error('too eager!')
+  return n
+}, module.exports.oneTwoThree)
 module.exports.fourThreeTwoOne = Object.freeze([4, 3, 2, 1])
