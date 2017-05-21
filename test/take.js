@@ -1,5 +1,5 @@
 const test = require('tape')
-const {map} = require('../')
+const {map, take} = require('../')
 const {
   double,
   testAndToArray,
@@ -7,6 +7,7 @@ const {
   oneTwoThreeFour,
   positiveIntegers,
   takeThree,
+  throwOnThird,
 } = require('./_tools')
 
 test('take', t => {
@@ -16,5 +17,6 @@ test('take', t => {
   t.deepEqual(processIterable(takeThree(positiveIntegers)), oneTwoThree)
   t.deepEqual(processIterable(takeThree(map(double)(positiveIntegers))), [2, 4, 6])
   t.deepEqual(processIterable(map(double)(takeThree(positiveIntegers))), [2, 4, 6])
+  t.deepEqual(processIterable(take(2, throwOnThird)), [1, 2])
   t.end()
 })

@@ -483,13 +483,18 @@ module.exports.reverse = xs => iterToIter([...xs].reverse())
  * slice(2, 4, range(1, Infinity)) // => (3 4)
  */
 module.exports.slice = curry((a, b, xs) => {
+  if (a >= b) return module.exports.empty()
   const iterator = xs[Symbol.iterator]()
   let i = a
   while (i--) iterator.next()
   const generatorFactory = iterToGenFactory(iterator)
   return genToIter(function * () {
     let j = b - a
-    for (const x of generatorFactory()) if (--j < 0) return; else yield x
+    const iterator = generatorFactory()
+    while (j--) {
+      const {done, value} = iterator.next()
+      if (done) return; yield value
+    }
   })
 })
 
@@ -579,7 +584,11 @@ module.exports.tail = xs => {
  */
 module.exports.take = curry((a, xs) => genToIter(function * () {
   let i = a
-  for (const x of xs) if (!i--) return; else yield x
+  const iterator = xs[Symbol.iterator]()
+  while (i--) {
+    const {done, value} = iterator.next()
+    if (done) return; yield value
+  }
 }))
 
 /**

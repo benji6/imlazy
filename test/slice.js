@@ -5,6 +5,7 @@ const {
   oneTwoThree,
   oneTwoThreeFour,
   positiveIntegers,
+  throwOnThird,
 } = require('./_tools')
 
 test('slice', t => {
@@ -25,5 +26,9 @@ test('slice', t => {
     processIterable(sliceFromZero(3)(slice(0, Infinity, positiveIntegers))),
     oneTwoThree
   )
+  t.deepEqual(processIterable(slice(2, 2, positiveIntegers)), [])
+  t.deepEqual(processIterable(slice(2, 1, positiveIntegers)), [])
+  t.deepEqual(processIterable(slice(Infinity, Infinity, positiveIntegers)), [])
+  t.deepEqual(processIterable(slice(0, 2, throwOnThird)), [1, 2])
   t.end()
 })
