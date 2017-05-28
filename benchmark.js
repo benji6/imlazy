@@ -1,5 +1,7 @@
 'use strict'
 
+const assert = require('assert')
+
 const Benchmark = require('benchmark')
 const I = require('./')
 const R = require('ramda')
@@ -51,6 +53,23 @@ const imlazyInfiniteBenchmark = data => Array.from(I.take(
   length,
   I.filter(isEven, I.filter(divisibleBy5, I.map(triple, I.map(add10, data))))
 ))
+
+assert.deepStrictEqual(
+  imlazyInfiniteBenchmark(testInfiniteIterable),
+  ramdaTransducerInfiniteBenchmark(testInfiniteIterable)
+)
+assert.deepStrictEqual(
+  imlazyArrayBenchmark(testArray),
+  ramdaTransducerArrayBenchmark(testArray)
+)
+assert.deepStrictEqual(
+  ramdaTransducerArrayBenchmark(testArray),
+  nativeBenchmark(testArray)
+)
+assert.deepStrictEqual(
+  nativeBenchmark(testArray),
+  ramdaBenchmark(testArray)
+)
 
 new Benchmark.Suite()
   .add('infiniteIterable - imlazy', () => { imlazyInfiniteBenchmark(testInfiniteIterable) })
