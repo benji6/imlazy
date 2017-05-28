@@ -52,7 +52,7 @@
     "html-minifier": "^3.3.1",
     "immutable": "^3.8.1",
     "nodemon": "^1.9.2",
-    "ramda": "^0.23.0",
+    "ramda": "^0.24.0",
     "tape": "^4.6.3"
   }
 }
