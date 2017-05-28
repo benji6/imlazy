@@ -1,5 +1,5 @@
 const test = require('tape')
-const {drop} = require('../')
+const {drop, map, range} = require('../')
 const {
   testAndToArray,
   oneTwoThree,
@@ -20,6 +20,15 @@ test('drop', t => {
   t.deepEqual(processIterable(takeThree(dropOne(positiveIntegers))), [2, 3, 4])
   t.deepEqual(processIterable(takeThree(dropOne(positiveIntegers))), [2, 3, 4])
   t.deepEqual(processIterable(drop(3)(oneTwoThreeFour)), [4])
+  t.deepEqual(processIterable(drop(30, oneTwoThree)), [])
+
+  let invocationCount = 0
+  const incrementInvocationCount = map(() => invocationCount++)
+  ;[...drop(8, incrementInvocationCount(range(0, 15)))]
+  t.equal(invocationCount, 8)
+  invocationCount = 0
+  ;[...drop(8, incrementInvocationCount(incrementInvocationCount(range(0, 15))))]
+  t.equal(invocationCount, 16)
   t.deepEqual(processIterable(drop(30, oneTwoThree)), [])
   t.end()
 })

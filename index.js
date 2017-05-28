@@ -2,6 +2,9 @@
 
 const isEqualWith = require('lodash.isequalwith')
 
+const doNoWorkSymbol = Symbol('Do no work')
+const lastSymbol = Symbol()
+
 const curry = f => (...xs) => xs.length < f.length
   ? curry(f.bind(...[null, ...xs]))
   : f(...xs)
@@ -25,11 +28,11 @@ const isIterable = a => Boolean(a[Symbol.iterator])
 
 const iterToGenFactory = iterator => {
   const cache = []
-  return function * () {
+  return function * (msg) {
     let i = 0
     while (true) {
       if (i >= cache.length) {
-        const {done, value} = iterator.next()
+        const {done, value} = iterator.next(msg)
         if (done) return; else cache.push(value)
       }
       yield cache[i++]
@@ -38,8 +41,6 @@ const iterToGenFactory = iterator => {
 }
 
 const iterToIter = xs => genToIter(function * () { yield * xs })
-
-const sym = Symbol()
 
 /**
  * Returns a new iterable with the given function applied to the value at the given index
@@ -102,10 +103,10 @@ module.exports.concat = curry((xs, ys) => genToIter(function * () {
  * drop(2, range(1, Infinity)) // => (3 4 5 6 7 8 9 10 11 12...)
  */
 module.exports.drop = curry((n, xs) => {
-  const iterator = xs[Symbol.iterator]()
-  while (n--) iterator.next()
+  const iterator = xs[Symbol.iterator](doNoWorkSymbol)
+  while (n--) iterator.next(doNoWorkSymbol)
   const generatorFactory = iterToGenFactory(iterator)
-  return genToIter(function * () { yield * generatorFactory() })
+  return genToIter(function * (msg) { yield * generatorFactory(msg) })
 })
 
 /**
@@ -240,9 +241,9 @@ module.exports.includes = curry((y, xs) => {
  * @sig a -> [a] -> [a]
  */
 module.exports.init = xs => genToIter(function * () {
-  let last = sym
+  let last = lastSymbol
   for (const x of xs) {
-    if (last !== sym) yield last
+    if (last !== lastSymbol) yield last
     last = x
   }
 })
@@ -359,8 +360,13 @@ module.exports.cycle = xs => module.exports.isEmpty(xs)
  * @example
  * map(x => 2 * x, range(1, Infinity)) // => (2 4 6 8 10 12 14 16 18 20...)
  */
-module.exports.map = curry((f, xs) => genToIter(function * () {
-  for (const x of xs) yield f(x)
+module.exports.map = curry((f, xs) => genToIter(function * (msg) {
+  const iterator = xs[Symbol.iterator](msg)
+  while (true) {
+    const {done, value} = iterator.next(msg)
+    if (done) return
+    msg = yield msg === doNoWorkSymbol || f(value)
+  }
 }))
 
 /**
@@ -482,17 +488,22 @@ module.exports.reverse = xs => iterToIter([...xs].reverse())
  * @example
  * slice(2, 4, range(1, Infinity)) // => (3 4)
  */
-module.exports.slice = curry((a, b, xs) => {
-  if (a >= b) return module.exports.empty()
-  const iterator = xs[Symbol.iterator]()
-  let i = a
-  while (i--) iterator.next()
+module.exports.slice = curry((n, m, xs) => {
+  if (n >= m) return module.exports.empty()
+  let iterator
+  if (n > 0) {
+    iterator = xs[Symbol.iterator](doNoWorkSymbol)
+    let i = n
+    while (i--) iterator.next(doNoWorkSymbol)
+  } else {
+    iterator = xs[Symbol.iterator]()
+  }
   const generatorFactory = iterToGenFactory(iterator)
-  return genToIter(function * () {
-    let j = b - a
-    const iterator = generatorFactory()
+  return genToIter(function * (msg) {
+    let j = m - n
+    const iterator = generatorFactory(msg)
     while (j--) {
-      const {done, value} = iterator.next()
+      const {done, value} = iterator.next(msg)
       if (done) return; yield value
     }
   })
