@@ -109,22 +109,23 @@ This library implements the following [Static Land](https://github.com/rpominov/
 
 ## Performance
 
-There is a benchmark in the root of this repo comparing imlazy with Ramda and native array methods. The `infiniteIterable` benchmarks map, filter and take over an infinite iterable and the `array` benchmarks map and filter over an array
+imlazy is faster than the native array methods as of node 8, but not currently as fast as transducers.
 
-These are the results on my machine when using node v7.4.0:
+There is a benchmark in the root of this repo comparing imlazy with Ramda and native array methods. The `infiniteIterable` benchmarks `map`, `filter` and `take` over an infinite iterable and the `array` benchmarks `map` and `filter` over an array
+
+These are the results on my machine when using node v8.0.0:
 
 ```bash
-infiniteIterable - imlazy x 113 ops/sec ±0.20% (80 runs sampled)
-infiniteIterable - ramdaTransducer x 555 ops/sec ±0.93% (91 runs sampled)
-array - imlazy x 1,263 ops/sec ±1.01% (91 runs sampled)
-array - ramdaTransducer x 20,968 ops/sec ±1.10% (93 runs sampled)
-array - native x 3,764 ops/sec ±0.46% (95 runs sampled)
-array - ramda x 29,460 ops/sec ±0.56% (94 runs sampled)
+infiniteIterable - imlazy x 391 ops/sec ±5.32% (86 runs sampled)
+infiniteIterable - ramdaTransducer x 1,310 ops/sec ±3.48% (87 runs sampled)
+array - imlazy x 3,805 ops/sec ±8.95% (82 runs sampled)
+array - ramdaTransducer x 23,009 ops/sec ±2.46% (87 runs sampled)
+array - native x 3,026 ops/sec ±1.41% (90 runs sampled)
+array - ramda x 29,510 ops/sec ±1.41% (91 runs sampled)
+
 ```
 
-Ramda's transducers are significantly faster than imlazy over both infinite iterables and arrays
-
-The [six-speed](https://github.com/kpdecker/six-speed) test results suggest that performance could be significantly improved in future iterations of the V8 engine
+Performance on this benchmark improved with node 8 and the [six-speed](https://github.com/kpdecker/six-speed) test results suggest that further gains may be made in the future
 
 ## Project Scope
 
