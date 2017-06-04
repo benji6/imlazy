@@ -63,8 +63,8 @@ assert.deepStrictEqual(
 )
 
 new Benchmark.Suite()
-  .add('infiniteIterable - imlazy', () => { imlazyInfiniteBenchmark(testInfiniteIterable) })
-  .add('infiniteIterable - transducer', () => { ramdaTransducerInfiniteBenchmark(testInfiniteIterable) })
+  .add('infinite iterable - imlazy', () => { imlazyInfiniteBenchmark(testInfiniteIterable) })
+  .add('infinite iterable - transducer', () => { ramdaTransducerInfiniteBenchmark(testInfiniteIterable) })
   .add('array - imlazy', () => { imlazyArrayBenchmark(testArray) })
   .add('array - transducer', () => { ramdaTransducerArrayBenchmark(testArray) })
   .add('array - native', () => { nativeBenchmark(testArray) })
