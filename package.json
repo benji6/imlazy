@@ -11,7 +11,7 @@
     "spec": "tape 'test/**/*.js' | faucet",
     "test": "npm run lint && npm run spec",
     "watch-docs": "nodemon --watch index.js --exec npm run docs",
-    "watch-spec": "nodemon --exec npm run spec",
+    "watch-spec": "tape-watch 'test/**/*.js' | faucet",
     "watch-test": "nodemon --exec npm t"
   },
   "repository": {
@@ -53,6 +53,7 @@
     "immutable": "^3.8.1",
     "nodemon": "^1.9.2",
     "ramda": "^0.24.0",
-    "tape": "^4.6.3"
+    "tape": "^4.6.3",
+    "tape-watch": "^2.3.0"
   }
 }
