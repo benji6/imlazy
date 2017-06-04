@@ -2,8 +2,8 @@
 
 const isEqualWith = require('lodash.isequalwith')
 
-const doNoWorkSymbol = Symbol('Do no work')
 const lastSymbol = Symbol()
+const noValueSymbol = Symbol()
 
 const curry = f => (...xs) => xs.length < f.length
   ? curry(f.bind(...[null, ...xs]))
@@ -41,6 +41,43 @@ const iterToGenFactory = iterator => {
 }
 
 const iterToIter = xs => genToIter(function * () { yield * xs })
+
+const lazyIterable = (f, xs) => {
+  let iterable
+  if (xs.fs) {
+    const fs = [...xs.fs, f]
+    iterable = {
+      fs,
+      xs: xs.xs,
+      * [Symbol.iterator] () {
+        const gs = []; for (const f of fs) gs.push(f())
+        outer: for (const x of xs.xs) {
+          let val = x
+          for (const g of gs) {
+            val = g(val)
+            if (val === noValueSymbol) continue outer
+          }
+          yield val
+        }
+      },
+    }
+  } else {
+    iterable = {
+      fs: [f],
+      xs,
+      * [Symbol.iterator] () {
+        const g = f()
+        for (const x of xs) {
+          const val = g(x)
+          if (val === noValueSymbol) continue
+          yield val
+        }
+      },
+    }
+  }
+  Object.defineProperty(iterable, 'toString', {value: toString(iterable)})
+  return Object.freeze(iterable)
+}
 
 /**
  * Returns a new iterable with the given function applied to the value at the given index
@@ -102,12 +139,10 @@ module.exports.concat = curry((xs, ys) => genToIter(function * () {
  * @example
  * drop(2, range(1, Infinity)) // => (3 4 5 6 7 8 9 10 11 12...)
  */
-module.exports.drop = curry((n, xs) => {
-  const iterator = xs[Symbol.iterator](doNoWorkSymbol)
-  while (n--) iterator.next(doNoWorkSymbol)
-  const generatorFactory = iterToGenFactory(iterator)
-  return genToIter(function * (msg) { yield * generatorFactory(msg) })
-})
+module.exports.drop = curry((n, xs) => lazyIterable(
+  (m = n) => x => m > 0 ? (m -= 1, noValueSymbol) : x,
+  xs
+))
 
 /**
  * Returns a new iterable by applying the given function to each value in the given iterable only yielding values when false is returned
@@ -178,9 +213,10 @@ module.exports.every = curry((f, xs) => {
  * @example
  * filter(x => x % 2 === 0, range(1, Infinity)) // => (2 4 6 8 10 12 14 16 18 20...)
  */
-module.exports.filter = curry((f, xs) => genToIter(function * () {
-  for (const x of xs) if (f(x)) yield x
-}))
+module.exports.filter = curry((f, xs) => lazyIterable(
+  () => x => f(x) ? x : noValueSymbol,
+  xs
+))
 
 /**
  * Applies the given function to each value in the given iterable. If truthy is returned then find returns the value from the iterable and if the end of the iterable is reached with truthy never returned then find returns undefined
@@ -360,14 +396,7 @@ module.exports.cycle = xs => module.exports.isEmpty(xs)
  * @example
  * map(x => 2 * x, range(1, Infinity)) // => (2 4 6 8 10 12 14 16 18 20...)
  */
-module.exports.map = curry((f, xs) => genToIter(function * (msg) {
-  const iterator = xs[Symbol.iterator](msg)
-  while (true) {
-    const {done, value} = iterator.next(msg)
-    if (done) return
-    msg = yield msg === doNoWorkSymbol || f(value)
-  }
-}))
+module.exports.map = curry((f, xs) => lazyIterable(() => f, xs))
 
 /**
  * Returns the value at the given index in the given iterable, or undefined if no value exists
@@ -492,9 +521,9 @@ module.exports.slice = curry((n, m, xs) => {
   if (n >= m) return module.exports.empty()
   let iterator
   if (n > 0) {
-    iterator = xs[Symbol.iterator](doNoWorkSymbol)
+    iterator = xs[Symbol.iterator](noValueSymbol)
     let i = n
-    while (i--) iterator.next(doNoWorkSymbol)
+    while (i--) iterator.next(noValueSymbol)
   } else {
     iterator = xs[Symbol.iterator]()
   }
