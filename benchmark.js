@@ -29,11 +29,6 @@ const nativeBenchmark = data => data
   .filter(divisibleBy5)
   .filter(isEven)
 
-const ramdaBenchmark = data => R.filter(isEven,
-                                        R.filter(divisibleBy5,
-                                                 R.map(triple,
-                                                       R.map(add10, data))))
-
 const ramdaTransducerArrayBenchmark = R.into([], R.compose(
   R.map(add10),
   R.map(triple),
@@ -66,18 +61,13 @@ assert.deepStrictEqual(
   ramdaTransducerArrayBenchmark(testArray),
   nativeBenchmark(testArray)
 )
-assert.deepStrictEqual(
-  nativeBenchmark(testArray),
-  ramdaBenchmark(testArray)
-)
 
 new Benchmark.Suite()
   .add('infiniteIterable - imlazy', () => { imlazyInfiniteBenchmark(testInfiniteIterable) })
-  .add('infiniteIterable - ramdaTransducer', () => { ramdaTransducerInfiniteBenchmark(testInfiniteIterable) })
+  .add('infiniteIterable - transducer', () => { ramdaTransducerInfiniteBenchmark(testInfiniteIterable) })
   .add('array - imlazy', () => { imlazyArrayBenchmark(testArray) })
-  .add('array - ramdaTransducer', () => { ramdaTransducerArrayBenchmark(testArray) })
+  .add('array - transducer', () => { ramdaTransducerArrayBenchmark(testArray) })
   .add('array - native', () => { nativeBenchmark(testArray) })
-  .add('array - ramda', () => { ramdaBenchmark(testArray) })
   .on('cycle', x => process.stdout.write(`${String(x.target)}\n`))
   .on('complete', function () {
     process.stdout.write(`Fastest is ${this.filter('fastest').map('name')}\n`)
