@@ -9,7 +9,7 @@
 
 JS library, for dealing with iterables, iterators and generators
 
-imlazy can be used to create iterables, "transform" them (returning new iterables rather than mutating them) or query them
+imlazy can be used to create iterables, transform them (returning new iterables rather than mutating them) or query them
 
 Iterables returned by imlazy are of the form:
 
@@ -37,7 +37,9 @@ All functions exposed by imlazy are curried and data-last which makes them ideal
 npm i -S imlazy
 ```
 
-***N.B. imlazy is written in ES2015. It runs fine in node 6 but will not run in a non ES2015 environment***
+## Support
+
+imlazy is written in ES2015 and will run in any environment that supports that specification. If using in Node.js use version >= 6
 
 ## Getting Started
 
@@ -88,7 +90,7 @@ takeEight(fibonacciGenerator()) // => (1 1 2 3 5 8 13 21)
 
 ### Symbol.iterator
 
-This library works with all native iterable types including the Generator, String, Array, TypedArray, Map and Set types
+This library works with all native iterable types including the `Generator`, `String`, `Array`, `TypedArray`, `Map` and `Set` types
 
 In fact anything that has a `Symbol.iterator` property can be processed by this library and that includes custom data structures like iterables from [immutable-js](https://github.com/facebook/immutable-js)
 
@@ -109,7 +111,7 @@ This library implements the following [Static Land](https://github.com/rpominov/
 
 ## Performance
 
-imlazy is faster than the native array methods as of node 8, but not currently as fast as transducers.
+:tada: imlazy is faster than native array methods as of node 8! :tada:
 
 There is a benchmark in the root of this repo comparing imlazy with Ramda transducers and native array methods. The `infiniteIterable` benchmarks `map`, `filter` and `take` over an infinite iterable and the `array` benchmarks `map` and `filter` over an array
 
