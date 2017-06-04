@@ -118,11 +118,11 @@ There is a benchmark in the root of this repo comparing imlazy with Ramda transd
 These are the results on my machine when using node v8.0.0:
 
 ```bash
-infinite iterable - imlazy x 391 ops/sec ±5.32% (86 runs sampled)
-infinite iterable - transducer x 1,310 ops/sec ±3.48% (87 runs sampled)
-array - imlazy x 3,805 ops/sec ±8.95% (82 runs sampled)
-array - transducer x 23,009 ops/sec ±2.46% (87 runs sampled)
-array - native x 3,026 ops/sec ±1.41% (90 runs sampled)
+infinite iterable - imlazy x 464 ops/sec ±2.90% (84 runs sampled)
+infinite iterable - transducer x 1,266 ops/sec ±5.62% (85 runs sampled)
+array - imlazy x 4,766 ops/sec ±3.56% (80 runs sampled)
+array - transducer x 22,468 ops/sec ±1.54% (90 runs sampled)
+array - native x 3,767 ops/sec ±0.95% (91 runs sampled)
 ```
 
 Performance on this benchmark improved with node 8 and the [six-speed](https://github.com/kpdecker/six-speed) test results suggest that further gains may be made in the future
