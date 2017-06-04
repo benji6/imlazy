@@ -5,14 +5,13 @@
   "main": "index.js",
   "scripts": {
     "benchmark": "node benchmark",
+    "docs-watch": "nodemon --watch docs.js --watch index.js --watch docsSrc -e css docs",
     "docs": "node docs",
-    "docs-watch": "nodemon --watch docs.js --watch index.js --watch docs/src -e css docs",
     "lint": "eslint .",
+    "spec-watch": "tape-watch 'test/**/*.js' | faucet",
     "spec": "tape 'test/**/*.js' | faucet",
-    "test": "npm run lint && npm run spec",
-    "watch-docs": "nodemon --watch index.js --exec npm run docs",
-    "watch-spec": "tape-watch 'test/**/*.js' | faucet",
-    "watch-test": "nodemon --exec npm t"
+    "test-watch": "nodemon --exec npm t",
+    "test": "npm run lint && npm run spec"
   },
   "repository": {
     "type": "git",

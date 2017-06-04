@@ -5,7 +5,7 @@ const {minify} = require('html-minifier')
 const {version} = require('./package')
 const CleanCSS = require('clean-css')
 
-const css = fs.readFileSync('./docs/src/index.css')
+const css = fs.readFileSync('./docsSrc/index.css')
 
 const src = fs.readFileSync('./index.js', 'utf-8')
 const obj = dox.parseComments(src)
@@ -65,7 +65,6 @@ const page = children => `
   </body>
   </html>
 `
-if (!fs.existsSync('docs/public')) fs.mkdirSync('docs/public')
 
-fs.writeFile('docs/public/index.html', minify(page(obj.map(docEntry).join('')), {collapseWhitespace: true}))
-fs.writeFile('docs/public/index.css', new CleanCSS({}).minify(css).styles)
+fs.writeFile('docs/index.html', minify(page(obj.map(docEntry).join('')), {collapseWhitespace: true}))
+fs.writeFile('docs/index.css', new CleanCSS({}).minify(css).styles)
