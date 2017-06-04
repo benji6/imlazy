@@ -34,7 +34,7 @@ module.exports.isEven = x => x % 2 === 0
 module.exports.testAndToArray = t => iter => {
   t.throws(() => iter.a = 1)
   t.is(iter.toString.name, 'imlazyToStringThunk')
-  t.deepEqual(deepToArray(iter), deepToArray(iter))
+  t.deepEqual(deepToArray(iter), deepToArray(iter), 'Can spread twice')
   return [...iter]
 }
 module.exports.negativeIntegers = range(-1)(-Infinity)
