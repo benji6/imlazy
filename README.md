@@ -115,14 +115,14 @@ This library implements the following [Static Land](https://github.com/rpominov/
 
 There is a benchmark in the root of this repo comparing imlazy with Ramda transducers and native array methods. The `infinite iterable` benchmarks `map`, `filter` and `take` over an infinite iterable and the `array` benchmarks `map` and `filter` over an array
 
-These are the results on my machine when using node v8.0.0:
+These are the results on my machine when using node 8:
 
 ```bash
-infinite iterable - imlazy x 464 ops/sec ±2.90% (84 runs sampled)
-infinite iterable - transducer x 1,266 ops/sec ±5.62% (85 runs sampled)
-array - imlazy x 4,766 ops/sec ±3.56% (80 runs sampled)
-array - transducer x 22,468 ops/sec ±1.54% (90 runs sampled)
-array - native x 3,767 ops/sec ±0.95% (91 runs sampled)
+infinite iterable - imlazy x 636 ops/sec ±4.54% (86 runs sampled)
+infinite iterable - transducer x 1,368 ops/sec ±3.53% (91 runs sampled)
+array - imlazy x 7,618 ops/sec ±1.66% (88 runs sampled)
+array - transducer x 22,893 ops/sec ±0.60% (90 runs sampled)
+array - native x 3,893 ops/sec ±0.59% (93 runs sampled)
 ```
 
 Performance on this benchmark improved with node 8 and the [six-speed](https://github.com/kpdecker/six-speed) test results suggest that further gains may be made in the future
