@@ -20,8 +20,7 @@ const docEntry = o => {
     : ''
 
   return `
-    <div class="card">
-      <div class="card__id" id="${name}"></div>
+    <div class="card" id="${name}">
       <h2 class="card__title">
         <div class="card__title-left">
           <div>${name}</div>
