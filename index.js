@@ -50,14 +50,28 @@ const lazyIterable = (f, xs) => {
       fs,
       xs: xs.xs,
       * [Symbol.iterator] () {
-        const gs = []; for (const f of fs) gs.push(f())
-        outer: for (const x of xs.xs) {
+        const gs = []; for (let i = 0; i < fs.length; i++) gs.push(fs[i]())
+        const g = x => {
           let val = x
-          for (const g of gs) {
-            val = g(val)
-            if (val === noValueSymbol) continue outer
+          for (let j = 0; j < gs.length; j++) {
+            val = gs[j](val)
+            if (val === noValueSymbol) return noValueSymbol
           }
-          yield val
+          return val
+        }
+        const zs = xs.xs
+        if (Array.isArray(zs)) {
+          for (let i = 0; i < zs.length; i++) {
+            const val = g(zs[i])
+            if (val === noValueSymbol) continue
+            yield val
+          }
+        } else {
+          for (const x of zs) {
+            const val = g(x)
+            if (val === noValueSymbol) continue
+            yield val
+          }
         }
       },
     }
@@ -67,10 +81,18 @@ const lazyIterable = (f, xs) => {
       xs,
       * [Symbol.iterator] () {
         const g = f()
-        for (const x of xs) {
-          const val = g(x)
-          if (val === noValueSymbol) continue
-          yield val
+        if (Array.isArray(xs)) {
+          for (let i = 0; i < xs.length; i++) {
+            const val = g(xs[i])
+            if (val === noValueSymbol) continue
+            yield val
+          }
+        } else {
+          for (const x of xs) {
+            const val = g(x)
+            if (val === noValueSymbol) continue
+            yield val
+          }
         }
       },
     }
