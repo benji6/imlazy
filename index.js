@@ -495,9 +495,10 @@ module.exports.reduce = curry((f, a, xs) => {
  * @example
  * reject(x => x % 2 === 0, range(1, Infinity)) // => (1 3 5 7 9 11 13 15 17 19...)
  */
-module.exports.reject = curry((f, xs) => genToIter(function * () {
-  for (const x of xs) if (!f(x)) yield x
-}))
+module.exports.reject = curry((f, xs) => lazyIterable(
+  () => x => f(x) ? noValueSymbol : x,
+  xs
+))
 
 /**
  * Returns an iterable of the given iterable, excluding values from the given index for the given count
