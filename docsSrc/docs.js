@@ -65,5 +65,5 @@ const page = children => `
   </html>
 `
 
-fs.writeFile('docs/index.html', minify(page(obj.map(docEntry).join('')), {collapseWhitespace: true}))
-fs.writeFile('docs/index.css', new CleanCSS({}).minify(css).styles)
+fs.writeFileSync('docs/index.html', minify(page(obj.map(docEntry).join('')), {collapseWhitespace: true}))
+fs.writeFileSync('docs/index.css', new CleanCSS({}).minify(css).styles)
