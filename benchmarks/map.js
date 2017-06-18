@@ -21,7 +21,7 @@ const nativeOnceBenchmark = xs => consumeIterable(xs
 
 const imlazyTwiceBenchmark = xs => consumeIterable(
   I.map(halve,
-  I.map(add1, xs))
+    I.map(add1, xs))
 )
 
 const nativeTwiceBenchmark = xs => consumeIterable(xs
@@ -30,8 +30,8 @@ const nativeTwiceBenchmark = xs => consumeIterable(xs
 
 const imlazyThriceBenchmark = xs => consumeIterable(
   I.map(triple,
-  I.map(halve,
-  I.map(add1, xs)))
+    I.map(halve,
+      I.map(add1, xs)))
 )
 
 const nativeThriceBenchmark = xs => consumeIterable(xs

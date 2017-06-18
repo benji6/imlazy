@@ -21,7 +21,7 @@ const nativeOnceBenchmark = xs => consumeIterable(xs
 
 const imlazyTwiceBenchmark = xs => consumeIterable(
   I.filter(divisibleBy3,
-  I.filter(divisibleBy2, xs))
+    I.filter(divisibleBy2, xs))
 )
 
 const nativeTwiceBenchmark = xs => consumeIterable(xs
@@ -30,8 +30,8 @@ const nativeTwiceBenchmark = xs => consumeIterable(xs
 
 const imlazyThriceBenchmark = xs => consumeIterable(
   I.filter(divisibleBy5,
-  I.filter(divisibleBy3,
-  I.filter(divisibleBy2, xs)))
+    I.filter(divisibleBy3,
+      I.filter(divisibleBy2, xs)))
 )
 
 const nativeThriceBenchmark = xs => consumeIterable(xs

@@ -20,9 +20,9 @@ const isEven = x => x % 2 === 0
 
 const imlazyArrayBenchmark = data => consumeIterable(
   I.filter(isEven,
-  I.filter(divisibleBy5,
-  I.map(triple,
-  I.map(add10, data))))
+    I.filter(divisibleBy5,
+      I.map(triple,
+        I.map(add10, data))))
 )
 
 const nativeBenchmark = data => consumeIterable(data
@@ -49,9 +49,9 @@ const ramdaTransducerInfiniteBenchmark = xs => consumeIterable(R.into([], R.comp
 const imlazyInfiniteBenchmark = data => consumeIterable(
   I.take(length,
     I.filter(isEven,
-    I.filter(divisibleBy5,
-    I.map(triple,
-    I.map(add10, data))))
+      I.filter(divisibleBy5,
+        I.map(triple,
+          I.map(add10, data))))
   )
 )
 
