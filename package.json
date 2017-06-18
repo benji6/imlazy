@@ -4,7 +4,7 @@
   "description": "Functional programming with lazy immutable iterables",
   "main": "index.js",
   "scripts": {
-    "benchmark": "node benchmark",
+    "benchmark": "node benchmarks/transducers-and-native",
     "docs-watch": "nodemon --watch docs.js --watch index.js --watch docsSrc -e css docs",
     "docs": "node docs",
     "lint": "eslint .",
