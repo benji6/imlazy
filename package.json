@@ -1,6 +1,6 @@
 {
   "name": "imlazy",
-  "version": "6.2.8",
+  "version": "6.2.9",
   "description": "Functional programming with lazy immutable iterables",
   "main": "index.js",
   "scripts": {
