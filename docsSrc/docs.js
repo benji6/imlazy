@@ -2,7 +2,7 @@ const dox = require('dox')
 const fs = require('fs')
 const hljs = require('highlight.js')
 const {minify} = require('html-minifier')
-const {version} = require('./package')
+const {version} = require('../package')
 const CleanCSS = require('clean-css')
 
 const css = fs.readFileSync('./docsSrc/index.css')

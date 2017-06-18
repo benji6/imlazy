@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "benchmark": "node benchmarks/transducers-and-native",
-    "docs-watch": "nodemon --watch docs.js --watch index.js --watch docsSrc -e css docs",
-    "docs": "node docs",
+    "docs-watch": "nodemon --watch index.js --watch docsSrc -e css -e js docsSrc/docs",
+    "docs": "node docsSrc/docs",
     "lint": "eslint .",
     "spec-watch": "tape-watch 'test/**/*.js' | faucet",
     "spec": "tape 'test/**/*.js' | faucet",
