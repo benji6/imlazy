@@ -161,10 +161,12 @@ module.exports.concat = curry((xs, ys) => genToIter(function * () {
  * @example
  * drop(2, range(1, Infinity)) // => (3 4 5 6 7 8 9 10 11 12...)
  */
-module.exports.drop = curry((n, xs) => lazyIterable(
-  (m = n) => x => m > 0 ? (m -= 1, noValueSymbol) : x,
-  xs
-))
+module.exports.drop = curry((n, xs) => {
+  const iterator = xs[Symbol.iterator]()
+  while (n--) iterator.next()
+  const generatorFactory = iterToGenFactory(iterator)
+  return genToIter(function * (msg) { yield * generatorFactory(msg) })
+})
 
 /**
  * Returns a new iterable by applying the given function to each value in the given iterable only yielding values when false is returned
