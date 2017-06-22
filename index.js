@@ -26,20 +26,6 @@ const genToIter = gen => {
 
 const isIterable = a => Boolean(a[Symbol.iterator])
 
-const iterToGenFactory = iterator => {
-  const cache = []
-  return function * (msg) {
-    let i = 0
-    while (true) {
-      if (i >= cache.length) {
-        const {done, value} = iterator.next(msg)
-        if (done) return; else cache.push(value)
-      }
-      yield cache[i++]
-    }
-  }
-}
-
 const iterToIter = xs => genToIter(function * () { yield * xs })
 
 const lazyIterable = (f, xs) => {
@@ -55,7 +41,7 @@ const lazyIterable = (f, xs) => {
           let val = x
           for (let j = 0; j < gs.length; j++) {
             val = gs[j](val)
-            if (val === noValueSymbol) return noValueSymbol
+            if (val === noValueSymbol) return val
           }
           return val
         }
@@ -161,12 +147,10 @@ module.exports.concat = curry((xs, ys) => genToIter(function * () {
  * @example
  * drop(2, range(1, Infinity)) // => (3 4 5 6 7 8 9 10 11 12...)
  */
-module.exports.drop = curry((n, xs) => {
-  const iterator = xs[Symbol.iterator]()
-  while (n--) iterator.next()
-  const generatorFactory = iterToGenFactory(iterator)
-  return genToIter(function * (msg) { yield * generatorFactory(msg) })
-})
+module.exports.drop = curry((n, xs) => lazyIterable(
+  (m = n) => x => m > 0 ? (m -= 1, noValueSymbol) : x,
+  xs
+))
 
 /**
  * Returns a new iterable by applying the given function to each value in the given iterable only yielding values when false is returned
@@ -174,19 +158,10 @@ module.exports.drop = curry((n, xs) => {
  * @example
  * dropWhile(x => x <= 2, [1, 2, 3, 4, 3, 2, 1]) // => (3 4 3 2 1)
  */
-module.exports.dropWhile = curry((f, xs) => {
-  const iteratorA = xs[Symbol.iterator]()
-  const iteratorB = xs[Symbol.iterator]()
-  let i = 0
-  while (true) {
-    const {done, value} = iteratorA.next()
-    if (done || !f(value)) break
-    i++
-  }
-  while (i--) iteratorB.next()
-  const generatorFactory = iterToGenFactory(iteratorB)
-  return genToIter(function * () { yield * generatorFactory() })
-})
+module.exports.dropWhile = curry((f, xs) => lazyIterable(
+  (isDropping = true) => x => f(x) && isDropping ? noValueSymbol : (isDropping = false, x),
+  xs
+))
 
 /**
  * Returns an empty iterable
@@ -544,20 +519,13 @@ module.exports.reverse = xs => iterToIter([...xs].reverse())
  */
 module.exports.slice = curry((n, m, xs) => {
   if (n >= m) return module.exports.empty()
-  let iterator
-  if (n > 0) {
-    iterator = xs[Symbol.iterator](noValueSymbol)
-    let i = n
-    while (i--) iterator.next(noValueSymbol)
-  } else {
-    iterator = xs[Symbol.iterator]()
-  }
-  const generatorFactory = iterToGenFactory(iterator)
-  return genToIter(function * (msg) {
-    let j = m - n
-    const iterator = generatorFactory(msg)
-    while (j--) {
-      const {done, value} = iterator.next(msg)
+  return genToIter(function * () {
+    let a = n
+    let b = m - n
+    const iterator = xs[Symbol.iterator]()
+    while (a--) if (iterator.next().done) return
+    while (b--) {
+      const {done, value} = iterator.next()
       if (done) return; yield value
     }
   })
@@ -634,12 +602,10 @@ module.exports.sum = xs => {
  * @see head init last
  * @sig [a] -> [a]
  */
-module.exports.tail = xs => {
-  const iterator = xs[Symbol.iterator]()
-  iterator.next()
-  const generatorFactory = iterToGenFactory(iterator)
-  return genToIter(function * () { yield * generatorFactory() })
-}
+module.exports.tail = xs => lazyIterable(
+  (isDropping = true) => x => isDropping ? (isDropping = false, noValueSymbol) : x,
+  xs
+)
 
 /**
  * Returns an iterable of the first n elements of the given iterable

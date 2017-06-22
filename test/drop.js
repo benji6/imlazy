@@ -22,9 +22,5 @@ test('drop', t => {
   t.deepEqual(processIterable(drop(3)(oneTwoThreeFour)), [4])
   t.deepEqual(processIterable(drop(30, oneTwoThree)), [])
   t.deepEqual(processIterable(drop(30, oneTwoThree)), [])
-
-  let evaluated = false
-  drop(1, {* [Symbol.iterator] () { while (true) yield evaluated = true }})
-  t.true(evaluated, 'is eager')
   t.end()
 })
