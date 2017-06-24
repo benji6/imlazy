@@ -512,12 +512,15 @@ module.exports.repeat = a => genToIter(function * () {
 module.exports.reverse = xs => iterToIter([...xs].reverse())
 
 /**
- * Returns an iterable of the given iterable starting at the given startIndex and ending one before the given endIndex
+ * Returns an iterable of the given iterable starting at the given start index and ending one before the given end index. If the start index or the end index is negative it indicates an offset from the end of the iterable exactly like native `Array.prototype.slice`
  * @sig Number -> Number -> [a] -> [a]
  * @example
  * slice(2, 4, range(1, Infinity)) // => (3 4)
+ * slice(0, -1, range(1, 4)) // => (1 2 3)
  */
 module.exports.slice = curry((n, m, xs) => {
+  if (n < 0 && m < 0 && n >= m) return module.exports.empty()
+  if (n < 0 || m < 0) return iterToIter([...xs].slice(n, m))
   if (n >= m) return module.exports.empty()
   return genToIter(function * () {
     let a = n

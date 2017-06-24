@@ -19,6 +19,12 @@ a:hover {
   color: #3df;
 }
 
+code {
+  background: #def;
+  border-radius: 0.25rem;
+  padding: 0.1rem 0.25rem;
+}
+
 .header {
   align-items: center;
   background: #fcfdff;
