@@ -170,14 +170,19 @@ module.exports.dropWhile = curry((f, xs) => lazyIterable(
  */
 module.exports.empty = () => genToIter(function * () {})
 
-const shouldSpread = x => isIterable(x) && typeof x.length !== 'number'
+const isLazyIterable = x => isIterable(x) && typeof x.length !== 'number'
 const customizer = (x, y) => {
-  const shouldSpreadX = shouldSpread(x)
-  const shouldSpreadY = shouldSpread(y)
-  if (shouldSpreadX || shouldSpreadY) {
-    const xs = shouldSpreadX ? [...x] : x
-    const ys = shouldSpreadY ? [...y] : y
-    return module.exports.equals(xs, ys)
+  if (isLazyIterable(x) || isLazyIterable(y)) {
+    if (!isIterable(x) || !isIterable(y)) return false
+    const iteratorX = x[Symbol.iterator]()
+    const iteratorY = y[Symbol.iterator]()
+    while (true) {
+      const objX = iteratorX.next()
+      const objY = iteratorY.next()
+      if (objX.done === true && objY.done === true) return true
+      if (objX.done === true || objY.done === true) return false
+      if (!module.exports.equals(objX.value, objY.value)) return false
+    }
   }
 }
 /**
