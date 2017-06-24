@@ -52,7 +52,7 @@ const page = children => `
   <html lang="en">
   <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>imlazy docs</title>
     <link rel="stylesheet" href="index.css">
   </head>
