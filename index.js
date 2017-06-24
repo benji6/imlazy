@@ -261,8 +261,8 @@ module.exports.head = xs => xs[Symbol.iterator]().next().value
  * Checks whether the supplied iterable contains the supplied value. Equality is checked using the `equals` function defined by this library
  * @sig a -> [a] -> Boolean
  * @example
- * includes(1, range(1, 5)) // => true
- * includes(10, range(1, 5)) // => false
+ * includes(10, range(1, Infinity)) // => true
+ * includes(10, range(1, 9)) // => false
  */
 module.exports.includes = curry((y, xs) => {
   for (const x of xs) if (module.exports.equals(x, y)) return true
