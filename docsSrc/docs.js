@@ -16,18 +16,18 @@ const docEntry = o => {
   const seeObj = o.tags.find(tag => tag.type === 'see')
 
   const seeAlso = seeObj
-    ? `<p class="card__see">See also ${seeObj.string.split(' ').map(s => `<a href="#${s}">${s}</a>`).join(' ')}</p>`
+    ? `<p class="card__see">See also ${seeObj.string.split(' ').map(s => `<a class="link" href="#${s}">${s}</a>`).join(' ')}</p>`
     : ''
 
   return `
     <div class="card" id="${name}">
       <h2 class="card__title">
         <div class="card__title-left">
-          <div>${name}</div>
+          <a class="card__title-text" href="#${name}">${name}</a>
           <div class="card__sig">${(o.tags.find(tag => tag.type === 'sig')).string}</div>
         </div>
         <a
-          class="card__src"
+          class="card__src link"
           href="https://github.com/benji6/imlazy/blob/v${version}/index.js#L${o.line}"
           rel="noopener"
           target="_blank"
@@ -43,7 +43,7 @@ const docEntry = o => {
 const header = ({version}) => `
   <header class="header">
     <h1 class="header__title">imlazy <span class="version">v${version}</span></h1>
-    <a href="https://github.com/benji6/imlazy">GitHub</a>
+    <a class="link" href="https://github.com/benji6/imlazy">GitHub</a>
   </header>
 `
 

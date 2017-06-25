@@ -9,20 +9,20 @@ body {
   margin: 0;
 }
 
-a {
+code {
+  background: #def;
+  border-radius: 0.25rem;
+  padding: 0.1rem 0.25rem;
+}
+
+.link {
   text-decoration: none;
   color: #08e;
   transition: color 0.1s;
   font-weight: 900;
 }
-a:hover {
+.link:hover {
   color: #3df;
-}
-
-code {
-  background: #def;
-  border-radius: 0.25rem;
-  padding: 0.1rem 0.25rem;
 }
 
 .header {
@@ -87,6 +87,14 @@ main {
   justify-content: space-between;
   margin: 0;
   width: 100%;
+}
+
+.card__title-text {
+  color: #f26;
+  text-decoration: none;
+}
+.card__title-text:hover {
+  text-decoration: underline;
 }
 
 .card__title-left {
