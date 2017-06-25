@@ -1,5 +1,10 @@
 # Release Notes
 
+## 6.3.x
+
+added:
+- `slice` now works with negative indices
+
 ## 6.2.x
 
 added:
