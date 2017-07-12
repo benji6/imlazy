@@ -26,7 +26,7 @@ const genToIter = gen => {
 
 const isIterable = a => Boolean(a[Symbol.iterator])
 
-const iterToIter = xs => genToIter(function * () { yield * xs })
+const iterableFrom = xs => genToIter(function * () { yield * xs })
 
 const lazyIterable = (f, xs) => {
   let iterable
@@ -347,7 +347,7 @@ module.exports.isEmpty = xs => xs[Symbol.iterator]().next().done
  * @sig [a] -> [a]
  * @example interableFrom([1, 2, 3]) // => (1 2 3)
  */
-module.exports.iterableFrom = iterToIter
+module.exports.iterableFrom = iterableFrom
 
 /**
  * Returns an infinite iterable with the first value as the given initial value and all other values defined by applying the given function to the previous value
@@ -418,7 +418,7 @@ module.exports.nth = curry((a, xs) => {
  * @sig a -> [a]
  * @example [...interableOf(1, 2, 3)] // => [1, 2, 3]
  */
-module.exports.of = (...xs) => iterToIter(xs)
+module.exports.of = (...xs) => iterableFrom(xs)
 
 /**
  * Returns an iterable of two iterables, the first iterable contains every value from the given iterable where the given function returns truthy and the second iterable contains every value from the given iterable where the given function returns falsy
@@ -511,7 +511,7 @@ module.exports.repeat = a => genToIter(function * () {
  * @sig [a] -> [a]
  * @example reverse([1, 2, 3]) // => (3 2 1)
  */
-module.exports.reverse = xs => iterToIter([...xs].reverse())
+module.exports.reverse = xs => iterableFrom([...xs].reverse())
 
 /**
  * Returns an iterable of the given iterable starting at the given start index and ending one before the given end index. If the start index or the end index is negative it indicates an offset from the end of the iterable exactly like native `Array.prototype.slice`
@@ -522,7 +522,7 @@ module.exports.reverse = xs => iterToIter([...xs].reverse())
  */
 module.exports.slice = curry((n, m, xs) => {
   if (n < 0 && m < 0 && n >= m) return module.exports.empty()
-  if (n < 0 || m < 0) return iterToIter([...xs].slice(n, m))
+  if (n < 0 || m < 0) return iterableFrom([...xs].slice(n, m))
   if (n >= m) return module.exports.empty()
   return genToIter(function * () {
     let a = n
@@ -554,7 +554,7 @@ module.exports.some = curry((f, xs) => {
  * @example
  * sort((a, b) => a - b, [5, 7, 3, 2]) // => (2 3 5 7)
  */
-module.exports.sort = curry((f, xs) => iterToIter([...xs].sort(f)))
+module.exports.sort = curry((f, xs) => iterableFrom([...xs].sort(f)))
 
 /**
  * Returns a new iterable of the given iterable sorted by the return value of the given function when applied to each value
@@ -566,7 +566,7 @@ module.exports.sort = curry((f, xs) => iterToIter([...xs].sort(f)))
  * ) // => ({value: 0} {value: 3} {value: 7} {value: 7})
  */
 module.exports.sortBy = curry((f, xs) =>
-  iterToIter([...xs].sort((a, b) => {
+  iterableFrom([...xs].sort((a, b) => {
     const c = f(a)
     const d = f(b)
     return c > d ? 1 : c < d ? -1 : 0
@@ -675,7 +675,7 @@ module.exports.zip = curry((xs, ys) => genToIter(function * () {
   const iteratorY = ys[Symbol.iterator]()
   for (const x of xs) {
     const {done, value} = iteratorY.next()
-    if (done) return; else yield iterToIter([x, value])
+    if (done) return; else yield iterableFrom([x, value])
   }
 }))
 
