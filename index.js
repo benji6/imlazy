@@ -427,11 +427,8 @@ module.exports.of = (...xs) => iterToIter(xs)
  * partition(x => x % 2 === 0, [1, 2, 3, 4]) // => ((2 4) (1 3))
 */
 module.exports.partition = curry((f, xs) => genToIter(function * () {
-  const listA = []
-  const listB = []
-  for (const x of xs) (f(x) ? listA : listB).push(x)
-  yield iterToIter(listA)
-  yield iterToIter(listB)
+  yield module.exports.filter(f, xs)
+  yield module.exports.reject(f, xs)
 }))
 
 /**
