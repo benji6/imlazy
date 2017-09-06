@@ -57,7 +57,7 @@ const fibonacciGenerator = function* () {
 take(8, fibonacciGenerator()) // => (1 1 2 3 5 8 13 21)
 ```
 
-In addition to all the above imlazy is very fast! There are benchmarks in the root of this repo - imlazy outperforms the native `map` and `filter` array methods and is even faster on node 8.
+In addition to all the above imlazy is very fast! There are benchmarks in the root of this repo showing that imlazy outperforms the native `map` and `filter` array methods.
 
 All iterables created by imlazy are frozen with `Object.freeze` so, not only are they lazy and performant, they're also immutable.
 
@@ -137,8 +137,6 @@ imlazy - array x 8,268 ops/sec ±2.69% (85 runs sampled)
 transducer - array x 19,701 ops/sec ±1.02% (89 runs sampled)
 native - array x 3,890 ops/sec ±0.51% (93 runs sampled)
 ```
-
-Performance on these benchmarks improved with node 8 and the [six-speed](https://github.com/kpdecker/six-speed) test results suggest that further gains may be made in the future.
 
 ## Influences
 
