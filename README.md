@@ -7,7 +7,7 @@
 
 ## Introduction
 
-imlazy let's you harness the power of the [ES2015 iteration protocols](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Iteration_protocols). With it you can create infinite or circular iterables which are lazy, immutable and highly performant. For instance:
+imlazy let's you harness the power of the [ES2015 iteration protocols](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Iteration_protocols). With it you can create infinite or circular iterables which are lazy, immutable and performant. For instance:
 
 ```js
 const {filter, range} = require('imlazy')
@@ -57,9 +57,7 @@ const fibonacciGenerator = function* () {
 take(8, fibonacciGenerator()) // => (1 1 2 3 5 8 13 21)
 ```
 
-In addition to all the above imlazy is very fast! There are benchmarks in the root of this repo showing that imlazy outperforms the native `map` and `filter` array methods.
-
-All iterables created by imlazy are frozen with `Object.freeze` so, not only are they lazy and performant, they're also immutable.
+All iterables created by imlazy are frozen with `Object.freeze` so, not only are they lazy, they're also immutable.
 
 If you want to find out more about the ES2015 iteration protocols [this MDN article](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Iteration_protocols) is a good place to start.
 
@@ -107,35 +105,35 @@ This library implements the following [Static Land](https://github.com/rpominov/
 
 ## Performance
 
-There is a `benchmarks` dir in the root of this repo. Here are the results on my machine running node 8:
+There is a `benchmarks` dir in the root of this repo. Here are the results on my machine running node 8.9.3:
 
 `benchmarks/filter.js`
 ```sh
-imlazy - filter 1x over array x 7,232 ops/sec ±7.36% (76 runs sampled)
-native - filter 1x over array x 6,746 ops/sec ±1.61% (90 runs sampled)
-imlazy - filter 2x over array x 5,289 ops/sec ±7.70% (77 runs sampled)
-native - filter 2x over array x 3,412 ops/sec ±4.00% (82 runs sampled)
-imlazy - filter 3x over array x 4,934 ops/sec ±6.67% (84 runs sampled)
-native - filter 3x over array x 2,548 ops/sec ±1.57% (89 runs sampled)
+imlazy - filter 1x over array x 14,118 ops/sec ±2.00% (86 runs sampled)
+native - filter 1x over array x 22,601 ops/sec ±1.93% (81 runs sampled)
+imlazy - filter 2x over array x 9,188 ops/sec ±3.62% (78 runs sampled)
+native - filter 2x over array x 13,772 ops/sec ±3.45% (76 runs sampled)
+imlazy - filter 3x over array x 7,234 ops/sec ±2.94% (79 runs sampled)
+native - filter 3x over array x 12,554 ops/sec ±1.10% (90 runs sampled)
 ```
 
 `benchmarks/map.js`
 ```sh
-imlazy - map 1x over array x 7,906 ops/sec ±7.68% (84 runs sampled)
-native - map 1x over array x 7,027 ops/sec ±2.99% (87 runs sampled)
-imlazy - map 2x over array x 5,568 ops/sec ±6.10% (83 runs sampled)
-native - map 2x over array x 4,123 ops/sec ±0.88% (93 runs sampled)
-imlazy - map 3x over array x 4,782 ops/sec ±8.08% (79 runs sampled)
-native - map 3x over array x 2,683 ops/sec ±2.38% (87 runs sampled)
+imlazy - map 1x over array x 14,710 ops/sec ±0.94% (83 runs sampled)
+native - map 1x over array x 24,130 ops/sec ±2.24% (84 runs sampled)
+imlazy - map 2x over array x 10,381 ops/sec ±1.07% (84 runs sampled)
+native - map 2x over array x 16,460 ops/sec ±1.93% (85 runs sampled)
+imlazy - map 3x over array x 9,134 ops/sec ±1.73% (85 runs sampled)
+native - map 3x over array x 13,167 ops/sec ±1.52% (77 runs sampled)
 ```
 
 `benchmarks/transducers-and-native.js` (two filter operations and two map operations)
 ```sh
-imlazy - infinite iterable x 654 ops/sec ±12.57% (83 runs sampled)
-transducer - infinite iterable x 1,318 ops/sec ±3.46% (91 runs sampled)
-imlazy - array x 8,268 ops/sec ±2.69% (85 runs sampled)
-transducer - array x 19,701 ops/sec ±1.02% (89 runs sampled)
-native - array x 3,890 ops/sec ±0.51% (93 runs sampled)
+imlazy - infinite iterable x 1,282 ops/sec ±2.68% (81 runs sampled)
+transducer - infinite iterable x 2,003 ops/sec ±1.27% (82 runs sampled)
+imlazy - array x 16,419 ops/sec ±1.39% (85 runs sampled)
+transducer - array x 24,343 ops/sec ±0.72% (87 runs sampled)
+native - array x 22,481 ops/sec ±1.64% (86 runs sampled)
 ```
 
 ## Influences
