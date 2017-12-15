@@ -8,36 +8,36 @@ const I = require('../')
 const length = 1024
 const testArray = Array.from({length}, (_, i) => i)
 
-const add1 = x => x + 1
-const divide2 = x => x / 2
-const mult3 = x => 3 * x
+const divisibleBy2 = x => x % 2 === 0
+const divisibleBy3 = x => x % 3 === 0
+const divisibleBy5 = x => x % 5 === 0
 
 const imlazyOnceBenchmark = xs => consumeIterable(
-  I.filter(add1, xs)
+  I.filter(divisibleBy2, xs)
 )
 
 const nativeOnceBenchmark = xs => consumeIterable(xs
-  .filter(add1))
+  .filter(divisibleBy2))
 
 const imlazyTwiceBenchmark = xs => consumeIterable(
-  I.filter(divide2,
-    I.filter(add1, xs))
+  I.filter(divisibleBy3,
+    I.filter(divisibleBy2, xs))
 )
 
 const nativeTwiceBenchmark = xs => consumeIterable(xs
-  .filter(add1)
-  .filter(divide2))
+  .filter(divisibleBy2)
+  .filter(divisibleBy3))
 
 const imlazyThriceBenchmark = xs => consumeIterable(
-  I.filter(mult3,
-    I.filter(divide2,
-      I.filter(add1, xs)))
+  I.filter(divisibleBy5,
+    I.filter(divisibleBy3,
+      I.filter(divisibleBy2, xs)))
 )
 
 const nativeThriceBenchmark = xs => consumeIterable(xs
-  .filter(add1)
-  .filter(divide2)
-  .filter(mult3))
+  .filter(divisibleBy2)
+  .filter(divisibleBy3)
+  .filter(divisibleBy5))
 
 assert.deepEqual(imlazyOnceBenchmark(testArray), nativeOnceBenchmark(testArray))
 assert.deepEqual(imlazyTwiceBenchmark(testArray), nativeTwiceBenchmark(testArray))

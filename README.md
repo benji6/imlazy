@@ -109,12 +109,12 @@ There is a `benchmarks` dir in the root of this repo. Here are the results on my
 
 `benchmarks/filter.js`
 ```sh
-imlazy - filter 1x over array x 14,118 ops/sec ±2.00% (86 runs sampled)
-native - filter 1x over array x 22,601 ops/sec ±1.93% (81 runs sampled)
-imlazy - filter 2x over array x 9,188 ops/sec ±3.62% (78 runs sampled)
-native - filter 2x over array x 13,772 ops/sec ±3.45% (76 runs sampled)
-imlazy - filter 3x over array x 7,234 ops/sec ±2.94% (79 runs sampled)
-native - filter 3x over array x 12,554 ops/sec ±1.10% (90 runs sampled)
+imlazy - filter 1x over array x 23,795 ops/sec ±0.98% (86 runs sampled)
+native - filter 1x over array x 38,759 ops/sec ±0.94% (87 runs sampled)
+imlazy - filter 2x over array x 22,106 ops/sec ±0.84% (88 runs sampled)
+native - filter 2x over array x 38,625 ops/sec ±1.95% (84 runs sampled)
+imlazy - filter 3x over array x 22,591 ops/sec ±2.02% (83 runs sampled)
+native - filter 3x over array x 41,993 ops/sec ±0.97% (85 runs sampled)
 ```
 
 `benchmarks/map.js`
