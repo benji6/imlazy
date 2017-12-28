@@ -2,7 +2,6 @@
 
 const assert = require('assert')
 const Benchmark = require('benchmark')
-const consumeIterable = require('./_consumeIterable')
 const I = require('../')
 
 const length = 1024
@@ -12,32 +11,29 @@ const divisibleBy2 = x => x % 2 === 0
 const divisibleBy3 = x => x % 3 === 0
 const divisibleBy5 = x => x % 5 === 0
 
-const imlazyOnceBenchmark = xs => consumeIterable(
-  I.filter(divisibleBy2, xs)
-)
+const imlazyOnceBenchmark = xs => [...I.filter(divisibleBy2, xs)]
 
-const nativeOnceBenchmark = xs => consumeIterable(xs
-  .filter(divisibleBy2))
+const nativeOnceBenchmark = xs => xs.filter(divisibleBy2)
 
-const imlazyTwiceBenchmark = xs => consumeIterable(
-  I.filter(divisibleBy3,
-    I.filter(divisibleBy2, xs))
-)
+const imlazyTwiceBenchmark = xs => [
+  ...I.filter(divisibleBy3,
+    I.filter(divisibleBy2, xs)),
+]
 
-const nativeTwiceBenchmark = xs => consumeIterable(xs
-  .filter(divisibleBy2)
-  .filter(divisibleBy3))
-
-const imlazyThriceBenchmark = xs => consumeIterable(
-  I.filter(divisibleBy5,
-    I.filter(divisibleBy3,
-      I.filter(divisibleBy2, xs)))
-)
-
-const nativeThriceBenchmark = xs => consumeIterable(xs
+const nativeTwiceBenchmark = xs => xs
   .filter(divisibleBy2)
   .filter(divisibleBy3)
-  .filter(divisibleBy5))
+
+const imlazyThriceBenchmark = xs => [
+  ...I.filter(divisibleBy5,
+    I.filter(divisibleBy3,
+      I.filter(divisibleBy2, xs))),
+]
+
+const nativeThriceBenchmark = xs => xs
+  .filter(divisibleBy2)
+  .filter(divisibleBy3)
+  .filter(divisibleBy5)
 
 assert.deepEqual(imlazyOnceBenchmark(testArray), nativeOnceBenchmark(testArray))
 assert.deepEqual(imlazyTwiceBenchmark(testArray), nativeTwiceBenchmark(testArray))

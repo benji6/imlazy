@@ -4,7 +4,6 @@ const assert = require('assert')
 const Benchmark = require('benchmark')
 const R = require('ramda')
 const I = require('../')
-const consumeIterable = require('./_consumeIterable')
 
 const length = 1024
 const testArray = Array.from({length}, (_, i) => i)
@@ -18,42 +17,42 @@ const triple = x => 3 * x
 const divisibleBy5 = x => x % 5 === 0
 const isEven = x => x % 2 === 0
 
-const imlazyArrayBenchmark = data => consumeIterable(
-  I.filter(isEven,
+const imlazyArrayBenchmark = data => [
+  ...I.filter(isEven,
     I.filter(divisibleBy5,
       I.map(triple,
-        I.map(add10, data))))
-)
+        I.map(add10, data)))),
+]
 
-const nativeBenchmark = data => consumeIterable(data
+const nativeBenchmark = data => data
   .map(add10)
   .map(triple)
   .filter(divisibleBy5)
-  .filter(isEven))
+  .filter(isEven)
 
-const ramdaTransducerArrayBenchmark = xs => consumeIterable(R.into([], R.compose(
+const ramdaTransducerArrayBenchmark = xs => R.into([], R.compose(
   R.map(add10),
   R.map(triple),
   R.filter(divisibleBy5),
   R.filter(isEven)
-), xs))
+), xs)
 
-const ramdaTransducerInfiniteBenchmark = xs => consumeIterable(R.into([], R.compose(
+const ramdaTransducerInfiniteBenchmark = xs => R.into([], R.compose(
   R.map(add10),
   R.map(triple),
   R.filter(divisibleBy5),
   R.filter(isEven),
   R.take(length)
-), xs))
+), xs)
 
-const imlazyInfiniteBenchmark = data => consumeIterable(
+const imlazyInfiniteBenchmark = data => [...
   I.take(length,
     I.filter(isEven,
       I.filter(divisibleBy5,
         I.map(triple,
           I.map(add10, data))))
-  )
-)
+  ),
+]
 
 assert.deepStrictEqual(
   imlazyInfiniteBenchmark(infiniteIterable),

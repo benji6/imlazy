@@ -2,7 +2,6 @@
 
 const assert = require('assert')
 const Benchmark = require('benchmark')
-const consumeIterable = require('./_consumeIterable')
 const I = require('../')
 
 const length = 1024
@@ -12,32 +11,29 @@ const add1 = x => x + 1
 const halve = x => x / 2
 const triple = x => 3 * x
 
-const imlazyOnceBenchmark = xs => consumeIterable(
-  I.map(add1, xs)
-)
+const imlazyOnceBenchmark = xs => [...I.map(add1, xs)]
 
-const nativeOnceBenchmark = xs => consumeIterable(xs
-  .map(add1))
+const nativeOnceBenchmark = xs => xs.map(add1)
 
-const imlazyTwiceBenchmark = xs => consumeIterable(
-  I.map(halve,
-    I.map(add1, xs))
-)
+const imlazyTwiceBenchmark = xs => [
+  ...I.map(halve,
+    I.map(add1, xs)),
+]
 
-const nativeTwiceBenchmark = xs => consumeIterable(xs
-  .map(add1)
-  .map(halve))
-
-const imlazyThriceBenchmark = xs => consumeIterable(
-  I.map(triple,
-    I.map(halve,
-      I.map(add1, xs)))
-)
-
-const nativeThriceBenchmark = xs => consumeIterable(xs
+const nativeTwiceBenchmark = xs => xs
   .map(add1)
   .map(halve)
-  .map(triple))
+
+const imlazyThriceBenchmark = xs => [
+  ...I.map(triple,
+    I.map(halve,
+      I.map(add1, xs))),
+]
+
+const nativeThriceBenchmark = xs => xs
+  .map(add1)
+  .map(halve)
+  .map(triple)
 
 assert.deepEqual(imlazyOnceBenchmark(testArray), nativeOnceBenchmark(testArray))
 assert.deepEqual(imlazyTwiceBenchmark(testArray), nativeTwiceBenchmark(testArray))
