@@ -109,31 +109,31 @@ There is a `benchmarks` dir in the root of this repo. Here are the results on my
 
 `benchmarks/filter.js`
 ```sh
-imlazy - filter 1x over array x 23,795 ops/sec ±0.98% (86 runs sampled)
-native - filter 1x over array x 38,759 ops/sec ±0.94% (87 runs sampled)
-imlazy - filter 2x over array x 22,106 ops/sec ±0.84% (88 runs sampled)
-native - filter 2x over array x 38,625 ops/sec ±1.95% (84 runs sampled)
-imlazy - filter 3x over array x 22,591 ops/sec ±2.02% (83 runs sampled)
-native - filter 3x over array x 41,993 ops/sec ±0.97% (85 runs sampled)
+imlazy - filter 1x over array x 16,682 ops/sec ±0.80% (88 runs sampled)
+native - filter 1x over array x 66,412 ops/sec ±1.00% (87 runs sampled)
+imlazy - filter 2x over array x 17,981 ops/sec ±0.94% (89 runs sampled)
+native - filter 2x over array x 44,942 ops/sec ±1.81% (87 runs sampled)
+imlazy - filter 3x over array x 20,923 ops/sec ±1.94% (84 runs sampled)
+native - filter 3x over array x 42,275 ops/sec ±1.55% (91 runs sampled)
 ```
 
 `benchmarks/map.js`
 ```sh
-imlazy - map 1x over array x 14,710 ops/sec ±0.94% (83 runs sampled)
-native - map 1x over array x 24,130 ops/sec ±2.24% (84 runs sampled)
-imlazy - map 2x over array x 10,381 ops/sec ±1.07% (84 runs sampled)
-native - map 2x over array x 16,460 ops/sec ±1.93% (85 runs sampled)
-imlazy - map 3x over array x 9,134 ops/sec ±1.73% (85 runs sampled)
-native - map 3x over array x 13,167 ops/sec ±1.52% (77 runs sampled)
+imlazy - map 1x over array x 9,939 ops/sec ±0.98% (85 runs sampled)
+native - map 1x over array x 74,172 ops/sec ±1.40% (88 runs sampled)
+imlazy - map 2x over array x 7,989 ops/sec ±0.83% (87 runs sampled)
+native - map 2x over array x 33,745 ops/sec ±1.29% (87 runs sampled)
+imlazy - map 3x over array x 7,159 ops/sec ±1.03% (84 runs sampled)
+native - map 3x over array x 23,318 ops/sec ±0.71% (88 runs sampled)
 ```
 
 `benchmarks/transducers-and-native.js` (two filter operations and two map operations)
 ```sh
-imlazy - infinite iterable x 1,282 ops/sec ±2.68% (81 runs sampled)
-transducer - infinite iterable x 2,003 ops/sec ±1.27% (82 runs sampled)
-imlazy - array x 16,419 ops/sec ±1.39% (85 runs sampled)
-transducer - array x 24,343 ops/sec ±0.72% (87 runs sampled)
-native - array x 22,481 ops/sec ±1.64% (86 runs sampled)
+imlazy - infinite iterable x 1,245 ops/sec ±1.16% (82 runs sampled)
+transducer - infinite iterable x 2,079 ops/sec ±1.15% (85 runs sampled)
+imlazy - array x 14,490 ops/sec ±2.10% (82 runs sampled)
+transducer - array x 26,151 ops/sec ±0.74% (91 runs sampled)
+native - array x 24,186 ops/sec ±0.76% (88 runs sampled)
 ```
 
 ## Influences
