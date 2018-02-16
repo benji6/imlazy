@@ -99,6 +99,7 @@ This library implements the following [Static Land](https://github.com/rpominov/
     - `Chain`
       - `Monad`
 - `Foldable`
+- `Filterable`
 - `Semigroup`
   - `Monoid`
 - `Setoid`
