@@ -11,7 +11,9 @@
     "spec-watch": "tape-watch 'test/**/*.js' | faucet",
     "spec": "tape 'test/**/*.js' | faucet",
     "test-watch": "nodemon --exec npm t",
-    "test": "npm run lint && npm run spec"
+    "test": "npm run lint && npm run spec",
+    "semantic-release": "semantic-release",
+    "travis-deploy-once": "travis-deploy-once"
   },
   "repository": {
     "type": "git",
@@ -53,6 +55,8 @@
     "nodemon": "^1.17.2",
     "ramda": "^0.24.0",
     "tape": "^4.9.0",
-    "tape-watch": "^2.3.0"
+    "tape-watch": "^2.3.0",
+    "semantic-release": "^15.1.4",
+    "travis-deploy-once": "^4.4.1"
   }
 }
