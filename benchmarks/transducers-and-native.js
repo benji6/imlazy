@@ -45,13 +45,12 @@ const ramdaTransducerInfiniteBenchmark = xs => R.into([], R.compose(
   R.take(length)
 ), xs)
 
-const imlazyInfiniteBenchmark = data => [...
-  I.take(length,
+const imlazyInfiniteBenchmark = data => [
+  ...I.take(length,
     I.filter(isEven,
       I.filter(divisibleBy5,
         I.map(triple,
-          I.map(add10, data))))
-  ),
+          I.map(add10, data))))),
 ]
 
 assert.deepStrictEqual(
