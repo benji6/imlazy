@@ -1,5 +1,7 @@
 # Release Notes
 
+## __This Changelog is no longer in use, please see GitHub releases for changes made since 6.3.x.__
+
 ## 6.3.x
 
 added:
