@@ -50,13 +50,13 @@
     "eslint-config-benji6": "^1.0.0",
     "faucet": "^0.0.1",
     "highlight.js": "^9.9.0",
-    "html-minifier": "^3.5.12",
+    "html-minifier": "^3.5.16",
     "immutable": "^3.8.1",
-    "nodemon": "^1.17.2",
+    "nodemon": "^1.17.5",
     "ramda": "^0.24.0",
-    "tape": "^4.9.0",
-    "tape-watch": "^2.3.0",
     "semantic-release": "^15.1.4",
+    "tape": "^4.9.1",
+    "tape-watch": "^2.3.0",
     "travis-deploy-once": "^4.4.1"
   }
 }
