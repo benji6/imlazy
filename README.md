@@ -71,7 +71,7 @@ npm i -S imlazy
 
 ### API Documentation
 
-API docs can be found [here](https://benji6.github.io/imlazy).
+[API docs are here](https://imlazy.netlify.com).
 
 ### Support
 
