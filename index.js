@@ -456,11 +456,11 @@ module.exports.range = curry((a, b) => genToIter(function * () {
 }))
 
 /**
- * Returns a value by applying the given function with the accumulated value (starting with the given initialValue) and the current value for every value in the given iterable. The value returned from each call to the given function becomes the accumulated value for the next time it is called. Similar to `reduceRight` except the direction of iteration is from the beginning of the iterable to the end
+ * Returns a value by applying the given function with the accumulated value (starting with the given initialValue) and the current value for every value in the given iterable. The value returned from each call to the given function becomes the accumulated value for the next time it is called. Similar to `reduceRight` except the direction of iteration is from the beginning of the iterable to the end and the order of arguments passed to the reducer is `(acc, val)`
  * @see reduceRight
  * @sig ((a, b) -> a) -> a -> [b] -> a
  * @example
- * reduce((acc, val) => acc + val, 0, [1, 2, 3, 4]) // => 10
+ * reduce((acc, val) => acc + val, 'a', ['b', 'c', 'd', 'e']) // => 'abcde'
  */
 module.exports.reduce = curry((f, a, xs) => {
   let acc = a
@@ -469,20 +469,16 @@ module.exports.reduce = curry((f, a, xs) => {
 })
 
 /**
- * Returns a value by applying the given function with the accumulated value (starting with the given initialValue) and the current value for every value in the given iterable. The value returned from each call to the given function becomes the accumulated value for the next time it is called. Similar to `reduce` except the direction of iteration is from the end of the iterable to the beginning
+ * Returns a value by applying the given function with the accumulated value (starting with the given initialValue) and the current value for every value in the given iterable. The value returned from each call to the given function becomes the accumulated value for the next time it is called. Similar to `reduce` except the direction of iteration is from the end of the iterable to the beginning and the order of arguments to the reducer function is `(val, acc)`
  * @see reduce
  * @sig ((a, b) -> a) -> a -> [b] -> a
  * @example
- * reduce((acc, val) => acc + val, 0, [1, 2, 3, 4]) // => 10
+ * reduceRight((val, acc) => acc + val, 'a', ['e', 'd', 'c', 'b']) // => 'abcde'
  */
 module.exports.reduceRight = curry((f, a, xs) => {
   const arr = [...xs]
   let acc = a
-  let i = arr.length - 1
-  while (i >= 0) {
-    acc = f(arr[i], acc)
-    i -= 1
-  }
+  for (let i = arr.length - 1; i >= 0; i--) acc = f(arr[i], acc)
   return acc
 })
 
