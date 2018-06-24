@@ -2,7 +2,6 @@ const dox = require('dox')
 const fs = require('fs')
 const hljs = require('highlight.js')
 const {minify} = require('html-minifier')
-const {version} = require('../package')
 const CleanCSS = require('clean-css')
 
 const css = fs.readFileSync('./docsSrc/index.css')
@@ -28,7 +27,7 @@ const docEntry = o => {
         </div>
         <a
           class="card__src link"
-          href="https://github.com/benji6/imlazy/blob/v${version}/index.js#L${o.line}"
+          href="https://github.com/benji6/imlazy/blob/master/index.js#L${o.line}"
           rel="noopener"
           target="_blank"
         >src</a>
@@ -40,13 +39,6 @@ const docEntry = o => {
   `
 }
 
-const header = ({version}) => `
-  <header class="header">
-    <h1 class="header__title">imlazy <span class="version">v${version}</span></h1>
-    <a class="link" href="https://github.com/benji6/imlazy">GitHub</a>
-  </header>
-`
-
 const page = children => `
   <!DOCTYPE html>
   <html lang="en">
@@ -57,7 +49,10 @@ const page = children => `
     <link rel="stylesheet" href="index.css">
   </head>
   <body>
-    ${header({version})}
+    <header class="header">
+      <h1 class="header__title">imlazy</h1>
+      <a class="link" href="https://github.com/benji6/imlazy">GitHub</a>
+    </header>
     <main>
       ${children}
     </main>

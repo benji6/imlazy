@@ -48,11 +48,6 @@ code {
   text-shadow: 0.15rem 0.15rem 0.15rem rgba(0, 0, 0, 0.5);
 }
 
-.header .version {
-  font-size: 1rem;
-  text-shadow: 0.1rem 0.1rem 0.1rem rgba(0, 0, 0, 0.5);
-}
-
 main {
   overflow-y: auto;
   height: calc(100% - 4.5rem);
