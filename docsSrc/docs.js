@@ -4,8 +4,9 @@ const hljs = require('highlight.js')
 const {minify} = require('html-minifier')
 const CleanCSS = require('clean-css')
 
-const css = fs.readFileSync('./docsSrc/index.css')
+const buildDir = 'docs'
 
+const css = fs.readFileSync('./docsSrc/index.css')
 const src = fs.readFileSync('./index.js', 'utf-8')
 const obj = dox.parseComments(src)
 
@@ -60,5 +61,7 @@ const page = children => `
   </html>
 `
 
-fs.writeFileSync('docs/index.html', minify(page(obj.map(docEntry).join('')), {collapseWhitespace: true}))
-fs.writeFileSync('docs/index.css', new CleanCSS({}).minify(css).styles)
+if (!fs.existsSync(buildDir)) fs.mkdirSync(buildDir)
+
+fs.writeFileSync(`${buildDir}/index.html`, minify(page(obj.map(docEntry).join('')), {collapseWhitespace: true}))
+fs.writeFileSync(`${buildDir}/index.css`, new CleanCSS({}).minify(css).styles)
