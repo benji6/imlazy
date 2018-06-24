@@ -6,7 +6,7 @@ const R = require('ramda')
 const I = require('../')
 
 const length = 1024
-const testArray = Array.from({length}, (_, i) => i)
+const testArray = [...Array(length).keys()]
 const infiniteIterable = {* [Symbol.iterator] () {
   let i = 0
   while (true) yield i++

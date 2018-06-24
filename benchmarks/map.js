@@ -5,7 +5,7 @@ const Benchmark = require('benchmark')
 const I = require('../')
 
 const length = 1024
-const testArray = Array.from({length}, (_, i) => i)
+const testArray = [...Array(length).keys()]
 
 const add1 = x => x + 1
 const halve = x => x / 2

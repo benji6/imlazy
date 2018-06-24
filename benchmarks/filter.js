@@ -5,7 +5,7 @@ const Benchmark = require('benchmark')
 const I = require('../')
 
 const length = 1024
-const testArray = Array.from({length}, (_, i) => i)
+const testArray = [...Array(length).keys()]
 
 const divisibleBy2 = x => x % 2 === 0
 const divisibleBy3 = x => x % 3 === 0
