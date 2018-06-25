@@ -471,7 +471,7 @@ module.exports.reduce = curry((f, a, xs) => {
 /**
  * Returns a value by applying the given function with the accumulated value (starting with the given initialValue) and the current value for every value in the given iterable. The value returned from each call to the given function becomes the accumulated value for the next time it is called. Similar to `reduce` except the direction of iteration is from the end of the iterable to the beginning and the order of arguments to the reducer function is `(val, acc)`
  * @see reduce
- * @sig ((a, b) -> a) -> a -> [b] -> a
+ * @sig ((a, b) -> b) -> b -> [a] -> b
  * @example
  * reduceRight((val, acc) => acc + val, 'a', ['e', 'd', 'c', 'b']) // => 'abcde'
  */
