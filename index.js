@@ -682,6 +682,23 @@ module.exports.transpose = xss => genToIter(function * () {
 })
 
 /**
+ * Takes a module `U` that supports the Static Land Applicative spec, a function that takes values of type `a` and returns Applicatives of type `b`, and an iterable of type `a` and returns an Applicative from module `U` of an iterable of type `b`.
+ * @sig Applicative&lt;U&gt; → (a → U&lt;b&gt;) → [a] → U&lt;[b]&gt;
+ * @example
+ * import Task from 'fun-task'
+ *
+ * traverse(Task, a => Task.of(String(a * 3)), oneTwoThree) // => Task.of(('3' '6' '9'))
+ */
+module.exports.traverse = curry((A, f, xs) => module.exports.reduceRight(
+  (x, acc) => A.ap(
+    A.map(module.exports.prepend, x),
+    acc
+  ),
+  A.of(module.exports.empty()),
+  module.exports.map(f, xs)
+))
+
+/**
  * Returns a new iterable with values as iterables of length 2 with the first element as the corresponding element from the first given iterable and the second element as the corresponding element from the second given iterable. The length of the returned iterable is the same as the shortest iterable supplied
  * @sig [a] -> [b] -> [[a b]]
  * @example zip([2, 3, 5, 7], range(1, Infinity)) // => ((2 1) (3 2) (5 3) (7 4))

@@ -49,6 +49,7 @@
     "eslint": "^4.19.1",
     "eslint-config-benji6": "^1.0.0",
     "faucet": "^0.0.1",
+    "fun-task": "^1.5.2",
     "highlight.js": "^9.9.0",
     "html-minifier": "^3.5.16",
     "immutable": "^3.8.1",
