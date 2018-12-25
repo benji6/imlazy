@@ -12,8 +12,7 @@
     "test-watch": "nodemon --exec npm t",
     "test": "npm run test:lint && npm run spec",
     "test:lint": "eslint .",
-    "semantic-release": "semantic-release",
-    "travis-deploy-once": "travis-deploy-once"
+    "semantic-release": "semantic-release"
   },
   "repository": {
     "type": "git",
@@ -57,7 +56,6 @@
     "ramda": "^0.26.1",
     "semantic-release": "^15.13.1",
     "tape": "^4.9.1",
-    "tape-watch": "^2.3.0",
-    "travis-deploy-once": "^5.0.11"
+    "tape-watch": "^2.3.0"
   }
 }

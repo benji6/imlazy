@@ -1,9 +1,14 @@
 language: node_js
 node_js:
-  - 8
-  - 6
-deploy:
-  provider: script
-  skip_cleanup: true
-  script:
-    - npm run travis-deploy-once "npm run semantic-release"
+  - "6"
+  - "8"
+  - "10"
+jobs:
+  include:
+    - script: echo "Running tests against $(node -v) ..." && npm t
+    - stage: deploy
+      script: npm run semantic-release
+stages:
+  - test
+  - name: deploy
+    if: branch = master
