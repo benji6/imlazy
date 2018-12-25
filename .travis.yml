@@ -1,11 +1,10 @@
 language: node_js
 node_js:
-  - "6"
-  - "8"
   - "10"
+  - "8"
+  - "6"
 jobs:
   include:
-    - script: echo "Running tests against $(node -v) ..." && npm t
     - stage: deploy
       script: npm run semantic-release
 stages:
