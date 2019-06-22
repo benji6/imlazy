@@ -9,8 +9,8 @@
     "docs": "node docsSrc/docs",
     "spec-watch": "tape-watch 'test/**/*.js' | faucet",
     "spec": "tape 'test/**/*.js' | faucet",
-    "test-watch": "nodemon --exec npm t",
-    "test": "npm run test:lint && npm run spec",
+    "test-watch": "nodemon --exec yarn test",
+    "test": "yarn test:lint && yarn spec",
     "test:lint": "eslint .",
     "semantic-release": "semantic-release"
   },

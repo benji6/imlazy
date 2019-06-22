@@ -6,7 +6,7 @@ node_js:
 jobs:
   include:
     - stage: deploy
-      script: npm run semantic-release
+      script: yarn semantic-release
 stages:
   - test
   - name: deploy

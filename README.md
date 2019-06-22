@@ -66,7 +66,7 @@ If you want to find out more about the ES2015 iteration protocols [this MDN arti
 ### Installation
 
 ```sh
-npm i -S imlazy
+yarn add imlazy
 ```
 
 ### API Documentation
