@@ -13,7 +13,7 @@ const toString = module.exports._toString = xs => function imlazyToStringThunk (
   return `(${module.exports.reduce(
     (str, x) => `${str}${String(x)} `,
     '',
-    module.exports.take(10, xs)
+    module.exports.take(10, xs),
   ).slice(0, -1)}${tooLong ? '...' : ''})`
 }
 
@@ -636,10 +636,10 @@ module.exports.transpose = xss => genToIter(function * () {
 module.exports.traverse = curry((A, f, xs) => module.exports.reduceRight(
   (x, acc) => A.ap(
     A.map(module.exports.prepend, x),
-    acc
+    acc,
   ),
   A.of(module.exports.empty()),
-  module.exports.map(f, xs)
+  module.exports.map(f, xs),
 ))
 
 /**

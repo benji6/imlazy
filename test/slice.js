@@ -24,7 +24,7 @@ test('slice', t => {
   t.deepEqual(processIterable(slice(40)(45)(positiveIntegers)), [41, 42, 43, 44, 45])
   t.deepEqual(
     processIterable(sliceFromZero(3)(slice(0, Infinity, positiveIntegers))),
-    oneTwoThree
+    oneTwoThree,
   )
   t.deepEqual(processIterable(slice(2, 2, positiveIntegers)), [])
   t.deepEqual(processIterable(slice(2, 1, positiveIntegers)), [])

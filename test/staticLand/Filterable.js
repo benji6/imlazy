@@ -9,15 +9,15 @@ const g = x => Boolean(x % 3)
 test('Filterable', t => {
   t.true(equals(
     filter(x => f(x) && g(x), a),
-    filter(g, filter(f, a))
+    filter(g, filter(f, a)),
   ), 'Distributivity')
   t.true(equals(
     filter(() => true, a),
-    a
+    a,
   ), 'Identity')
   t.true(equals(
     filter(() => false, a),
-    filter(() => false, b)
+    filter(() => false, b),
   ), 'Annihilation')
   t.end()
 })

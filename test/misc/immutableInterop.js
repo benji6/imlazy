@@ -8,7 +8,7 @@ test('immutable interop', t => {
   const immutableOneTwoThree = Immutable.List.of(1, 2, 3)
   t.deepEqual(
     processIterable(append(4, immutableOneTwoThree)),
-    oneTwoThreeFour
+    oneTwoThreeFour,
   )
   t.end()
 })

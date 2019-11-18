@@ -34,7 +34,7 @@ const ramdaTransducerArrayBenchmark = xs => R.into([], R.compose(
   R.map(add10),
   R.map(triple),
   R.filter(divisibleBy5),
-  R.filter(isEven)
+  R.filter(isEven),
 ), xs)
 
 const ramdaTransducerInfiniteBenchmark = xs => R.into([], R.compose(
@@ -42,7 +42,7 @@ const ramdaTransducerInfiniteBenchmark = xs => R.into([], R.compose(
   R.map(triple),
   R.filter(divisibleBy5),
   R.filter(isEven),
-  R.take(length)
+  R.take(length),
 ), xs)
 
 const imlazyInfiniteBenchmark = data => [
@@ -55,15 +55,15 @@ const imlazyInfiniteBenchmark = data => [
 
 assert.deepStrictEqual(
   imlazyInfiniteBenchmark(infiniteIterable),
-  ramdaTransducerInfiniteBenchmark(infiniteIterable)
+  ramdaTransducerInfiniteBenchmark(infiniteIterable),
 )
 assert.deepStrictEqual(
   imlazyArrayBenchmark(testArray),
-  ramdaTransducerArrayBenchmark(testArray)
+  ramdaTransducerArrayBenchmark(testArray),
 )
 assert.deepStrictEqual(
   ramdaTransducerArrayBenchmark(testArray),
-  nativeBenchmark(testArray)
+  nativeBenchmark(testArray),
 )
 
 new Benchmark.Suite()

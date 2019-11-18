@@ -7,6 +7,7 @@
     "benchmark": "node benchmarks/transducers-and-native",
     "docs-watch": "nodemon --watch index.js --watch docsSrc -e css -e js docsSrc/docs",
     "docs": "node docsSrc/docs",
+    "format": "eslint --fix .",
     "spec-watch": "tape-watch 'test/**/*.js' | faucet",
     "spec": "tape 'test/**/*.js' | faucet",
     "test-watch": "nodemon --exec yarn test",
