@@ -507,7 +507,7 @@ module.exports.some = curry((f, xs) => {
 })
 
 /**
- * Returns a new iterable of the given iterable sorted based on the return value of the given function when called with any two values from the given iterable
+ * Returns a new iterable of the given iterable sorted using the given function which is used for comparing elements in the same manner as the native Array.prototype.sort method
  * @sig ((a, a) -> Number) -> [a] -> [a]
  * @example
  * sort((a, b) => a - b, [5, 7, 3, 2]) // => (2 3 5 7)
