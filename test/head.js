@@ -1,6 +1,6 @@
 const test = require('tape')
-const {head} = require('../')
-const {positiveIntegers, oneTwoThree} = require('./_tools')
+const { head } = require('../')
+const { positiveIntegers, oneTwoThree } = require('./_tools')
 
 test('head', t => {
   t.deepEqual(head([]), undefined)

@@ -1,5 +1,5 @@
 const test = require('tape')
-const {splitEvery} = require('../')
+const { splitEvery } = require('../')
 const {
   testAndToArray,
   oneTwoThreeFour,
@@ -15,8 +15,14 @@ test('splitEvery', t => {
     [[1, 2, 3], [4]],
   )
   t.deepEqual(
-    processIterable(takeThree(splitEveryThree(positiveIntegers))).map(processIterable),
-    [[1, 2, 3], [4, 5, 6], [7, 8, 9]],
+    processIterable(takeThree(splitEveryThree(positiveIntegers))).map(
+      processIterable,
+    ),
+    [
+      [1, 2, 3],
+      [4, 5, 6],
+      [7, 8, 9],
+    ],
   )
   t.end()
 })

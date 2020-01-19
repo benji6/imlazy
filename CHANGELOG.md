@@ -1,28 +1,33 @@
 # Release Notes
 
-## __This Changelog is no longer in use, please see GitHub releases for changes made since 6.3.x.__
+## **This Changelog is no longer in use, please see GitHub releases for changes made since 6.3.x.**
 
 ## 6.3.x
 
 added:
+
 - `slice` now works with negative indices
 
 ## 6.2.x
 
 added:
+
 - `includes`
 
 ## 6.1.x
 
 added:
+
 - `equals`
 
 ## 6.0.x
 
 changed:
+
 - Renamed `iterableOf` to `of`
 
 added:
+
 - `ap`
 - `chain`
 - `empty`

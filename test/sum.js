@@ -1,6 +1,6 @@
 const test = require('tape')
-const {sum} = require('../')
-const {oneTwoThree, oneTwoThreeFour} = require('./_tools')
+const { sum } = require('../')
+const { oneTwoThree, oneTwoThreeFour } = require('./_tools')
 
 test('sort', t => {
   t.deepEqual(sum([]), 0)

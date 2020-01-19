@@ -1,10 +1,6 @@
 const test = require('tape')
-const {reverse} = require('../')
-const {
-  testAndToArray,
-  oneTwoThree,
-  threeTwoOne,
-} = require('./_tools')
+const { reverse } = require('../')
+const { testAndToArray, oneTwoThree, threeTwoOne } = require('./_tools')
 
 test('reverse', t => {
   const processIterable = testAndToArray(t)

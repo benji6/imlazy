@@ -1,6 +1,6 @@
 const test = require('tape')
-const {nth} = require('../')
-const {negativeIntegers, positiveIntegers} = require('./_tools')
+const { nth } = require('../')
+const { negativeIntegers, positiveIntegers } = require('./_tools')
 
 test('nth', t => {
   const second = nth(1)

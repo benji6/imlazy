@@ -1,7 +1,7 @@
 const dox = require('dox')
 const fs = require('fs')
 const hljs = require('highlight.js')
-const {minify} = require('html-minifier')
+const { minify } = require('html-minifier')
 const CleanCSS = require('clean-css')
 
 const buildDir = 'docs'
@@ -16,7 +16,10 @@ const docEntry = o => {
   const seeObj = o.tags.find(tag => tag.type === 'see')
 
   const seeAlso = seeObj
-    ? `<p class="card__see">See also ${seeObj.string.split(' ').map(s => `<a class="link" href="#${s}">${s}</a>`).join(' ')}</p>`
+    ? `<p class="card__see">See also ${seeObj.string
+        .split(' ')
+        .map(s => `<a class="link" href="#${s}">${s}</a>`)
+        .join(' ')}</p>`
     : ''
 
   return `
@@ -24,16 +27,23 @@ const docEntry = o => {
       <h2 class="card__title">
         <div class="card__title-left">
           <a class="card__title-text" href="#${name}">${name}</a>
-          <div class="card__sig">${(o.tags.find(tag => tag.type === 'sig')).string}</div>
+          <div class="card__sig">${
+            o.tags.find(tag => tag.type === 'sig').string
+          }</div>
         </div>
         <a
           class="card__src link"
-          href="https://github.com/benji6/imlazy/blob/master/index.js#L${o.line}"
+          href="https://github.com/benji6/imlazy/blob/master/index.js#L${
+            o.line
+          }"
           rel="noopener"
           target="_blank"
         >src</a>
       </h2>
-      ${o.description.full.slice(0, 2)} class="card__description"${o.description.full.slice(2)}
+      ${o.description.full.slice(
+        0,
+        2,
+      )} class="card__description"${o.description.full.slice(2)}
       <pre class="hljs">${hljs.highlight('js', example).value}</pre>
       ${seeAlso}
     </div>
@@ -63,5 +73,8 @@ const page = children => `
 
 if (!fs.existsSync(buildDir)) fs.mkdirSync(buildDir)
 
-fs.writeFileSync(`${buildDir}/index.html`, minify(page(obj.map(docEntry).join('')), {collapseWhitespace: true}))
+fs.writeFileSync(
+  `${buildDir}/index.html`,
+  minify(page(obj.map(docEntry).join('')), { collapseWhitespace: true }),
+)
 fs.writeFileSync(`${buildDir}/index.css`, new CleanCSS({}).minify(css).styles)

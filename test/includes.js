@@ -1,6 +1,6 @@
 const test = require('tape')
-const {includes} = require('../')
-const {oneTwoThree, positiveIntegers} = require('./_tools')
+const { includes } = require('../')
+const { oneTwoThree, positiveIntegers } = require('./_tools')
 
 test('head', t => {
   t.true(includes(1, oneTwoThree))

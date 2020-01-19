@@ -1,6 +1,6 @@
 const test = require('tape')
-const {empty} = require('../')
-const {testAndToArray} = require('./_tools')
+const { empty } = require('../')
+const { testAndToArray } = require('./_tools')
 
 test('empty', t => {
   const processIterable = testAndToArray(t)

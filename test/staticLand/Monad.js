@@ -1,5 +1,5 @@
 const test = require('tape')
-const {chain, equals, of} = require('../../')
+const { chain, equals, of } = require('../../')
 
 const f = x => of(x + 'f')
 const a = 'value'

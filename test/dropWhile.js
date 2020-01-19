@@ -1,5 +1,5 @@
 const test = require('tape')
-const {dropWhile} = require('../')
+const { dropWhile } = require('../')
 const {
   testAndToArray,
   oneTwoThreeFour,
@@ -14,8 +14,14 @@ test('dropWhile', t => {
   t.deepEqual(processIterable(threeFour), [3, 4])
   t.deepEqual(processIterable(threeFour), [3, 4])
   t.deepEqual(processIterable(threeFour), [3, 4])
-  t.deepEqual(processIterable(takeThree(dropWhileNotEqual3(positiveIntegers))), [3, 4, 5])
-  t.deepEqual(processIterable(takeThree(dropWhileNotEqual3(positiveIntegers))), [3, 4, 5])
+  t.deepEqual(
+    processIterable(takeThree(dropWhileNotEqual3(positiveIntegers))),
+    [3, 4, 5],
+  )
+  t.deepEqual(
+    processIterable(takeThree(dropWhileNotEqual3(positiveIntegers))),
+    [3, 4, 5],
+  )
   t.deepEqual(processIterable(dropWhile(a => a !== 12321, oneTwoThreeFour)), [])
   t.end()
 })

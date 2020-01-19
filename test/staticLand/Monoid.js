@@ -1,5 +1,5 @@
 const test = require('tape')
-const {concat, empty, equals, of} = require('../../')
+const { concat, empty, equals, of } = require('../../')
 
 const a = of('foo')
 

@@ -1,5 +1,5 @@
 const test = require('tape')
-const {flatten} = require('../')
+const { flatten } = require('../')
 const {
   infiniteIterableOfPositiveIntegers,
   testAndToArray,
@@ -21,7 +21,9 @@ test('flatten', t => {
     [1, ...oneTwoThree, ...threeTwoOne, ...oneTwoThreeFour],
   )
   t.deepEqual(
-    processIterable(flatten([1, [[[[oneTwoThree]]]], threeTwoOne, oneTwoThreeFour])),
+    processIterable(
+      flatten([1, [[[[oneTwoThree]]]], threeTwoOne, oneTwoThreeFour]),
+    ),
     [1, ...oneTwoThree, ...threeTwoOne, ...oneTwoThreeFour],
   )
   t.deepEqual(

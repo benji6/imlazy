@@ -1,9 +1,6 @@
 const test = require('tape')
-const {filter, range} = require('../')
-const {
-  testAndToArray,
-  oneTwoThree,
-} = require('./_tools')
+const { filter, range } = require('../')
+const { testAndToArray, oneTwoThree } = require('./_tools')
 
 test('filter', t => {
   const processIterable = testAndToArray(t)

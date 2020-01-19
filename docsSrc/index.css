@@ -125,7 +125,8 @@ main {
   width: calc(100% - 2rem);
 }
 
-.hljs, .hljs-subst {
+.hljs,
+.hljs-subst {
   color: #444;
 }
 
@@ -166,7 +167,7 @@ main {
 .hljs-link,
 .hljs-selector-attr,
 .hljs-selector-pseudo {
-  color: #BC6060;
+  color: #bc6060;
 }
 
 .hljs-literal {

@@ -1,5 +1,5 @@
 const test = require('tape')
-const {takeWhile} = require('../')
+const { takeWhile } = require('../')
 const {
   testAndToArray,
   oneTwoThree,

@@ -1,6 +1,6 @@
 const test = require('tape')
-const {map} = require('../')
-const {halve, testAndToArray, oneTwoThree} = require('./_tools')
+const { map } = require('../')
+const { halve, testAndToArray, oneTwoThree } = require('./_tools')
 
 test('map', t => {
   const processIterable = testAndToArray(t)

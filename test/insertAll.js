@@ -1,5 +1,5 @@
 const test = require('tape')
-const {insertAll} = require('../')
+const { insertAll } = require('../')
 const {
   testAndToArray,
   negativeIntegers,
@@ -14,7 +14,9 @@ test('insertAll', t => {
     [1, 2, 20, 21, 22, 3, 4, 5],
   )
   t.deepEqual(
-    processIterable(takeEight(insertAll(2, negativeIntegers)(positiveIntegers))),
+    processIterable(
+      takeEight(insertAll(2, negativeIntegers)(positiveIntegers)),
+    ),
     [1, 2, -1, -2, -3, -4, -5, -6],
   )
   t.end()

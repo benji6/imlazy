@@ -1,5 +1,5 @@
 const test = require('tape')
-const {drop} = require('../')
+const { drop } = require('../')
 const {
   testAndToArray,
   oneTwoThree,

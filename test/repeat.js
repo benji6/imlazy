@@ -1,10 +1,6 @@
 const test = require('tape')
-const {repeat} = require('../')
-const {
-  fiveFiveFive,
-  testAndToArray,
-  takeThree,
-} = require('./_tools')
+const { repeat } = require('../')
+const { fiveFiveFive, testAndToArray, takeThree } = require('./_tools')
 
 test('repeat', t => {
   const processIterable = testAndToArray(t)

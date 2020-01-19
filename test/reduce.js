@@ -1,6 +1,6 @@
 const test = require('tape')
-const {reduce} = require('../')
-const {add, oneTwoThree, oneTwoThreeFour, subtract} = require('./_tools')
+const { reduce } = require('../')
+const { add, oneTwoThree, oneTwoThreeFour, subtract } = require('./_tools')
 
 test('reduce', t => {
   const sum = reduce(add)(0)

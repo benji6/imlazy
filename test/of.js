@@ -1,6 +1,6 @@
 const test = require('tape')
-const {of} = require('../')
-const {testAndToArray, oneTwoThree} = require('./_tools')
+const { of } = require('../')
+const { testAndToArray, oneTwoThree } = require('./_tools')
 
 test('of', t => {
   const processIterable = testAndToArray(t)

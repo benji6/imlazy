@@ -1,5 +1,5 @@
 const test = require('tape')
-const {concat} = require('../')
+const { concat } = require('../')
 const {
   testAndToArray,
   negativeIntegers,
@@ -15,10 +15,16 @@ test('concat', t => {
   t.deepEqual(processIterable(oneTwoThreeThreeTwoOne), [1, 2, 3, 3, 2, 1])
   t.deepEqual(processIterable(oneTwoThreeThreeTwoOne), [1, 2, 3, 3, 2, 1])
   t.deepEqual(processIterable(oneTwoThreeThreeTwoOne), [1, 2, 3, 3, 2, 1])
-  t.deepEqual(
-    processIterable(takeEight(concatOneTwoThree(negativeIntegers))),
-    [1, 2, 3, -1, -2, -3, -4, -5],
-  )
+  t.deepEqual(processIterable(takeEight(concatOneTwoThree(negativeIntegers))), [
+    1,
+    2,
+    3,
+    -1,
+    -2,
+    -3,
+    -4,
+    -5,
+  ])
   t.deepEqual(
     processIterable(takeEight(concat(negativeIntegers)(oneTwoThree))),
     [-1, -2, -3, -4, -5, -6, -7, -8],

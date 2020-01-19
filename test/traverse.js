@@ -7,7 +7,7 @@ const {
   oneTwoThree,
   testAndToArray,
 } = require('./_tools')
-const {empty, map, of, traverse} = imlazy
+const { empty, map, of, traverse } = imlazy
 
 const mapAdd10 = map(curriedAdd(10))
 
@@ -23,28 +23,68 @@ test('traverse with imlazy', t => {
     [],
   )
   t.deepEqual(
-    processIterable(traverse(imlazy, mapAdd10, of(of(1), of(2, 3, 4)))).map(processIterable),
-    [[11, 12], [11, 13], [11, 14]],
+    processIterable(traverse(imlazy, mapAdd10, of(of(1), of(2, 3, 4)))).map(
+      processIterable,
+    ),
+    [
+      [11, 12],
+      [11, 13],
+      [11, 14],
+    ],
   )
   t.deepEqual(
-    processIterable(traverse(imlazy, mapAdd10, of(of(1, 2), of(3, 4)))).map(processIterable),
-    [[11, 13], [11, 14], [12, 13], [12, 14]],
+    processIterable(traverse(imlazy, mapAdd10, of(of(1, 2), of(3, 4)))).map(
+      processIterable,
+    ),
+    [
+      [11, 13],
+      [11, 14],
+      [12, 13],
+      [12, 14],
+    ],
   )
   t.deepEqual(
-    processIterable(traverse(imlazy)(mapAdd10, of(of(1, 2), of(3, 4)))).map(processIterable),
-    [[11, 13], [11, 14], [12, 13], [12, 14]],
+    processIterable(traverse(imlazy)(mapAdd10, of(of(1, 2), of(3, 4)))).map(
+      processIterable,
+    ),
+    [
+      [11, 13],
+      [11, 14],
+      [12, 13],
+      [12, 14],
+    ],
   )
   t.deepEqual(
-    processIterable(traverse(imlazy, mapAdd10)(of(of(1, 2), of(3, 4)))).map(processIterable),
-    [[11, 13], [11, 14], [12, 13], [12, 14]],
+    processIterable(traverse(imlazy, mapAdd10)(of(of(1, 2), of(3, 4)))).map(
+      processIterable,
+    ),
+    [
+      [11, 13],
+      [11, 14],
+      [12, 13],
+      [12, 14],
+    ],
   )
   t.deepEqual(
-    processIterable(traverse(imlazy)(mapAdd10)(of(of(1, 2), of(3, 4)))).map(processIterable),
-    [[11, 13], [11, 14], [12, 13], [12, 14]],
+    processIterable(traverse(imlazy)(mapAdd10)(of(of(1, 2), of(3, 4)))).map(
+      processIterable,
+    ),
+    [
+      [11, 13],
+      [11, 14],
+      [12, 13],
+      [12, 14],
+    ],
   )
   t.deepEqual(
-    processIterable(traverse(imlazy, mapAdd10, of(oneTwoThree, of(4)))).map(processIterable),
-    [[11, 14], [12, 14], [13, 14]],
+    processIterable(traverse(imlazy, mapAdd10, of(oneTwoThree, of(4)))).map(
+      processIterable,
+    ),
+    [
+      [11, 14],
+      [12, 14],
+      [13, 14],
+    ],
   )
   t.deepEqual(
     processIterable(traverse(imlazy, mapAdd10, [oneTwoThreeFour, []])),
@@ -59,10 +99,7 @@ test('traverse with fun-task', t => {
 
   traverse(Task, a => Task.of(String(a * 3)), oneTwoThree).run({
     success: a => {
-      t.deepEqual(
-        processIterable(a),
-        ['3', '6', '9'],
-      )
+      t.deepEqual(processIterable(a), ['3', '6', '9'])
       t.end()
     },
   })
