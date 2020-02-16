@@ -1,0 +1,7 @@
+[build]
+  command = "yarn docs"
+  publish = "docs"
+[[headers]]
+  for = "*"
+  [headers.values]
+    Content-Security-Policy = "frame-ancestors 'none'"

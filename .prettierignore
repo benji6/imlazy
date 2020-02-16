@@ -1,4 +1,5 @@
 .*ignore
 .*rc
 *.lock
+*.toml
 LICENSE
