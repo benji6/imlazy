@@ -1,9 +1,9 @@
-const test = require('tape')
-const { assoc } = require('../')
-const { testAndToArray, positiveIntegers, takeEight } = require('./_tools')
+const test = require("tape");
+const { assoc } = require("../");
+const { testAndToArray, positiveIntegers, takeEight } = require("./_tools");
 
-test('assoc', (t) => {
-  const processIterable = testAndToArray(t)
+test("assoc", (t) => {
+  const processIterable = testAndToArray(t);
   t.deepEqual(processIterable(takeEight(assoc(4)(100)(positiveIntegers))), [
     1,
     2,
@@ -13,7 +13,7 @@ test('assoc', (t) => {
     6,
     7,
     8,
-  ])
+  ]);
   t.deepEqual(processIterable(takeEight(assoc(4, 100)(positiveIntegers))), [
     1,
     2,
@@ -23,7 +23,7 @@ test('assoc', (t) => {
     6,
     7,
     8,
-  ])
+  ]);
   t.deepEqual(processIterable(takeEight(assoc(4)(100, positiveIntegers))), [
     1,
     2,
@@ -33,6 +33,6 @@ test('assoc', (t) => {
     6,
     7,
     8,
-  ])
-  t.end()
-})
+  ]);
+  t.end();
+});

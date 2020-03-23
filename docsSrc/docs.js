@@ -1,26 +1,26 @@
-const dox = require('dox')
-const fs = require('fs')
-const hljs = require('highlight.js')
-const { minify } = require('html-minifier')
-const CleanCSS = require('clean-css')
+const dox = require("dox");
+const fs = require("fs");
+const hljs = require("highlight.js");
+const { minify } = require("html-minifier");
+const CleanCSS = require("clean-css");
 
-const buildDir = 'docs'
+const buildDir = "docs";
 
-const css = fs.readFileSync('./docsSrc/index.css')
-const src = fs.readFileSync('./index.js', 'utf-8')
-const obj = dox.parseComments(src)
+const css = fs.readFileSync("./docsSrc/index.css");
+const src = fs.readFileSync("./index.js", "utf-8");
+const obj = dox.parseComments(src);
 
 const docEntry = (o) => {
-  const name = o.ctx.name
-  const example = o.tags.find((tag) => tag.type === 'example').string
-  const seeObj = o.tags.find((tag) => tag.type === 'see')
+  const name = o.ctx.name;
+  const example = o.tags.find((tag) => tag.type === "example").string;
+  const seeObj = o.tags.find((tag) => tag.type === "see");
 
   const seeAlso = seeObj
     ? `<p class="card__see">See also ${seeObj.string
-        .split(' ')
+        .split(" ")
         .map((s) => `<a class="link" href="#${s}">${s}</a>`)
-        .join(' ')}</p>`
-    : ''
+        .join(" ")}</p>`
+    : "";
 
   return `
     <div class="card" id="${name}">
@@ -28,7 +28,7 @@ const docEntry = (o) => {
         <div class="card__title-left">
           <a class="card__title-text" href="#${name}">${name}</a>
           <div class="card__sig">${
-            o.tags.find((tag) => tag.type === 'sig').string
+            o.tags.find((tag) => tag.type === "sig").string
           }</div>
         </div>
         <a
@@ -42,13 +42,13 @@ const docEntry = (o) => {
       </h2>
       ${o.description.full.slice(
         0,
-        2,
+        2
       )} class="card__description"${o.description.full.slice(2)}
-      <pre class="hljs">${hljs.highlight('js', example).value}</pre>
+      <pre class="hljs">${hljs.highlight("js", example).value}</pre>
       ${seeAlso}
     </div>
-  `
-}
+  `;
+};
 
 const page = (children) => `
   <!DOCTYPE html>
@@ -69,12 +69,12 @@ const page = (children) => `
     </main>
   </body>
   </html>
-`
+`;
 
-if (!fs.existsSync(buildDir)) fs.mkdirSync(buildDir)
+if (!fs.existsSync(buildDir)) fs.mkdirSync(buildDir);
 
 fs.writeFileSync(
   `${buildDir}/index.html`,
-  minify(page(obj.map(docEntry).join('')), { collapseWhitespace: true }),
-)
-fs.writeFileSync(`${buildDir}/index.css`, new CleanCSS({}).minify(css).styles)
+  minify(page(obj.map(docEntry).join("")), { collapseWhitespace: true })
+);
+fs.writeFileSync(`${buildDir}/index.css`, new CleanCSS({}).minify(css).styles);

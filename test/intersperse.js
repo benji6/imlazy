@@ -1,9 +1,9 @@
-const test = require('tape')
-const { intersperse } = require('../')
-const { testAndToArray, positiveIntegers, takeEight } = require('./_tools')
+const test = require("tape");
+const { intersperse } = require("../");
+const { testAndToArray, positiveIntegers, takeEight } = require("./_tools");
 
-test('intersperse', (t) => {
-  const processIterable = testAndToArray(t)
+test("intersperse", (t) => {
+  const processIterable = testAndToArray(t);
   t.deepEqual(processIterable(takeEight(intersperse(2)(positiveIntegers))), [
     1,
     2,
@@ -13,7 +13,7 @@ test('intersperse', (t) => {
     2,
     4,
     2,
-  ])
+  ]);
   t.deepEqual(processIterable(takeEight(intersperse(2, positiveIntegers))), [
     1,
     2,
@@ -23,6 +23,6 @@ test('intersperse', (t) => {
     2,
     4,
     2,
-  ])
-  t.end()
-})
+  ]);
+  t.end();
+});

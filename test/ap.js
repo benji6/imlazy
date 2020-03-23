@@ -1,27 +1,27 @@
-const test = require('tape')
-const { ap, of, repeat } = require('../')
+const test = require("tape");
+const { ap, of, repeat } = require("../");
 const {
   oneTwoThree,
   positiveIntegers,
   takeEight,
   testAndToArray,
-} = require('./_tools')
+} = require("./_tools");
 
-test('ap', (t) => {
-  const processIterable = testAndToArray(t)
+test("ap", (t) => {
+  const processIterable = testAndToArray(t);
 
   t.deepEqual(
     processIterable(
       ap(
         of(
           (x) => x * 2,
-          (x) => x + 3,
+          (x) => x + 3
         ),
-        oneTwoThree,
-      ),
+        oneTwoThree
+      )
     ),
-    [2, 4, 6, 4, 5, 6],
-  )
+    [2, 4, 6, 4, 5, 6]
+  );
 
   t.deepEqual(
     processIterable(
@@ -29,37 +29,37 @@ test('ap', (t) => {
         ap(
           of(
             (x) => x * 2,
-            (x) => x + 3,
+            (x) => x + 3
           ),
-          positiveIntegers,
-        ),
-      ),
+          positiveIntegers
+        )
+      )
     ),
-    [2, 4, 6, 8, 10, 12, 14, 16],
-  )
+    [2, 4, 6, 8, 10, 12, 14, 16]
+  );
 
   t.deepEqual(
     processIterable(
       takeEight(
         ap(
           repeat((x) => x * 2),
-          oneTwoThree,
-        ),
-      ),
+          oneTwoThree
+        )
+      )
     ),
-    [2, 4, 6, 2, 4, 6, 2, 4],
-  )
+    [2, 4, 6, 2, 4, 6, 2, 4]
+  );
 
   t.deepEqual(
     processIterable(
       takeEight(
         ap(
           repeat((x) => x * 2),
-          positiveIntegers,
-        ),
-      ),
+          positiveIntegers
+        )
+      )
     ),
-    [2, 4, 6, 8, 10, 12, 14, 16],
-  )
-  t.end()
-})
+    [2, 4, 6, 8, 10, 12, 14, 16]
+  );
+  t.end();
+});

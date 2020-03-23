@@ -13,51 +13,51 @@
 imlazy let's you harness the power of the [ES2015 iteration protocols](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Iteration_protocols). With it you can create infinite or circular iterables which are lazy, immutable and performant. For instance:
 
 ```js
-const { filter, range } = require('imlazy')
+const { filter, range } = require("imlazy");
 
-const isEven = (x) => x % 2 === 0
+const isEven = (x) => x % 2 === 0;
 
-const positiveIntegers = range(1, Infinity) // => (1 2 3 4 5 6 7 8 9 10...)
-const positiveEvenIntegers = filter(isEven, positiveIntegers) // => (2 4 6 8 10 12 14 16 18 20...)
+const positiveIntegers = range(1, Infinity); // => (1 2 3 4 5 6 7 8 9 10...)
+const positiveEvenIntegers = filter(isEven, positiveIntegers); // => (2 4 6 8 10 12 14 16 18 20...)
 ```
 
 All functions are auto-curried and iterable-last (like in [lodash/fp](https://github.com/lodash/lodash/wiki/FP-Guide) and [ramda](http://ramdajs.com/)) which allows developers to build up reusable functions with partial application like so:
 
 ```js
-const { take } = require('imlazy')
+const { take } = require("imlazy");
 
-const takeThree = take(3)
+const takeThree = take(3);
 
-const oneTwoThree = takeThree(positiveIntegers) // => (1 2 3)
-const twoFourSix = takeThree(positiveEvenIntegers) // => (2 4 6)
+const oneTwoThree = takeThree(positiveIntegers); // => (1 2 3)
+const twoFourSix = takeThree(positiveEvenIntegers); // => (2 4 6)
 ```
 
 Putting iterables into an array, or set, or using them as arguments to a function call is simple (be careful with anything infinite or circular though!):
 
 ```js
-;[...twoFourSix] // => [2, 4, 6]
-Array.from(twoFourSix) // => [2, 4, 6]
-new Set(twoFourSix) // => Set { 2, 4, 6 }
-Math.max(...twoFourSix) // => 6
+[...twoFourSix]; // => [2, 4, 6]
+Array.from(twoFourSix); // => [2, 4, 6]
+new Set(twoFourSix); // => Set { 2, 4, 6 }
+Math.max(...twoFourSix); // => 6
 ```
 
 Because imlazy uses the ES2015 iteration protocols it is compatible with all native iterables (including the `Generator`, `String`, `Array`, `TypedArray`, `Map` and `Set` types) and many libraries (including [Immutable.js](https://github.com/facebook/immutable-js)):
 
 ```js
-const { sum } = require('imlazy')
-const Immutable = require('immutable')
+const { sum } = require("imlazy");
+const Immutable = require("immutable");
 
-sum(twoFourSix) // => 12
-sum([2, 4, 6]) // => 12
-sum(new Set(twoFourSix)) // => 12
-sum(Immutable.List.of(2, 4, 6)) // => 12
+sum(twoFourSix); // => 12
+sum([2, 4, 6]); // => 12
+sum(new Set(twoFourSix)); // => 12
+sum(Immutable.List.of(2, 4, 6)); // => 12
 
 const fibonacciGenerator = function* () {
-  let [a, b] = [0, 1]
-  while (true) yield ([a, b] = [b, a + b])[0]
-}
+  let [a, b] = [0, 1];
+  while (true) yield ([a, b] = [b, a + b])[0];
+};
 
-take(8, fibonacciGenerator()) // => (1 1 2 3 5 8 13 21)
+take(8, fibonacciGenerator()); // => (1 1 2 3 5 8 13 21)
 ```
 
 All iterables created by imlazy are frozen with `Object.freeze` so, not only are they lazy, they're also immutable.
@@ -85,8 +85,8 @@ imlazy is written in ES2015 and will run in any environment that supports that s
 imlazy implements a custom `toString` method for the iterables it returns. Just invoke `String` on an iterable returned by one of imlazy's functions to see what's inside it:
 
 ```js
-String(range(1, 8)) // => (1 2 3 4 5 6 7 8)
-String(range(1, Infinity)) // => (1 2 3 4 5 6 7 8 9 10...)
+String(range(1, 8)); // => (1 2 3 4 5 6 7 8)
+String(range(1, Infinity)); // => (1 2 3 4 5 6 7 8 9 10...)
 ```
 
 The custom `toString` method can handle nested and infinite iterables (in which case it lists the first 10 elements followed by ellipsis) and uses a LISP-like notation to differentiate iterables from arrays and other JS data structures

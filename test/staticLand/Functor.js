@@ -1,26 +1,26 @@
-const test = require('tape')
-const { equals, map, of } = require('../../')
+const test = require("tape");
+const { equals, map, of } = require("../../");
 
-const f = (x) => x + 'f'
-const g = (x) => x + 'g'
-const a = of('value')
+const f = (x) => x + "f";
+const g = (x) => x + "g";
+const a = of("value");
 
-test('Functor', (t) => {
+test("Functor", (t) => {
   t.true(
     equals(
       map((x) => x, a),
-      a,
+      a
     ),
-    'Identity',
-  )
+    "Identity"
+  );
   t.true(
     equals(
       map((x) => f(g(x)), a),
-      map(f, map(g, a)),
+      map(f, map(g, a))
     ),
-    'Composition',
-  )
-  t.deepEqual([...map((x) => f(g(x)), a)], ['valuegf'], 'Composition')
-  t.deepEqual([...map(f, map(g, a))], ['valuegf'], 'Composition')
-  t.end()
-})
+    "Composition"
+  );
+  t.deepEqual([...map((x) => f(g(x)), a)], ["valuegf"], "Composition");
+  t.deepEqual([...map(f, map(g, a))], ["valuegf"], "Composition");
+  t.end();
+});

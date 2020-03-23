@@ -1,36 +1,36 @@
-'use strict'
+"use strict";
 
-const isEqualWith = require('lodash.isequalwith')
+const isEqualWith = require("lodash.isequalwith");
 
-const lastSymbol = Symbol()
+const lastSymbol = Symbol();
 
 const curry = (f) => (...xs) =>
-  xs.length < f.length ? curry(f.bind(...[null, ...xs])) : f(...xs)
+  xs.length < f.length ? curry(f.bind(...[null, ...xs])) : f(...xs);
 
 const toString = (module.exports._toString = (xs) =>
   function imlazyToStringThunk() {
-    const tooLong = [...module.exports.take(11, xs)].length === 11
+    const tooLong = [...module.exports.take(11, xs)].length === 11;
     return `(${module.exports
       .reduce(
         (str, x) => `${str}${String(x)} `,
-        '',
-        module.exports.take(10, xs),
+        "",
+        module.exports.take(10, xs)
       )
-      .slice(0, -1)}${tooLong ? '...' : ''})`
-  })
+      .slice(0, -1)}${tooLong ? "..." : ""})`;
+  });
 
 const genToIter = (gen) => {
-  const xs = { [Symbol.iterator]: gen }
-  Object.defineProperty(xs, 'toString', { value: toString(xs) })
-  return Object.freeze(xs)
-}
+  const xs = { [Symbol.iterator]: gen };
+  Object.defineProperty(xs, "toString", { value: toString(xs) });
+  return Object.freeze(xs);
+};
 
-const isIterable = (a) => Boolean(a[Symbol.iterator])
+const isIterable = (a) => Boolean(a[Symbol.iterator]);
 
 const iterableFrom = (xs) =>
   genToIter(function* () {
-    yield* xs
-  })
+    yield* xs;
+  });
 
 /**
  * Returns a new iterable with the given function applied to the value at the given index
@@ -40,10 +40,10 @@ const iterableFrom = (xs) =>
  */
 module.exports.adjust = curry((f, a, xs) =>
   genToIter(function* () {
-    let i = a
-    for (const x of xs) yield i-- ? x : f(x)
-  }),
-)
+    let i = a;
+    for (const x of xs) yield i-- ? x : f(x);
+  })
+);
 
 /**
  * Applies an iterable of functions to an iterable of values
@@ -53,9 +53,9 @@ module.exports.adjust = curry((f, a, xs) =>
  */
 module.exports.ap = curry((fs, xs) =>
   genToIter(function* () {
-    for (const f of fs) for (const x of xs) yield f(x)
-  }),
-)
+    for (const f of fs) for (const x of xs) yield f(x);
+  })
+);
 
 /**
  * Returns a new iterable of the given iterable followed by the given value
@@ -65,10 +65,10 @@ module.exports.ap = curry((fs, xs) =>
  */
 module.exports.append = curry((a, xs) =>
   genToIter(function* () {
-    yield* xs
-    yield a
-  }),
-)
+    yield* xs;
+    yield a;
+  })
+);
 
 /**
  * Returns a new iterable identical to the supplied iterable except with the value at the given index replaced by the given value
@@ -78,10 +78,10 @@ module.exports.append = curry((a, xs) =>
  */
 module.exports.assoc = curry((a, b, xs) =>
   genToIter(function* () {
-    let i = a
-    for (const x of xs) yield i-- ? x : b
-  }),
-)
+    let i = a;
+    for (const x of xs) yield i-- ? x : b;
+  })
+);
 
 /**
  * Returns a new iterable of the first given iterable followed by the second given iterable
@@ -91,10 +91,10 @@ module.exports.assoc = curry((a, b, xs) =>
  */
 module.exports.concat = curry((xs, ys) =>
   genToIter(function* () {
-    yield* xs
-    yield* ys
-  }),
-)
+    yield* xs;
+    yield* ys;
+  })
+);
 
 /**
  * Returns a new iterable of the given iterable without the first n elements
@@ -104,13 +104,13 @@ module.exports.concat = curry((xs, ys) =>
  */
 module.exports.drop = curry((n, xs) =>
   genToIter(function* () {
-    let m = n
+    let m = n;
     for (const x of xs) {
-      if (m) m--
-      else yield x
+      if (m) m--;
+      else yield x;
     }
-  }),
-)
+  })
+);
 
 /**
  * Returns a new iterable by applying the given function to each value in the given iterable only yielding values when false is returned
@@ -120,36 +120,36 @@ module.exports.drop = curry((n, xs) =>
  */
 module.exports.dropWhile = curry((f, xs) =>
   genToIter(function* () {
-    let stopDropping = false
+    let stopDropping = false;
     for (const x of xs) {
-      if (stopDropping) yield x
-      else if (!f(x)) yield ((stopDropping = true), x)
+      if (stopDropping) yield x;
+      else if (!f(x)) yield ((stopDropping = true), x);
     }
-  }),
-)
+  })
+);
 
 /**
  * Returns an empty iterable
  * @sig Any -> []
  * @example empty() // => ()
  */
-module.exports.empty = () => genToIter(function* () {})
+module.exports.empty = () => genToIter(function* () {});
 
-const isLazyIterable = (x) => isIterable(x) && typeof x.length !== 'number'
+const isLazyIterable = (x) => isIterable(x) && typeof x.length !== "number";
 const customizer = (x, y) => {
   if (isLazyIterable(x) || isLazyIterable(y)) {
-    if (!isIterable(x) || !isIterable(y)) return false
-    const iteratorX = x[Symbol.iterator]()
-    const iteratorY = y[Symbol.iterator]()
+    if (!isIterable(x) || !isIterable(y)) return false;
+    const iteratorX = x[Symbol.iterator]();
+    const iteratorY = y[Symbol.iterator]();
     while (true) {
-      const objX = iteratorX.next()
-      const objY = iteratorY.next()
-      if (objX.done === true && objY.done === true) return true
-      if (objX.done === true || objY.done === true) return false
-      if (!module.exports.equals(objX.value, objY.value)) return false
+      const objX = iteratorX.next();
+      const objY = iteratorY.next();
+      if (objX.done === true && objY.done === true) return true;
+      if (objX.done === true || objY.done === true) return false;
+      if (!module.exports.equals(objX.value, objY.value)) return false;
     }
   }
-}
+};
 /**
  * Returns `true` if arguments are equivalent and `false` otherwise. Equality of iterable values is determined element by element recursively and equality of non-iterable values is checked via `lodash.equals`
  * @sig a -> b -> Boolean
@@ -161,7 +161,7 @@ const customizer = (x, y) => {
  * equals([1, [2, {a: 5, b: 6}]], [1, [2, {a: 5}]]) // => false
  * equals(range(1, 3), [1, 2]) // => false
  */
-module.exports.equals = curry((x, y) => isEqualWith(x, y, customizer))
+module.exports.equals = curry((x, y) => isEqualWith(x, y, customizer));
 
 /**
  * Applies the given function to each value in the given iterable until that function returns falsy, in which case false is returned. If the iterable is completely traversed and falsy is never returned by the given function then true is returned
@@ -171,9 +171,9 @@ module.exports.equals = curry((x, y) => isEqualWith(x, y, customizer))
  * every(x => x <= 2, [1, 2, 3, 4]) // => false
  */
 module.exports.every = curry((f, xs) => {
-  for (const x of xs) if (!f(x)) return false
-  return true
-})
+  for (const x of xs) if (!f(x)) return false;
+  return true;
+});
 
 /**
  * Returns a new iterable containing only values from the given iterable where the given function applied to that value returns truthy
@@ -184,9 +184,9 @@ module.exports.every = curry((f, xs) => {
  */
 module.exports.filter = curry((f, xs) =>
   genToIter(function* () {
-    for (const x of xs) if (f(x)) yield x
-  }),
-)
+    for (const x of xs) if (f(x)) yield x;
+  })
+);
 
 /**
  * Applies the given function to each value in the given iterable. If truthy is returned then find returns the value from the iterable and if the end of the iterable is reached with truthy never returned then find returns undefined
@@ -196,8 +196,8 @@ module.exports.filter = curry((f, xs) =>
  * find(x => x === 0, [1, 2, 3, 4, 5, 6]) // => undefined
  */
 module.exports.find = curry((f, xs) => {
-  for (const x of xs) if (f(x)) return x
-})
+  for (const x of xs) if (f(x)) return x;
+});
 
 /**
  * Applies the given function to each value in the given iterable. If truthy is returned then findIndex returns the index from the iterable and if the end of the iterable is reached with truthy never returned then findIndex returns undefined
@@ -207,12 +207,12 @@ module.exports.find = curry((f, xs) => {
  * findIndex(x => x === 0, [1, 2, 3]) // => undefined
  */
 module.exports.findIndex = curry((f, xs) => {
-  let i = 0
+  let i = 0;
   for (const x of xs) {
-    if (f(x)) return i
-    else i++
+    if (f(x)) return i;
+    else i++;
   }
-})
+});
 
 /**
  * Takes an iterable and recursively unnests any values which are iterables
@@ -222,10 +222,10 @@ module.exports.findIndex = curry((f, xs) => {
 module.exports.flatten = (xs) =>
   genToIter(function* recur(ys = xs) {
     for (const y of ys) {
-      if (isIterable(y)) yield* recur(y)
-      else yield y
+      if (isIterable(y)) yield* recur(y);
+      else yield y;
     }
-  })
+  });
 
 /**
  * Returns the first value from an iterable
@@ -233,7 +233,7 @@ module.exports.flatten = (xs) =>
  * @see init last tail
  * @sig [a] -> a | undefined
  */
-module.exports.head = (xs) => xs[Symbol.iterator]().next().value
+module.exports.head = (xs) => xs[Symbol.iterator]().next().value;
 
 /**
  * Checks whether the supplied iterable contains the supplied value. Equality is checked using the `equals` function defined by this library
@@ -243,9 +243,9 @@ module.exports.head = (xs) => xs[Symbol.iterator]().next().value
  * includes(10, range(1, 9)) // => false
  */
 module.exports.includes = curry((y, xs) => {
-  for (const x of xs) if (module.exports.equals(x, y)) return true
-  return false
-})
+  for (const x of xs) if (module.exports.equals(x, y)) return true;
+  return false;
+});
 
 /**
  * Returns a new iterable of all but the last element of the given iterable
@@ -255,12 +255,12 @@ module.exports.includes = curry((y, xs) => {
  */
 module.exports.init = (xs) =>
   genToIter(function* () {
-    let last = lastSymbol
+    let last = lastSymbol;
     for (const x of xs) {
-      if (last !== lastSymbol) yield last
-      last = x
+      if (last !== lastSymbol) yield last;
+      last = x;
     }
-  })
+  });
 
 /**
  * Returns a new iterable with the given value inserted at the given index in the given iterable
@@ -270,16 +270,16 @@ module.exports.init = (xs) =>
  */
 module.exports.insert = curry((a, b, xs) =>
   genToIter(function* () {
-    let i = a
+    let i = a;
     for (const x of xs) {
-      if (i--) yield x
+      if (i--) yield x;
       else {
-        yield b
-        yield x
+        yield b;
+        yield x;
       }
     }
-  }),
-)
+  })
+);
 
 /**
  * Returns a new iterable with the values in the first given iterable inserted at the given index in the last given iterable
@@ -289,16 +289,16 @@ module.exports.insert = curry((a, b, xs) =>
  */
 module.exports.insertAll = curry((a, xs, ys) =>
   genToIter(function* () {
-    let i = a
+    let i = a;
     for (const y of ys) {
-      if (i--) yield y
+      if (i--) yield y;
       else {
-        yield* xs
-        yield y
+        yield* xs;
+        yield y;
       }
     }
-  }),
-)
+  })
+);
 
 /**
  * Returns a new iterable with the given value interspersed at every other index in the given iterable
@@ -309,11 +309,11 @@ module.exports.insertAll = curry((a, xs, ys) =>
 module.exports.intersperse = curry((a, xs) =>
   genToIter(function* () {
     for (const x of xs) {
-      yield x
-      yield a
+      yield x;
+      yield a;
     }
-  }),
-)
+  })
+);
 
 /**
  * Returns true if the iterable has no values in it and false otherwise
@@ -322,14 +322,14 @@ module.exports.intersperse = curry((a, xs) =>
  * isEmpty([]) // => true
  * isEmpty([0]) // => false
  */
-module.exports.isEmpty = (xs) => xs[Symbol.iterator]().next().done
+module.exports.isEmpty = (xs) => xs[Symbol.iterator]().next().done;
 
 /**
  * Returns a new iterable with values identical to the given iterable
  * @sig [a] -> [a]
  * @example interableFrom([1, 2, 3]) // => (1 2 3)
  */
-module.exports.iterableFrom = iterableFrom
+module.exports.iterableFrom = iterableFrom;
 
 /**
  * Returns an infinite iterable with the first value as the given initial value and all other values defined by applying the given function to the previous value
@@ -339,11 +339,11 @@ module.exports.iterableFrom = iterableFrom
  */
 module.exports.iterate = curry((f, a) =>
   genToIter(function* () {
-    let x = a
-    yield x
-    while (true) yield (x = f(x))
-  }),
-)
+    let x = a;
+    yield x;
+    while (true) yield (x = f(x));
+  })
+);
 
 /**
  * Returns the last value in the given iterable
@@ -351,14 +351,14 @@ module.exports.iterate = curry((f, a) =>
  * @sig [a] -> a | undefined
  * @see head init tail
  */
-module.exports.last = (xs) => [...xs].pop()
+module.exports.last = (xs) => [...xs].pop();
 
 /**
  * Returns the number of elements in the given iterable
  * @sig [a] -> Number
  * @example length(range(1, 100)) // => 100
  */
-module.exports.length = (xs) => [...xs].length
+module.exports.length = (xs) => [...xs].length;
 
 /**
  * Maps a function over an iterable and concatenates the results
@@ -367,9 +367,9 @@ module.exports.length = (xs) => [...xs].length
  */
 module.exports.chain = curry((f, xs) =>
   genToIter(function* () {
-    for (const x of xs) yield* f(x)
-  }),
-)
+    for (const x of xs) yield* f(x);
+  })
+);
 
 /**
  * Returns a new iterable by infinitely repeating the given iterable
@@ -380,8 +380,8 @@ module.exports.cycle = (xs) =>
   module.exports.isEmpty(xs)
     ? module.exports.empty()
     : genToIter(function* () {
-        while (true) yield* xs
-      })
+        while (true) yield* xs;
+      });
 
 /**
  * Returns a new Iterable by applying the given function to every value in the given iterable
@@ -391,9 +391,9 @@ module.exports.cycle = (xs) =>
  */
 module.exports.map = curry((f, xs) =>
   genToIter(function* () {
-    for (const x of xs) yield f(x)
-  }),
-)
+    for (const x of xs) yield f(x);
+  })
+);
 
 /**
  * Returns the value at the given index in the given iterable, or undefined if no value exists
@@ -402,16 +402,16 @@ module.exports.map = curry((f, xs) =>
  * nth(90, range(1, Infinity)) // => 90
  */
 module.exports.nth = curry((a, xs) => {
-  let i = a
-  for (const x of xs) if (i-- <= 0) return x
-})
+  let i = a;
+  for (const x of xs) if (i-- <= 0) return x;
+});
 
 /**
  * Returns an iterable of the arguments passed
  * @sig a -> [a]
  * @example [...interableOf(1, 2, 3)] // => [1, 2, 3]
  */
-module.exports.of = (...xs) => iterableFrom(xs)
+module.exports.of = (...xs) => iterableFrom(xs);
 
 /**
  * Returns an iterable of two iterables, the first iterable contains every value from the given iterable where the given function returns truthy and the second iterable contains every value from the given iterable where the given function returns falsy
@@ -421,10 +421,10 @@ module.exports.of = (...xs) => iterableFrom(xs)
  */
 module.exports.partition = curry((f, xs) =>
   genToIter(function* () {
-    yield module.exports.filter(f, xs)
-    yield module.exports.reject(f, xs)
-  }),
-)
+    yield module.exports.filter(f, xs);
+    yield module.exports.reject(f, xs);
+  })
+);
 
 /**
  * Returns a new iterable with the given value prepended to the given iterable
@@ -434,10 +434,10 @@ module.exports.partition = curry((f, xs) =>
  */
 module.exports.prepend = curry((a, xs) =>
   genToIter(function* () {
-    yield a
-    yield* xs
-  }),
-)
+    yield a;
+    yield* xs;
+  })
+);
 
 /**
  * Returns a new iterable starting with the first given value and either descending or ascending in integer steps until the yielded value is equal to the second given value
@@ -449,11 +449,11 @@ module.exports.prepend = curry((a, xs) =>
  */
 module.exports.range = curry((a, b) =>
   genToIter(function* () {
-    let n = a
-    if (n < b) while (n <= b) yield n++
-    else while (n >= b) yield n--
-  }),
-)
+    let n = a;
+    if (n < b) while (n <= b) yield n++;
+    else while (n >= b) yield n--;
+  })
+);
 
 /**
  * Returns a value by applying the given function with the accumulated value (starting with the given initialValue) and the current value for every value in the given iterable. The value returned from each call to the given function becomes the accumulated value for the next time it is called. Similar to `reduceRight` except the direction of iteration is from the beginning of the iterable to the end and the order of arguments passed to the reducer is `(acc, val)`
@@ -463,10 +463,10 @@ module.exports.range = curry((a, b) =>
  * reduce((acc, val) => acc + val, 'a', ['b', 'c', 'd', 'e']) // => 'abcde'
  */
 module.exports.reduce = curry((f, a, xs) => {
-  let acc = a
-  for (const x of xs) acc = f(acc, x)
-  return acc
-})
+  let acc = a;
+  for (const x of xs) acc = f(acc, x);
+  return acc;
+});
 
 /**
  * Returns a value by applying the given function with the accumulated value (starting with the given initialValue) and the current value for every value in the given iterable. The value returned from each call to the given function becomes the accumulated value for the next time it is called. Similar to `reduce` except the direction of iteration is from the end of the iterable to the beginning and the order of arguments to the reducer function is `(val, acc)`
@@ -476,11 +476,11 @@ module.exports.reduce = curry((f, a, xs) => {
  * reduceRight((val, acc) => acc + val, 'a', ['e', 'd', 'c', 'b']) // => 'abcde'
  */
 module.exports.reduceRight = curry((f, a, xs) => {
-  const arr = [...xs]
-  let acc = a
-  for (let i = arr.length - 1; i >= 0; i--) acc = f(arr[i], acc)
-  return acc
-})
+  const arr = [...xs];
+  let acc = a;
+  for (let i = arr.length - 1; i >= 0; i--) acc = f(arr[i], acc);
+  return acc;
+});
 
 /**
  * Returns a new iterable containing only values from the given iterable where the given function applied to that value returns falsy
@@ -491,9 +491,9 @@ module.exports.reduceRight = curry((f, a, xs) => {
  */
 module.exports.reject = curry((f, xs) =>
   genToIter(function* () {
-    for (const x of xs) if (!f(x)) yield x
-  }),
-)
+    for (const x of xs) if (!f(x)) yield x;
+  })
+);
 
 /**
  * Returns an iterable of the given iterable, excluding values from the given index for the given count
@@ -503,16 +503,16 @@ module.exports.reject = curry((f, xs) =>
  */
 module.exports.remove = curry((a, b, xs) =>
   genToIter(function* () {
-    let i = a
-    let j = b
-    let yielding = true
+    let i = a;
+    let j = b;
+    let yielding = true;
     for (const x of xs) {
-      if (!i--) yielding = false
-      if (yielding) yield x
-      else if (!--j) yielding = true
+      if (!i--) yielding = false;
+      if (yielding) yield x;
+      else if (!--j) yielding = true;
     }
-  }),
-)
+  })
+);
 
 /**
  * Returns an infinite iterable of the given value
@@ -523,15 +523,15 @@ module.exports.remove = curry((a, b, xs) =>
  */
 module.exports.repeat = (a) =>
   genToIter(function* () {
-    while (true) yield a
-  })
+    while (true) yield a;
+  });
 
 /**
  * Returns a new iterable which is the reverse of the given iterable
  * @sig [a] -> [a]
  * @example reverse([1, 2, 3]) // => (3 2 1)
  */
-module.exports.reverse = (xs) => iterableFrom([...xs].reverse())
+module.exports.reverse = (xs) => iterableFrom([...xs].reverse());
 
 /**
  * Returns an iterable of the given iterable starting at the given start index and ending one before the given end index. If the start index or the end index is negative it indicates an offset from the end of the iterable exactly like native `Array.prototype.slice`
@@ -541,21 +541,21 @@ module.exports.reverse = (xs) => iterableFrom([...xs].reverse())
  * slice(0, -1, range(1, 4)) // => (1 2 3)
  */
 module.exports.slice = curry((n, m, xs) => {
-  if (n < 0 && m < 0 && n >= m) return module.exports.empty()
-  if (n < 0 || m < 0) return iterableFrom([...xs].slice(n, m))
-  if (n >= m) return module.exports.empty()
+  if (n < 0 && m < 0 && n >= m) return module.exports.empty();
+  if (n < 0 || m < 0) return iterableFrom([...xs].slice(n, m));
+  if (n >= m) return module.exports.empty();
   return genToIter(function* () {
-    let a = n
-    let b = m - n
-    const iterator = xs[Symbol.iterator]()
-    while (a--) if (iterator.next().done) return
+    let a = n;
+    let b = m - n;
+    const iterator = xs[Symbol.iterator]();
+    while (a--) if (iterator.next().done) return;
     while (b--) {
-      const { done, value } = iterator.next()
-      if (done) return
-      yield value
+      const { done, value } = iterator.next();
+      if (done) return;
+      yield value;
     }
-  })
-})
+  });
+});
 
 /**
  * Applies the given function to each value in the given iterable until that function returns truthy, in which case true is returned. If the iterable is completely traversed and truthy is never returned by the given function then false is returned
@@ -565,9 +565,9 @@ module.exports.slice = curry((n, m, xs) => {
  * some(x => x === 2, [1, 2, 3, 4]) // => true
  */
 module.exports.some = curry((f, xs) => {
-  for (const x of xs) if (f(x)) return true
-  return false
-})
+  for (const x of xs) if (f(x)) return true;
+  return false;
+});
 
 /**
  * Returns a new iterable of the given iterable sorted using the given function which is used for comparing elements in the same manner as the native Array.prototype.sort method
@@ -575,7 +575,7 @@ module.exports.some = curry((f, xs) => {
  * @example
  * sort((a, b) => a - b, [5, 7, 3, 2]) // => (2 3 5 7)
  */
-module.exports.sort = curry((f, xs) => iterableFrom([...xs].sort(f)))
+module.exports.sort = curry((f, xs) => iterableFrom([...xs].sort(f)));
 
 /**
  * Returns a new iterable of the given iterable sorted by the return value of the given function when applied to each value
@@ -589,12 +589,12 @@ module.exports.sort = curry((f, xs) => iterableFrom([...xs].sort(f)))
 module.exports.sortBy = curry((f, xs) =>
   iterableFrom(
     [...xs].sort((a, b) => {
-      const c = f(a)
-      const d = f(b)
-      return c > d ? 1 : c < d ? -1 : 0
-    }),
-  ),
-)
+      const c = f(a);
+      const d = f(b);
+      return c > d ? 1 : c < d ? -1 : 0;
+    })
+  )
+);
 
 /**
  * Returns a new iterable comprised by iterables created from the given iterable of length specified by the given length
@@ -606,15 +606,15 @@ module.exports.sortBy = curry((f, xs) =>
  */
 module.exports.splitEvery = curry((a, xs) =>
   genToIter(function* () {
-    let i = 0
+    let i = 0;
     while (true) {
-      const yieldVal = module.exports.slice(i * a, (i + 1) * a, xs)
-      if (module.exports.length(yieldVal)) yield yieldVal
-      else return
-      i++
+      const yieldVal = module.exports.slice(i * a, (i + 1) * a, xs);
+      if (module.exports.length(yieldVal)) yield yieldVal;
+      else return;
+      i++;
     }
-  }),
-)
+  })
+);
 
 /**
  * Returns the sum of every element in the supplied iterable
@@ -623,10 +623,10 @@ module.exports.splitEvery = curry((a, xs) =>
  * sum(of(1, 2, 3)) // => 6
  */
 module.exports.sum = (xs) => {
-  let total = 0
-  for (const x of xs) total += x
-  return total
-}
+  let total = 0;
+  for (const x of xs) total += x;
+  return total;
+};
 
 /**
  * Returns a new iterable of all but the first element of the given iterable
@@ -636,10 +636,10 @@ module.exports.sum = (xs) => {
  */
 module.exports.tail = (xs) =>
   genToIter(function* () {
-    const iterator = xs[Symbol.iterator]()
-    iterator.next()
-    yield* iterator
-  })
+    const iterator = xs[Symbol.iterator]();
+    iterator.next();
+    yield* iterator;
+  });
 
 /**
  * Returns an iterable of the first n elements of the given iterable
@@ -649,15 +649,15 @@ module.exports.tail = (xs) =>
  */
 module.exports.take = curry((a, xs) =>
   genToIter(function* () {
-    let i = a
-    const iterator = xs[Symbol.iterator]()
+    let i = a;
+    const iterator = xs[Symbol.iterator]();
     while (i--) {
-      const { done, value } = iterator.next()
-      if (done) return
-      yield value
+      const { done, value } = iterator.next();
+      if (done) return;
+      yield value;
     }
-  }),
-)
+  })
+);
 
 /**
  * Returns an iterable of the all elements of the given iterable until the given function returns falsy when called on the value of that element
@@ -668,11 +668,11 @@ module.exports.take = curry((a, xs) =>
 module.exports.takeWhile = curry((f, xs) =>
   genToIter(function* () {
     for (const x of xs) {
-      if (f(x)) yield x
-      else return
+      if (f(x)) yield x;
+      else return;
     }
-  }),
-)
+  })
+);
 
 /**
  * Returns a new iterable which is a transposition of the given iterable (columns and rows swapped)
@@ -686,24 +686,24 @@ module.exports.takeWhile = curry((f, xs) =>
  */
 module.exports.transpose = (xss) =>
   genToIter(function* () {
-    const done = () => null
+    const done = () => null;
     const _nth = (a, xs) => {
-      for (const x of xs) if (a-- <= 0) return x
-      return done
-    }
+      for (const x of xs) if (a-- <= 0) return x;
+      return done;
+    };
     const createReturnGenerator = (i) =>
       function* () {
         for (const xs of xss) {
-          const value = _nth(i, xs)
-          if (value !== done) yield value
+          const value = _nth(i, xs);
+          if (value !== done) yield value;
         }
-      }
+      };
     for (let i = 0; ; i++) {
-      const returnGenerator = createReturnGenerator(i)
-      if (returnGenerator().next().done) return
-      yield genToIter(returnGenerator)
+      const returnGenerator = createReturnGenerator(i);
+      if (returnGenerator().next().done) return;
+      yield genToIter(returnGenerator);
     }
-  })
+  });
 
 /**
  * Takes a module `U` that supports the Static Land Applicative spec, a function that takes values of type `a` and returns Applicatives of type `b`, and an iterable of type `a` and returns an Applicative from module `U` of an iterable of type `b`.
@@ -717,9 +717,9 @@ module.exports.traverse = curry((A, f, xs) =>
   module.exports.reduceRight(
     (x, acc) => A.ap(A.map(module.exports.prepend, x), acc),
     A.of(module.exports.empty()),
-    module.exports.map(f, xs),
-  ),
-)
+    module.exports.map(f, xs)
+  )
+);
 
 /**
  * Returns a new iterable with values as iterables of length 2 with the first element as the corresponding element from the first given iterable and the second element as the corresponding element from the second given iterable. The length of the returned iterable is the same as the shortest iterable supplied
@@ -728,14 +728,14 @@ module.exports.traverse = curry((A, f, xs) =>
  */
 module.exports.zip = curry((xs, ys) =>
   genToIter(function* () {
-    const iteratorY = ys[Symbol.iterator]()
+    const iteratorY = ys[Symbol.iterator]();
     for (const x of xs) {
-      const { done, value } = iteratorY.next()
-      if (done) return
-      else yield iterableFrom([x, value])
+      const { done, value } = iteratorY.next();
+      if (done) return;
+      else yield iterableFrom([x, value]);
     }
-  }),
-)
+  })
+);
 
 /**
  * Returns a new iterable with values as the result of calling the given function with the corresponding element from the first and second given iterables respectively. The length of the returned iterable is the same as the shortest iterable supplied
@@ -745,11 +745,11 @@ module.exports.zip = curry((xs, ys) =>
  */
 module.exports.zipWith = curry((f, xs, ys) =>
   genToIter(function* () {
-    const iteratorY = ys[Symbol.iterator]()
+    const iteratorY = ys[Symbol.iterator]();
     for (const x of xs) {
-      const { done, value } = iteratorY.next()
-      if (done) return
-      else yield f(x, value)
+      const { done, value } = iteratorY.next();
+      if (done) return;
+      else yield f(x, value);
     }
-  }),
-)
+  })
+);

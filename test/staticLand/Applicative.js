@@ -1,32 +1,32 @@
-const test = require('tape')
-const { ap, equals, of } = require('../../')
+const test = require("tape");
+const { ap, equals, of } = require("../../");
 
-const f = (x) => x + 'f'
-const x = 'foo'
-const u = of(f)
-const v = of(x)
+const f = (x) => x + "f";
+const x = "foo";
+const u = of(f);
+const v = of(x);
 
-test('Applicative', (t) => {
+test("Applicative", (t) => {
   t.true(
     equals(
       ap(
         of((x) => x),
-        v,
+        v
       ),
-      v,
+      v
     ),
-    'Identity',
-  )
-  t.true(equals(ap(of(f), of(x)), of(f(x))), 'Homomorphism')
+    "Identity"
+  );
+  t.true(equals(ap(of(f), of(x)), of(f(x))), "Homomorphism");
   t.true(
     equals(
       ap(u, of(x)),
       ap(
         of((f) => f(x)),
-        u,
-      ),
+        u
+      )
     ),
-    'Interchange',
-  )
-  t.end()
-})
+    "Interchange"
+  );
+  t.end();
+});

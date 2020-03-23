@@ -1,11 +1,11 @@
-const test = require('tape')
-const { tail } = require('../')
-const { testAndToArray, positiveIntegers, takeEight } = require('./_tools')
+const test = require("tape");
+const { tail } = require("../");
+const { testAndToArray, positiveIntegers, takeEight } = require("./_tools");
 
-test('tail', (t) => {
-  const processIterable = testAndToArray(t)
-  t.deepEqual(processIterable(tail([])), [])
-  const tailPositiveIntegers = tail(positiveIntegers)
+test("tail", (t) => {
+  const processIterable = testAndToArray(t);
+  t.deepEqual(processIterable(tail([])), []);
+  const tailPositiveIntegers = tail(positiveIntegers);
   t.deepEqual(processIterable(takeEight(tailPositiveIntegers)), [
     2,
     3,
@@ -15,7 +15,7 @@ test('tail', (t) => {
     7,
     8,
     9,
-  ])
+  ]);
   t.deepEqual(processIterable(takeEight(tailPositiveIntegers)), [
     2,
     3,
@@ -25,7 +25,7 @@ test('tail', (t) => {
     7,
     8,
     9,
-  ])
+  ]);
   t.deepEqual(processIterable(takeEight(tailPositiveIntegers)), [
     2,
     3,
@@ -35,6 +35,6 @@ test('tail', (t) => {
     7,
     8,
     9,
-  ])
-  t.end()
-})
+  ]);
+  t.end();
+});
