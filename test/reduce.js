@@ -2,7 +2,7 @@ const test = require('tape')
 const { reduce } = require('../')
 const { add, oneTwoThree, oneTwoThreeFour, subtract } = require('./_tools')
 
-test('reduce', t => {
+test('reduce', (t) => {
   const sum = reduce(add)(0)
   t.strictEqual(sum(oneTwoThree), 6)
   t.strictEqual(sum(oneTwoThreeFour), 10)

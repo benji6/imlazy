@@ -14,26 +14,22 @@ const infiniteIterable = {
   },
 }
 
-const add10 = x => x + 10
-const triple = x => 3 * x
-const divisibleBy5 = x => x % 5 === 0
-const isEven = x => x % 2 === 0
+const add10 = (x) => x + 10
+const triple = (x) => 3 * x
+const divisibleBy5 = (x) => x % 5 === 0
+const isEven = (x) => x % 2 === 0
 
-const imlazyArrayBenchmark = data => [
+const imlazyArrayBenchmark = (data) => [
   ...I.filter(
     isEven,
     I.filter(divisibleBy5, I.map(triple, I.map(add10, data))),
   ),
 ]
 
-const nativeBenchmark = data =>
-  data
-    .map(add10)
-    .map(triple)
-    .filter(divisibleBy5)
-    .filter(isEven)
+const nativeBenchmark = (data) =>
+  data.map(add10).map(triple).filter(divisibleBy5).filter(isEven)
 
-const ramdaTransducerArrayBenchmark = xs =>
+const ramdaTransducerArrayBenchmark = (xs) =>
   R.into(
     [],
     R.compose(
@@ -45,7 +41,7 @@ const ramdaTransducerArrayBenchmark = xs =>
     xs,
   )
 
-const ramdaTransducerInfiniteBenchmark = xs =>
+const ramdaTransducerInfiniteBenchmark = (xs) =>
   R.into(
     [],
     R.compose(
@@ -58,7 +54,7 @@ const ramdaTransducerInfiniteBenchmark = xs =>
     xs,
   )
 
-const imlazyInfiniteBenchmark = data => [
+const imlazyInfiniteBenchmark = (data) => [
   ...I.take(
     length,
     I.filter(isEven, I.filter(divisibleBy5, I.map(triple, I.map(add10, data)))),
@@ -94,8 +90,8 @@ new Benchmark.Suite()
   .add('native - array', () => {
     nativeBenchmark(testArray)
   })
-  .on('cycle', x => process.stdout.write(`${String(x.target)}\n`))
-  .on('complete', function() {
+  .on('cycle', (x) => process.stdout.write(`${String(x.target)}\n`))
+  .on('complete', function () {
     process.stdout.write(`Fastest is ${this.filter('fastest').map('name')}\n`)
   })
   .run({ async: true })

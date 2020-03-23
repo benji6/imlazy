@@ -10,7 +10,7 @@ const {
   threeTwoOne,
 } = require('./_tools')
 
-test('flatten', t => {
+test('flatten', (t) => {
   const processIterable = testAndToArray(t)
   t.deepEqual(
     processIterable(flatten([oneTwoThree, threeTwoOne, oneTwoThreeFour])),

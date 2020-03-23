@@ -7,29 +7,27 @@ const I = require('../')
 const length = 1024
 const testArray = [...Array(length).keys()]
 
-const divisibleBy2 = x => x % 2 === 0
-const divisibleBy3 = x => x % 3 === 0
-const divisibleBy5 = x => x % 5 === 0
+const divisibleBy2 = (x) => x % 2 === 0
+const divisibleBy3 = (x) => x % 3 === 0
+const divisibleBy5 = (x) => x % 5 === 0
 
-const imlazyOnceBenchmark = xs => [...I.filter(divisibleBy2, xs)]
+const imlazyOnceBenchmark = (xs) => [...I.filter(divisibleBy2, xs)]
 
-const nativeOnceBenchmark = xs => xs.filter(divisibleBy2)
+const nativeOnceBenchmark = (xs) => xs.filter(divisibleBy2)
 
-const imlazyTwiceBenchmark = xs => [
+const imlazyTwiceBenchmark = (xs) => [
   ...I.filter(divisibleBy3, I.filter(divisibleBy2, xs)),
 ]
 
-const nativeTwiceBenchmark = xs => xs.filter(divisibleBy2).filter(divisibleBy3)
+const nativeTwiceBenchmark = (xs) =>
+  xs.filter(divisibleBy2).filter(divisibleBy3)
 
-const imlazyThriceBenchmark = xs => [
+const imlazyThriceBenchmark = (xs) => [
   ...I.filter(divisibleBy5, I.filter(divisibleBy3, I.filter(divisibleBy2, xs))),
 ]
 
-const nativeThriceBenchmark = xs =>
-  xs
-    .filter(divisibleBy2)
-    .filter(divisibleBy3)
-    .filter(divisibleBy5)
+const nativeThriceBenchmark = (xs) =>
+  xs.filter(divisibleBy2).filter(divisibleBy3).filter(divisibleBy5)
 
 assert.deepEqual(imlazyOnceBenchmark(testArray), nativeOnceBenchmark(testArray))
 assert.deepEqual(
@@ -60,8 +58,8 @@ new Benchmark.Suite()
   .add('native - filter 3x over array', () => {
     nativeThriceBenchmark(testArray)
   })
-  .on('cycle', x => process.stdout.write(`${String(x.target)}\n`))
-  .on('complete', function() {
+  .on('cycle', (x) => process.stdout.write(`${String(x.target)}\n`))
+  .on('complete', function () {
     process.stdout.write(
       `Fastest is ${this.filter('fastest').filter('name')}\n`,
     )

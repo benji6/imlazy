@@ -9,7 +9,7 @@ const {
   threeTwoOne,
 } = require('./_tools')
 
-test('zip', t => {
+test('zip', (t) => {
   const processIterable = testAndToArray(t)
   const xss = takeThree(zip(positiveIntegers, positiveIntegers))
   t.deepEqual(

@@ -7,15 +7,15 @@ const {
   testAndToArray,
 } = require('./_tools')
 
-test('ap', t => {
+test('ap', (t) => {
   const processIterable = testAndToArray(t)
 
   t.deepEqual(
     processIterable(
       ap(
         of(
-          x => x * 2,
-          x => x + 3,
+          (x) => x * 2,
+          (x) => x + 3,
         ),
         oneTwoThree,
       ),
@@ -28,8 +28,8 @@ test('ap', t => {
       takeEight(
         ap(
           of(
-            x => x * 2,
-            x => x + 3,
+            (x) => x * 2,
+            (x) => x + 3,
           ),
           positiveIntegers,
         ),
@@ -42,7 +42,7 @@ test('ap', t => {
     processIterable(
       takeEight(
         ap(
-          repeat(x => x * 2),
+          repeat((x) => x * 2),
           oneTwoThree,
         ),
       ),
@@ -54,7 +54,7 @@ test('ap', t => {
     processIterable(
       takeEight(
         ap(
-          repeat(x => x * 2),
+          repeat((x) => x * 2),
           positiveIntegers,
         ),
       ),

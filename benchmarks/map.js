@@ -7,27 +7,23 @@ const I = require('../')
 const length = 1024
 const testArray = [...Array(length).keys()]
 
-const add1 = x => x + 1
-const halve = x => x / 2
-const triple = x => 3 * x
+const add1 = (x) => x + 1
+const halve = (x) => x / 2
+const triple = (x) => 3 * x
 
-const imlazyOnceBenchmark = xs => [...I.map(add1, xs)]
+const imlazyOnceBenchmark = (xs) => [...I.map(add1, xs)]
 
-const nativeOnceBenchmark = xs => xs.map(add1)
+const nativeOnceBenchmark = (xs) => xs.map(add1)
 
-const imlazyTwiceBenchmark = xs => [...I.map(halve, I.map(add1, xs))]
+const imlazyTwiceBenchmark = (xs) => [...I.map(halve, I.map(add1, xs))]
 
-const nativeTwiceBenchmark = xs => xs.map(add1).map(halve)
+const nativeTwiceBenchmark = (xs) => xs.map(add1).map(halve)
 
-const imlazyThriceBenchmark = xs => [
+const imlazyThriceBenchmark = (xs) => [
   ...I.map(triple, I.map(halve, I.map(add1, xs))),
 ]
 
-const nativeThriceBenchmark = xs =>
-  xs
-    .map(add1)
-    .map(halve)
-    .map(triple)
+const nativeThriceBenchmark = (xs) => xs.map(add1).map(halve).map(triple)
 
 assert.deepEqual(imlazyOnceBenchmark(testArray), nativeOnceBenchmark(testArray))
 assert.deepEqual(
@@ -58,8 +54,8 @@ new Benchmark.Suite()
   .add('native - map 3x over array', () => {
     nativeThriceBenchmark(testArray)
   })
-  .on('cycle', x => process.stdout.write(`${String(x.target)}\n`))
-  .on('complete', function() {
+  .on('cycle', (x) => process.stdout.write(`${String(x.target)}\n`))
+  .on('complete', function () {
     process.stdout.write(`Fastest is ${this.filter('fastest').map('name')}\n`)
   })
   .run({ async: true })

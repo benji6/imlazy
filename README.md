@@ -15,7 +15,7 @@ imlazy let's you harness the power of the [ES2015 iteration protocols](https://d
 ```js
 const { filter, range } = require('imlazy')
 
-const isEven = x => x % 2 === 0
+const isEven = (x) => x % 2 === 0
 
 const positiveIntegers = range(1, Infinity) // => (1 2 3 4 5 6 7 8 9 10...)
 const positiveEvenIntegers = filter(isEven, positiveIntegers) // => (2 4 6 8 10 12 14 16 18 20...)
@@ -52,7 +52,7 @@ sum([2, 4, 6]) // => 12
 sum(new Set(twoFourSix)) // => 12
 sum(Immutable.List.of(2, 4, 6)) // => 12
 
-const fibonacciGenerator = function*() {
+const fibonacciGenerator = function* () {
   let [a, b] = [0, 1]
   while (true) yield ([a, b] = [b, a + b])[0]
 }

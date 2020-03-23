@@ -1,16 +1,16 @@
 const test = require('tape')
 const { ap, equals, of } = require('../../')
 
-const f = x => x + 'f'
+const f = (x) => x + 'f'
 const x = 'foo'
 const u = of(f)
 const v = of(x)
 
-test('Applicative', t => {
+test('Applicative', (t) => {
   t.true(
     equals(
       ap(
-        of(x => x),
+        of((x) => x),
         v,
       ),
       v,
@@ -22,7 +22,7 @@ test('Applicative', t => {
     equals(
       ap(u, of(x)),
       ap(
-        of(f => f(x)),
+        of((f) => f(x)),
         u,
       ),
     ),

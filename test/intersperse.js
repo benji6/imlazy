@@ -2,7 +2,7 @@ const test = require('tape')
 const { intersperse } = require('../')
 const { testAndToArray, positiveIntegers, takeEight } = require('./_tools')
 
-test('intersperse', t => {
+test('intersperse', (t) => {
   const processIterable = testAndToArray(t)
   t.deepEqual(processIterable(takeEight(intersperse(2)(positiveIntegers))), [
     1,

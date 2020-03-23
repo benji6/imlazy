@@ -7,7 +7,7 @@ const {
   takeEight,
 } = require('./_tools')
 
-test('init', t => {
+test('init', (t) => {
   const processIterable = testAndToArray(t)
   const initPositiveIntegers = init(positiveIntegers)
 

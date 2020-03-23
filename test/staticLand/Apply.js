@@ -1,16 +1,16 @@
 const test = require('tape')
 const { ap, equals, map, of } = require('../../')
 
-const a = of(x => x.length)
-const u = of(x => x + 'bar')
+const a = of((x) => x.length)
+const u = of((x) => x + 'bar')
 const v = of('value')
 
-test('Apply', t => {
+test('Apply', (t) => {
   t.true(
     equals(
       ap(
         ap(
-          map(f => g => x => f(g(x)), a),
+          map((f) => (g) => (x) => f(g(x)), a),
           u,
         ),
         v,

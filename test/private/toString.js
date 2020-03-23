@@ -7,7 +7,7 @@ const {
   positiveIntegers,
 } = require('../_tools')
 
-test('_toString', t => {
+test('_toString', (t) => {
   t.is(_toString().name, 'imlazyToStringThunk')
   t.is(_toString(emptyIterable)(), '()')
   t.is(_toString(oneTwoThree)(), '(1 2 3)')

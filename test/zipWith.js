@@ -11,7 +11,7 @@ const {
   threeTwoOne,
 } = require('./_tools')
 
-test('zipWith', t => {
+test('zipWith', (t) => {
   const processIterable = testAndToArray(t)
   const zipWithSubtract = zipWith(subtract)
   const twoFourSix = takeThree(zipWith(add, positiveIntegers, positiveIntegers))

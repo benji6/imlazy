@@ -11,7 +11,7 @@ const { empty, map, of, traverse } = imlazy
 
 const mapAdd10 = map(curriedAdd(10))
 
-test('traverse with imlazy', t => {
+test('traverse with imlazy', (t) => {
   const processIterable = testAndToArray(t)
 
   t.deepEqual(
@@ -94,11 +94,11 @@ test('traverse with imlazy', t => {
   t.end()
 })
 
-test('traverse with fun-task', t => {
+test('traverse with fun-task', (t) => {
   const processIterable = testAndToArray(t)
 
-  traverse(Task, a => Task.of(String(a * 3)), oneTwoThree).run({
-    success: a => {
+  traverse(Task, (a) => Task.of(String(a * 3)), oneTwoThree).run({
+    success: (a) => {
       t.deepEqual(processIterable(a), ['3', '6', '9'])
       t.end()
     },

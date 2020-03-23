@@ -2,7 +2,7 @@ const test = require('tape')
 const { sort } = require('../')
 const { fourThreeTwoOne, testAndToArray, oneTwoThreeFour } = require('./_tools')
 
-test('sort', t => {
+test('sort', (t) => {
   const processIterable = testAndToArray(t)
   t.deepEqual(
     processIterable(sort((a, b) => a - b)(oneTwoThreeFour)),

@@ -2,11 +2,11 @@ const test = require('tape')
 const { sortBy } = require('../')
 const { testAndToArray } = require('./_tools')
 
-test('sort', t => {
+test('sort', (t) => {
   const processIterable = testAndToArray(t)
   t.deepEqual(
     processIterable(
-      sortBy(a => a[0])([
+      sortBy((a) => a[0])([
         [7, 2],
         [0, 1],
         [7, 5],
@@ -22,7 +22,7 @@ test('sort', t => {
   )
   t.deepEqual(
     processIterable(
-      sortBy(x => x.value, [
+      sortBy((x) => x.value, [
         { value: 7 },
         { value: 0 },
         { value: 7 },

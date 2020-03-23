@@ -2,7 +2,7 @@ const test = require('tape')
 const { cycle, range } = require('../')
 const { testAndToArray, takeEight } = require('./_tools')
 
-test('cycle', t => {
+test('cycle', (t) => {
   const processIterable = testAndToArray(t)
   t.deepEqual(processIterable(takeEight(cycle(range(1)(3)))), [
     1,

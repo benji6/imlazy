@@ -8,7 +8,7 @@ const {
   throwOnThird,
 } = require('./_tools')
 
-test('slice', t => {
+test('slice', (t) => {
   const sliceFromZero = slice(0)
   const processIterable = testAndToArray(t)
   const twoThree = slice(1)(20)(oneTwoThree)

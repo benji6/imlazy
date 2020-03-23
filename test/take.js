@@ -10,7 +10,7 @@ const {
   throwOnThird,
 } = require('./_tools')
 
-test('take', t => {
+test('take', (t) => {
   const processIterable = testAndToArray(t)
   t.deepEqual(processIterable(takeThree([1])), [1])
   t.deepEqual(processIterable(takeThree(oneTwoThreeFour)), oneTwoThree)

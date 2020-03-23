@@ -8,7 +8,7 @@ const {
   threeTwoOne,
 } = require('./_tools')
 
-test('concat', t => {
+test('concat', (t) => {
   const concatOneTwoThree = concat(oneTwoThree)
   const processIterable = testAndToArray(t)
   const oneTwoThreeThreeTwoOne = concatOneTwoThree(threeTwoOne)

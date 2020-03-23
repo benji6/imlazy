@@ -7,7 +7,7 @@ const {
   takeThree,
 } = require('./_tools')
 
-test('splitEvery', t => {
+test('splitEvery', (t) => {
   const processIterable = testAndToArray(t)
   const splitEveryThree = splitEvery(3)
   t.deepEqual(

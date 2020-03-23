@@ -2,7 +2,7 @@ const test = require('tape')
 const { includes } = require('../')
 const { oneTwoThree, positiveIntegers } = require('./_tools')
 
-test('head', t => {
+test('head', (t) => {
   t.true(includes(1, oneTwoThree))
   t.true(includes(1)(oneTwoThree))
   t.true(includes(1, positiveIntegers))

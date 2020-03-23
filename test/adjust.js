@@ -8,7 +8,7 @@ const {
   takeEight,
 } = require('./_tools')
 
-test('adjust', t => {
+test('adjust', (t) => {
   const processIterable = testAndToArray(t)
 
   t.deepEqual(processIterable(takeEight(adjust(double)(2)(positiveIntegers))), [

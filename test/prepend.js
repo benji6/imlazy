@@ -2,7 +2,7 @@ const test = require('tape')
 const { prepend } = require('../')
 const { testAndToArray, positiveIntegers, takeEight } = require('./_tools')
 
-test('prepend', t => {
+test('prepend', (t) => {
   const processIterable = testAndToArray(t)
   t.deepEqual(processIterable(prepend(1)([])), [1])
   t.deepEqual(processIterable(takeEight(prepend(0, positiveIntegers))), [

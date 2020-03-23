@@ -8,7 +8,7 @@ const {
   takeThree,
 } = require('./_tools')
 
-test('drop', t => {
+test('drop', (t) => {
   const processIterable = testAndToArray(t)
   const dropOne = drop(1)
   t.deepEqual(processIterable(dropOne(oneTwoThreeFour)), [2, 3, 4])

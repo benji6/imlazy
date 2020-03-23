@@ -6,7 +6,7 @@ const a_ = of('foo')
 const a__ = of('foo')
 const b = of('bar')
 
-test('Setoid', t => {
+test('Setoid', (t) => {
   t.true(equals(a, a), 'Reflexivity')
   t.is(equals(a, a_), equals(a_, a), 'Symmetry')
   t.is(equals(a, b), equals(b, a), 'Symmetry')

@@ -7,18 +7,18 @@ const {
   positiveIntegers,
 } = require('./_tools')
 
-test('takeWhile', t => {
+test('takeWhile', (t) => {
   const processIterable = testAndToArray(t)
   t.deepEqual(
-    processIterable(takeWhile(a => a !== 5)(oneTwoThreeFour)),
+    processIterable(takeWhile((a) => a !== 5)(oneTwoThreeFour)),
     oneTwoThreeFour,
   )
   t.deepEqual(
-    processIterable(takeWhile(a => a !== 4)(oneTwoThreeFour)),
+    processIterable(takeWhile((a) => a !== 4)(oneTwoThreeFour)),
     oneTwoThree,
   )
   t.deepEqual(
-    processIterable(takeWhile(a => a !== 4, positiveIntegers)),
+    processIterable(takeWhile((a) => a !== 4, positiveIntegers)),
     oneTwoThree,
   )
   t.end()

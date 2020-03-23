@@ -2,7 +2,7 @@ const test = require('tape')
 const { tail } = require('../')
 const { testAndToArray, positiveIntegers, takeEight } = require('./_tools')
 
-test('tail', t => {
+test('tail', (t) => {
   const processIterable = testAndToArray(t)
   t.deepEqual(processIterable(tail([])), [])
   const tailPositiveIntegers = tail(positiveIntegers)

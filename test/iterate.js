@@ -2,7 +2,7 @@ const test = require('tape')
 const { iterate } = require('../')
 const { double, testAndToArray, takeEight } = require('./_tools')
 
-test('iterate', t => {
+test('iterate', (t) => {
   const processIterable = testAndToArray(t)
   t.deepEqual(processIterable(takeEight(iterate(double)(1))), [
     1,

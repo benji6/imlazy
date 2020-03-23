@@ -2,7 +2,7 @@ const test = require('tape')
 const { insert } = require('../')
 const { testAndToArray, positiveIntegers, takeEight } = require('./_tools')
 
-test('insert', t => {
+test('insert', (t) => {
   const processIterable = testAndToArray(t)
   t.deepEqual(processIterable(takeEight(insert(2)(20)(positiveIntegers))), [
     1,

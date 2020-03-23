@@ -10,15 +10,15 @@ const css = fs.readFileSync('./docsSrc/index.css')
 const src = fs.readFileSync('./index.js', 'utf-8')
 const obj = dox.parseComments(src)
 
-const docEntry = o => {
+const docEntry = (o) => {
   const name = o.ctx.name
-  const example = o.tags.find(tag => tag.type === 'example').string
-  const seeObj = o.tags.find(tag => tag.type === 'see')
+  const example = o.tags.find((tag) => tag.type === 'example').string
+  const seeObj = o.tags.find((tag) => tag.type === 'see')
 
   const seeAlso = seeObj
     ? `<p class="card__see">See also ${seeObj.string
         .split(' ')
-        .map(s => `<a class="link" href="#${s}">${s}</a>`)
+        .map((s) => `<a class="link" href="#${s}">${s}</a>`)
         .join(' ')}</p>`
     : ''
 
@@ -28,7 +28,7 @@ const docEntry = o => {
         <div class="card__title-left">
           <a class="card__title-text" href="#${name}">${name}</a>
           <div class="card__sig">${
-            o.tags.find(tag => tag.type === 'sig').string
+            o.tags.find((tag) => tag.type === 'sig').string
           }</div>
         </div>
         <a
@@ -50,7 +50,7 @@ const docEntry = o => {
   `
 }
 
-const page = children => `
+const page = (children) => `
   <!DOCTYPE html>
   <html lang="en">
   <head>

@@ -4,7 +4,7 @@ const { oneTwoThree, oneTwoThreeFour, positiveIntegers } = require('./_tools')
 
 const nestedOneTwoThree = map(() => oneTwoThree, oneTwoThree)
 
-test('equals', t => {
+test('equals', (t) => {
   t.false(equals(false, true), 'booleans')
   t.false(equals(true, false), 'booleans')
   t.false(equals([1], empty()))

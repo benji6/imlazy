@@ -11,7 +11,7 @@ const {
   takeThree,
 } = require('./_tools')
 
-test('transpose', t => {
+test('transpose', (t) => {
   const processIterable = testAndToArray(t)
   t.deepEqual(
     processIterable(transpose([oneTwoThreeFour, oneTwoThree, oneTwoThree])).map(
