@@ -8,11 +8,11 @@
     "docs-watch": "nodemon --watch index.js --watch docsSrc -e css -e js docsSrc/docs",
     "docs": "node docsSrc/docs",
     "format": "prettier --write '**/*'",
-    "test-watch": "tape-watch 'test/**/*.js' | faucet",
+    "test-watch": "tape-watch 'test/**/*.js'",
     "test": "run-p test:*",
     "test:audit": "yarn audit --level critical || [ $? -lt 16 ]",
     "test:format": "prettier --check '**/*'",
-    "test:unit": "tape 'test/**/*.js' | faucet",
+    "test:unit": "tape 'test/**/*.js'",
     "semantic-release": "semantic-release"
   },
   "repository": {
@@ -46,7 +46,6 @@
   "devDependencies": {
     "benchmark": "^2.1.0",
     "dox": "^0.9.0",
-    "faucet": "^0.0.1",
     "fun-task": "^1.5.2",
     "highlight.js": "^10.0.1",
     "html-minifier": "^4.0.0",
