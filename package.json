@@ -8,7 +8,6 @@
     "docs-watch": "nodemon --watch index.js --watch docsSrc -e css -e js docsSrc/docs",
     "docs": "node docsSrc/docs",
     "format": "prettier --write '**/*'",
-    "test-watch": "tape-watch 'test/**/*.js'",
     "test": "run-p test:*",
     "test:audit": "yarn audit --level critical || [ $? -lt 16 ]",
     "test:format": "prettier --check '**/*'",
@@ -55,7 +54,6 @@
     "prettier": "^2.0.5",
     "ramda": "^0.27.0",
     "semantic-release": "^17.0.7",
-    "tape": "^5.0.0",
-    "tape-watch": "^2.3.0"
+    "tape": "^5.0.0"
   }
 }
