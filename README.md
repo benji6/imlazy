@@ -1,8 +1,7 @@
 # imlazy
 
 [![npm version](https://badge.fury.io/js/imlazy.svg)](https://badge.fury.io/js/imlazy)
-[![Build Status](https://travis-ci.org/benji6/imlazy.svg?branch=master)](https://travis-ci.org/benji6/imlazy)
-[![dependencies](https://david-dm.org/benji6/imlazy.svg)](https://david-dm.org/benji6/imlazy)
+![CI/CD](https://github.com/benji6/imlazy/workflows/CI/CD/badge.svg)
 ![NPM](https://img.shields.io/npm/l/imlazy)
 [![Netlify Status](https://api.netlify.com/api/v1/badges/f5f3984d-617b-418a-9c5b-8881aceb7adb/deploy-status)](https://app.netlify.com/sites/imlazy/deploys)
 
