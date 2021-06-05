@@ -2,4 +2,5 @@
 .*rc
 *.lock
 *.toml
+docs
 LICENSE

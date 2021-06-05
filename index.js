@@ -4,8 +4,10 @@ const isEqualWith = require("lodash.isequalwith");
 
 const lastSymbol = Symbol();
 
-const curry = (f) => (...xs) =>
-  xs.length < f.length ? curry(f.bind(...[null, ...xs])) : f(...xs);
+const curry =
+  (f) =>
+  (...xs) =>
+    xs.length < f.length ? curry(f.bind(...[null, ...xs])) : f(...xs);
 
 const toString = (module.exports._toString = (xs) =>
   function imlazyToStringThunk() {

@@ -9,14 +9,10 @@ const {
 
 test("chain", (t) => {
   const processIterable = testAndToArray(t);
-  t.deepEqual(processIterable(chain((x) => of(x, x), oneTwoThree)), [
-    1,
-    1,
-    2,
-    2,
-    3,
-    3,
-  ]);
+  t.deepEqual(
+    processIterable(chain((x) => of(x, x), oneTwoThree)),
+    [1, 1, 2, 2, 3, 3]
+  );
   t.end();
 });
 

@@ -44,7 +44,9 @@ const docEntry = (o) => {
         0,
         2
       )} class="card__description"${o.description.full.slice(2)}
-      <pre class="hljs">${hljs.highlight("js", example).value}</pre>
+      <pre class="hljs">${
+        hljs.highlight(example, { language: "js" }).value
+      }</pre>
       ${seeAlso}
     </div>
   `;

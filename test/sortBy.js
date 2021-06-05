@@ -22,12 +22,10 @@ test("sort", (t) => {
   );
   t.deepEqual(
     processIterable(
-      sortBy((x) => x.value, [
-        { value: 7 },
-        { value: 0 },
-        { value: 7 },
-        { value: 3 },
-      ])
+      sortBy(
+        (x) => x.value,
+        [{ value: 7 }, { value: 0 }, { value: 7 }, { value: 3 }]
+      )
     ),
     [{ value: 0 }, { value: 3 }, { value: 7 }, { value: 7 }]
   );
