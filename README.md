@@ -115,33 +115,23 @@ There is a `benchmarks` dir in the root of this repo. Here are the results on my
 `benchmarks/filter.js`
 
 ```sh
-imlazy - filter 1x over array x 16,682 ops/sec ±0.80% (88 runs sampled)
-native - filter 1x over array x 66,412 ops/sec ±1.00% (87 runs sampled)
-imlazy - filter 2x over array x 17,981 ops/sec ±0.94% (89 runs sampled)
-native - filter 2x over array x 44,942 ops/sec ±1.81% (87 runs sampled)
-imlazy - filter 3x over array x 20,923 ops/sec ±1.94% (84 runs sampled)
-native - filter 3x over array x 42,275 ops/sec ±1.55% (91 runs sampled)
+imlazy - filter 1x over array x 3,762 ops/sec ±0.27% (98 runs sampled)
+imlazy - filter 2x over array x 3,104 ops/sec ±0.37% (96 runs sampled)
+imlazy - filter 3x over array x 3,022 ops/sec ±0.18% (100 runs sampled)
+native - filter 1x over array x 42,003 ops/sec ±15.10% (90 runs sampled)
+native - filter 2x over array x 21,413 ops/sec ±13.20% (98 runs sampled)
+native - filter 3x over array x 18,075 ops/sec ±13.47% (95 runs sampled)
 ```
 
 `benchmarks/map.js`
 
 ```sh
-imlazy - map 1x over array x 9,939 ops/sec ±0.98% (85 runs sampled)
-native - map 1x over array x 74,172 ops/sec ±1.40% (88 runs sampled)
-imlazy - map 2x over array x 7,989 ops/sec ±0.83% (87 runs sampled)
-native - map 2x over array x 33,745 ops/sec ±1.29% (87 runs sampled)
-imlazy - map 3x over array x 7,159 ops/sec ±1.03% (84 runs sampled)
-native - map 3x over array x 23,318 ops/sec ±0.71% (88 runs sampled)
-```
-
-`benchmarks/transducers-and-native.js` (two filter operations and two map operations)
-
-```sh
-imlazy - infinite iterable x 1,245 ops/sec ±1.16% (82 runs sampled)
-transducer - infinite iterable x 2,079 ops/sec ±1.15% (85 runs sampled)
-imlazy - array x 14,490 ops/sec ±2.10% (82 runs sampled)
-transducer - array x 26,151 ops/sec ±0.74% (91 runs sampled)
-native - array x 24,186 ops/sec ±0.76% (88 runs sampled)
+imlazy - map 1x over array x 2,726 ops/sec ±0.24% (99 runs sampled)
+imlazy - map 2x over array x 1,584 ops/sec ±0.28% (98 runs sampled)
+imlazy - map 3x over array x 999 ops/sec ±0.44% (97 runs sampled)
+native - map 1x over array x 60,221 ops/sec ±17.07% (96 runs sampled)
+native - map 2x over array x 9,820 ops/sec ±10.96% (97 runs sampled)
+native - map 3x over array x 3,899 ops/sec ±0.16% (100 runs sampled)
 ```
 
 ## Influences

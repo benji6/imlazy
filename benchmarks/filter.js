@@ -4,8 +4,7 @@ const assert = require("assert");
 const Benchmark = require("benchmark");
 const I = require("../");
 
-const length = 1024;
-const testArray = [...Array(length).keys()];
+const testArray = [...Array(1e4).keys()];
 
 const divisibleBy2 = (x) => x % 2 === 0;
 const divisibleBy3 = (x) => x % 3 === 0;
@@ -46,17 +45,17 @@ new Benchmark.Suite()
   .add("imlazy - filter 1x over array", () => {
     imlazyOnceBenchmark(testArray);
   })
-  .add("native - filter 1x over array", () => {
-    nativeOnceBenchmark(testArray);
-  })
   .add("imlazy - filter 2x over array", () => {
     imlazyTwiceBenchmark(testArray);
   })
-  .add("native - filter 2x over array", () => {
-    nativeTwiceBenchmark(testArray);
-  })
   .add("imlazy - filter 3x over array", () => {
     imlazyThriceBenchmark(testArray);
+  })
+  .add("native - filter 1x over array", () => {
+    nativeOnceBenchmark(testArray);
+  })
+  .add("native - filter 2x over array", () => {
+    nativeTwiceBenchmark(testArray);
   })
   .add("native - filter 3x over array", () => {
     nativeThriceBenchmark(testArray);

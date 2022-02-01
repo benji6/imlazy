@@ -4,8 +4,7 @@ const assert = require("assert");
 const Benchmark = require("benchmark");
 const I = require("../");
 
-const length = 1024;
-const testArray = [...Array(length).keys()];
+const testArray = [...Array(1e4).keys()];
 
 const add1 = (x) => x + 1;
 const halve = (x) => x / 2;
@@ -42,17 +41,17 @@ new Benchmark.Suite()
   .add("imlazy - map 1x over array", () => {
     imlazyOnceBenchmark(testArray);
   })
-  .add("native - map 1x over array", () => {
-    nativeOnceBenchmark(testArray);
-  })
   .add("imlazy - map 2x over array", () => {
     imlazyTwiceBenchmark(testArray);
   })
-  .add("native - map 2x over array", () => {
-    nativeTwiceBenchmark(testArray);
-  })
   .add("imlazy - map 3x over array", () => {
     imlazyThriceBenchmark(testArray);
+  })
+  .add("native - map 1x over array", () => {
+    nativeOnceBenchmark(testArray);
+  })
+  .add("native - map 2x over array", () => {
+    nativeTwiceBenchmark(testArray);
   })
   .add("native - map 3x over array", () => {
     nativeThriceBenchmark(testArray);
