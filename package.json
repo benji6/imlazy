@@ -8,7 +8,7 @@
     "docs": "node docsSrc/docs",
     "fmt": "prettier --write '**/*'",
     "test": "run-p test:*",
-    "test:audit": "yarn audit --level critical || [ $? -lt 16 ]",
+    "test:audit": "npm audit --audit-level=low",
     "test:fmt": "prettier --check '**/*'",
     "test:unit": "tape 'test/**/*.js'",
     "semantic-release": "semantic-release"

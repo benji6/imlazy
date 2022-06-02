@@ -1,5 +1,5 @@
 [build]
-  command = "yarn docs"
+  command = "npm run docs"
   publish = "docs"
 [[headers]]
   for = "*"
