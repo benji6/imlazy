@@ -42,7 +42,7 @@ const docEntry = (o) => {
       </h2>
       ${o.description.full.slice(
         0,
-        2
+        2,
       )} class="card__description"${o.description.full.slice(2)}
       <pre class="hljs">${
         hljs.highlight(example, { language: "js" }).value
@@ -77,6 +77,6 @@ if (!fs.existsSync(buildDir)) fs.mkdirSync(buildDir);
 
 fs.writeFileSync(
   `${buildDir}/index.html`,
-  minify(page(obj.map(docEntry).join("")), { collapseWhitespace: true })
+  minify(page(obj.map(docEntry).join("")), { collapseWhitespace: true }),
 );
 fs.writeFileSync(`${buildDir}/index.css`, new CleanCSS({}).minify(css).styles);

@@ -8,7 +8,7 @@ const c = of("baz");
 test("Semigroup", (t) => {
   t.true(
     equals(concat(concat(a, b), c), concat(a, concat(b, c))),
-    "Associativity"
+    "Associativity",
   );
   t.end();
 });

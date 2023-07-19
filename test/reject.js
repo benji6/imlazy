@@ -8,10 +8,10 @@ test("reject", (t) => {
     processIterable(
       take(
         3,
-        reject((x) => x <= 3, range(1, Infinity))
-      )
+        reject((x) => x <= 3, range(1, Infinity)),
+      ),
     ),
-    [4, 5, 6]
+    [4, 5, 6],
   );
   t.end();
 });

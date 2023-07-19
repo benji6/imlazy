@@ -1,6 +1,0 @@
-.*ignore
-.*rc
-*.lock
-*.toml
-docs
-LICENSE

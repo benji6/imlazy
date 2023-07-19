@@ -30,15 +30,15 @@ const nativeThriceBenchmark = (xs) =>
 
 assert.deepEqual(
   imlazyOnceBenchmark(testArray),
-  nativeOnceBenchmark(testArray)
+  nativeOnceBenchmark(testArray),
 );
 assert.deepEqual(
   imlazyTwiceBenchmark(testArray),
-  nativeTwiceBenchmark(testArray)
+  nativeTwiceBenchmark(testArray),
 );
 assert.deepEqual(
   imlazyThriceBenchmark(testArray),
-  nativeThriceBenchmark(testArray)
+  nativeThriceBenchmark(testArray),
 );
 
 new Benchmark.Suite()
@@ -63,7 +63,7 @@ new Benchmark.Suite()
   .on("cycle", (x) => process.stdout.write(`${String(x.target)}\n`))
   .on("complete", function () {
     process.stdout.write(
-      `Fastest is ${this.filter("fastest").filter("name")}\n`
+      `Fastest is ${this.filter("fastest").filter("name")}\n`,
     );
   })
   .run({ async: true });

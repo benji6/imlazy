@@ -15,15 +15,15 @@ test("transpose", (t) => {
   const processIterable = testAndToArray(t);
   t.deepEqual(
     processIterable(transpose([oneTwoThreeFour, oneTwoThree, oneTwoThree])).map(
-      processIterable
+      processIterable,
     ),
-    [[1, 1, 1], [2, 2, 2], [3, 3, 3], [4]]
+    [[1, 1, 1], [2, 2, 2], [3, 3, 3], [4]],
   );
   t.deepEqual(
     processIterable(
       takeEight(
-        transpose([oneTwoThree, negativeIntegers, positiveIntegers, [64]])
-      )
+        transpose([oneTwoThree, negativeIntegers, positiveIntegers, [64]]),
+      ),
     )
       .map(takeEight)
       .map(processIterable),
@@ -36,13 +36,13 @@ test("transpose", (t) => {
       [-6, 6],
       [-7, 7],
       [-8, 8],
-    ]
+    ],
   );
   t.deepEqual(
     processIterable(takeThree(infiniteIterableOfPositiveIntegers))
       .map(takeThree)
       .map(processIterable),
-    [oneTwoThree, oneTwoThree, oneTwoThree]
+    [oneTwoThree, oneTwoThree, oneTwoThree],
   );
   t.end();
 });

@@ -10,17 +10,17 @@ test("Foldable", (t) => {
     ((f, x, u) => reduce((acc, y) => acc.concat([y]), [], u).reduce(f, x))(
       sum,
       0,
-      oneTwoThree
-    )
+      oneTwoThree,
+    ),
   );
   t.is(reduce(sum, 0, oneTwoThree), 6);
   t.is(
     ((f, x, u) => reduce((acc, y) => acc.concat([y]), [], u).reduce(f, x))(
       sum,
       0,
-      oneTwoThree
+      oneTwoThree,
     ),
-    6
+    6,
   );
   t.end();
 });

@@ -9,14 +9,14 @@ test("partition", (t) => {
     [
       [2, 4],
       [1, 3],
-    ]
+    ],
   );
   t.deepEqual(
     processIterable(partition(isEven, oneTwoThreeFour)).map(processIterable),
     [
       [2, 4],
       [1, 3],
-    ]
+    ],
   );
   t.end();
 });

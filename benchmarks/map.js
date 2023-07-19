@@ -26,15 +26,15 @@ const nativeThriceBenchmark = (xs) => xs.map(add1).map(halve).map(triple);
 
 assert.deepEqual(
   imlazyOnceBenchmark(testArray),
-  nativeOnceBenchmark(testArray)
+  nativeOnceBenchmark(testArray),
 );
 assert.deepEqual(
   imlazyTwiceBenchmark(testArray),
-  nativeTwiceBenchmark(testArray)
+  nativeTwiceBenchmark(testArray),
 );
 assert.deepEqual(
   imlazyThriceBenchmark(testArray),
-  nativeThriceBenchmark(testArray)
+  nativeThriceBenchmark(testArray),
 );
 
 new Benchmark.Suite()

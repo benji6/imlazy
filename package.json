@@ -6,10 +6,10 @@
   "scripts": {
     "benchmark": "node benchmarks/filter && node benchmarks/map",
     "docs": "node docsSrc/docs",
-    "fmt": "prettier --write '**/*'",
+    "fmt": "prettier -u --write '**/*'",
     "test": "run-p test:*",
     "test:audit": "npm audit --audit-level=low",
-    "test:fmt": "prettier --check '**/*'",
+    "test:fmt": "prettier --check -u '**/*'",
     "test:unit": "tape 'test/**/*.js'",
     "semantic-release": "semantic-release"
   },
@@ -49,7 +49,7 @@
     "html-minifier": "^4.0.0",
     "immutable": "^4.0.0-rc.12",
     "npm-run-all": "^4.1.5",
-    "prettier": "^2.5.1",
+    "prettier": "^3.0.0",
     "semantic-release": "^21.0.1",
     "tape": "^5.5.0"
   }

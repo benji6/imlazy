@@ -11,13 +11,13 @@ test("Apply", (t) => {
       ap(
         ap(
           map((f) => (g) => (x) => f(g(x)), a),
-          u
+          u,
         ),
-        v
+        v,
       ),
-      ap(a, ap(u, v))
+      ap(a, ap(u, v)),
     ),
-    "Composition"
+    "Composition",
   );
   t.end();
 });

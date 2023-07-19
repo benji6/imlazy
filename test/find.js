@@ -7,7 +7,7 @@ test("find", (t) => {
   t.deepEqual(find((x) => x === 3)(positiveIntegers), 3);
   t.deepEqual(
     find((x) => x === 4, oneTwoThree),
-    undefined
+    undefined,
   );
   t.end();
 });

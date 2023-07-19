@@ -16,7 +16,7 @@ const toString = (module.exports._toString = (xs) =>
       .reduce(
         (str, x) => `${str}${String(x)} `,
         "",
-        module.exports.take(10, xs)
+        module.exports.take(10, xs),
       )
       .slice(0, -1)}${tooLong ? "..." : ""})`;
   });
@@ -44,7 +44,7 @@ module.exports.adjust = curry((f, a, xs) =>
   genToIter(function* () {
     let i = a;
     for (const x of xs) yield i-- ? x : f(x);
-  })
+  }),
 );
 
 /**
@@ -56,7 +56,7 @@ module.exports.adjust = curry((f, a, xs) =>
 module.exports.ap = curry((fs, xs) =>
   genToIter(function* () {
     for (const f of fs) for (const x of xs) yield f(x);
-  })
+  }),
 );
 
 /**
@@ -69,7 +69,7 @@ module.exports.append = curry((a, xs) =>
   genToIter(function* () {
     yield* xs;
     yield a;
-  })
+  }),
 );
 
 /**
@@ -82,7 +82,7 @@ module.exports.assoc = curry((a, b, xs) =>
   genToIter(function* () {
     let i = a;
     for (const x of xs) yield i-- ? x : b;
-  })
+  }),
 );
 
 /**
@@ -95,7 +95,7 @@ module.exports.concat = curry((xs, ys) =>
   genToIter(function* () {
     yield* xs;
     yield* ys;
-  })
+  }),
 );
 
 /**
@@ -111,7 +111,7 @@ module.exports.drop = curry((n, xs) =>
       if (m) m--;
       else yield x;
     }
-  })
+  }),
 );
 
 /**
@@ -127,7 +127,7 @@ module.exports.dropWhile = curry((f, xs) =>
       if (stopDropping) yield x;
       else if (!f(x)) yield ((stopDropping = true), x);
     }
-  })
+  }),
 );
 
 /**
@@ -187,7 +187,7 @@ module.exports.every = curry((f, xs) => {
 module.exports.filter = curry((f, xs) =>
   genToIter(function* () {
     for (const x of xs) if (f(x)) yield x;
-  })
+  }),
 );
 
 /**
@@ -280,7 +280,7 @@ module.exports.insert = curry((a, b, xs) =>
         yield x;
       }
     }
-  })
+  }),
 );
 
 /**
@@ -299,7 +299,7 @@ module.exports.insertAll = curry((a, xs, ys) =>
         yield y;
       }
     }
-  })
+  }),
 );
 
 /**
@@ -314,7 +314,7 @@ module.exports.intersperse = curry((a, xs) =>
       yield x;
       yield a;
     }
-  })
+  }),
 );
 
 /**
@@ -344,7 +344,7 @@ module.exports.iterate = curry((f, a) =>
     let x = a;
     yield x;
     while (true) yield (x = f(x));
-  })
+  }),
 );
 
 /**
@@ -370,7 +370,7 @@ module.exports.length = (xs) => [...xs].length;
 module.exports.chain = curry((f, xs) =>
   genToIter(function* () {
     for (const x of xs) yield* f(x);
-  })
+  }),
 );
 
 /**
@@ -394,7 +394,7 @@ module.exports.cycle = (xs) =>
 module.exports.map = curry((f, xs) =>
   genToIter(function* () {
     for (const x of xs) yield f(x);
-  })
+  }),
 );
 
 /**
@@ -425,7 +425,7 @@ module.exports.partition = curry((f, xs) =>
   genToIter(function* () {
     yield module.exports.filter(f, xs);
     yield module.exports.reject(f, xs);
-  })
+  }),
 );
 
 /**
@@ -438,7 +438,7 @@ module.exports.prepend = curry((a, xs) =>
   genToIter(function* () {
     yield a;
     yield* xs;
-  })
+  }),
 );
 
 /**
@@ -454,7 +454,7 @@ module.exports.range = curry((a, b) =>
     let n = a;
     if (n < b) while (n <= b) yield n++;
     else while (n >= b) yield n--;
-  })
+  }),
 );
 
 /**
@@ -494,7 +494,7 @@ module.exports.reduceRight = curry((f, a, xs) => {
 module.exports.reject = curry((f, xs) =>
   genToIter(function* () {
     for (const x of xs) if (!f(x)) yield x;
-  })
+  }),
 );
 
 /**
@@ -513,7 +513,7 @@ module.exports.remove = curry((a, b, xs) =>
       if (yielding) yield x;
       else if (!--j) yielding = true;
     }
-  })
+  }),
 );
 
 /**
@@ -594,8 +594,8 @@ module.exports.sortBy = curry((f, xs) =>
       const c = f(a);
       const d = f(b);
       return c > d ? 1 : c < d ? -1 : 0;
-    })
-  )
+    }),
+  ),
 );
 
 /**
@@ -615,7 +615,7 @@ module.exports.splitEvery = curry((a, xs) =>
       else return;
       i++;
     }
-  })
+  }),
 );
 
 /**
@@ -658,7 +658,7 @@ module.exports.take = curry((a, xs) =>
       if (done) return;
       yield value;
     }
-  })
+  }),
 );
 
 /**
@@ -673,7 +673,7 @@ module.exports.takeWhile = curry((f, xs) =>
       if (f(x)) yield x;
       else return;
     }
-  })
+  }),
 );
 
 /**
@@ -719,8 +719,8 @@ module.exports.traverse = curry((A, f, xs) =>
   module.exports.reduceRight(
     (x, acc) => A.ap(A.map(module.exports.prepend, x), acc),
     A.of(module.exports.empty()),
-    module.exports.map(f, xs)
-  )
+    module.exports.map(f, xs),
+  ),
 );
 
 /**
@@ -736,7 +736,7 @@ module.exports.zip = curry((xs, ys) =>
       if (done) return;
       else yield iterableFrom([x, value]);
     }
-  })
+  }),
 );
 
 /**
@@ -753,5 +753,5 @@ module.exports.zipWith = curry((f, xs, ys) =>
       if (done) return;
       else yield f(x, value);
     }
-  })
+  }),
 );

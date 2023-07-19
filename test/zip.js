@@ -18,7 +18,7 @@ test("zip", (t) => {
       [1, 3],
       [2, 2],
       [3, 1],
-    ]
+    ],
   );
   t.deepEqual(
     processIterable(zip(oneTwoThreeFour)(threeTwoOne)).map(processIterable),
@@ -26,7 +26,7 @@ test("zip", (t) => {
       [1, 3],
       [2, 2],
       [3, 1],
-    ]
+    ],
   );
   t.deepEqual(
     processIterable(zip(threeTwoOne)(positiveIntegers)).map(processIterable),
@@ -34,7 +34,7 @@ test("zip", (t) => {
       [3, 1],
       [2, 2],
       [1, 3],
-    ]
+    ],
   );
   t.deepEqual(processIterable(xss).map(processIterable), [
     [1, 1],

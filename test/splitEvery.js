@@ -12,17 +12,17 @@ test("splitEvery", (t) => {
   const splitEveryThree = splitEvery(3);
   t.deepEqual(
     processIterable(splitEveryThree(oneTwoThreeFour)).map(processIterable),
-    [[1, 2, 3], [4]]
+    [[1, 2, 3], [4]],
   );
   t.deepEqual(
     processIterable(takeThree(splitEveryThree(positiveIntegers))).map(
-      processIterable
+      processIterable,
     ),
     [
       [1, 2, 3],
       [4, 5, 6],
       [7, 8, 9],
-    ]
+    ],
   );
   t.end();
 });

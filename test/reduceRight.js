@@ -10,7 +10,7 @@ test("reduceRight", (t) => {
   t.strictEqual(reduceRight(subtract, 0, oneTwoThreeFour), -2);
   t.strictEqual(
     reduceRight((val, acc) => acc + val, "a", ["e", "d", "c", "b"]),
-    "abcde"
+    "abcde",
   );
   t.end();
 });

@@ -10,11 +10,11 @@ test("sort", (t) => {
   const processIterable = testAndToArray(t);
   t.deepEqual(
     processIterable(sort((a, b) => a - b)(oneTwoThreeFour)),
-    oneTwoThreeFour
+    oneTwoThreeFour,
   );
   t.deepEqual(
     processIterable(sort((a, b) => b - a, oneTwoThreeFour)),
-    fourThreeTwoOne
+    fourThreeTwoOne,
   );
   t.end();
 });

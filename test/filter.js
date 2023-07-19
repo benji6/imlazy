@@ -7,7 +7,7 @@ test("filter", (t) => {
   const anotherOneTwoThree = filter((x) => x <= 3, range(1, 100));
   t.deepEqual(
     processIterable(filter((x) => x <= 3)(range(1, 100))),
-    oneTwoThree
+    oneTwoThree,
   );
   t.deepEqual(processIterable(anotherOneTwoThree), oneTwoThree);
   t.deepEqual(processIterable(anotherOneTwoThree), oneTwoThree);

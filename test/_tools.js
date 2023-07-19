@@ -44,7 +44,7 @@ module.exports.testAndToArray = (t) => (iter) => {
 module.exports.negativeIntegers = range(-1)(-Infinity);
 module.exports.positiveIntegers = range(1)(Infinity);
 module.exports.infiniteIterableOfPositiveIntegers = repeat(
-  module.exports.positiveIntegers
+  module.exports.positiveIntegers,
 );
 module.exports.subtract = (a, b) => a - b;
 module.exports.takeEight = take(8);

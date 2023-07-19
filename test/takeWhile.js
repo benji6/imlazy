@@ -11,15 +11,15 @@ test("takeWhile", (t) => {
   const processIterable = testAndToArray(t);
   t.deepEqual(
     processIterable(takeWhile((a) => a !== 5)(oneTwoThreeFour)),
-    oneTwoThreeFour
+    oneTwoThreeFour,
   );
   t.deepEqual(
     processIterable(takeWhile((a) => a !== 4)(oneTwoThreeFour)),
-    oneTwoThree
+    oneTwoThree,
   );
   t.deepEqual(
     processIterable(takeWhile((a) => a !== 4, positiveIntegers)),
-    oneTwoThree
+    oneTwoThree,
   );
   t.end();
 });

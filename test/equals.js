@@ -15,14 +15,14 @@ test("equals", (t) => {
   t.false(
     equals(
       nestedOneTwoThree,
-      map(() => oneTwoThreeFour, oneTwoThree)
-    )
+      map(() => oneTwoThreeFour, oneTwoThree),
+    ),
   );
   t.false(equals([() => {}], [() => {}]));
   t.false(equals([1, [2, { a: 5, b: 6 }]], [1, [2, { a: 5 }]]));
   t.false(equals("string", "stringy"));
   t.false(
-    equals(positiveIntegers, assoc(2, 42, positiveIntegers), "is not eager")
+    equals(positiveIntegers, assoc(2, 42, positiveIntegers), "is not eager"),
   );
   t.false(equals(range(0, 10), range(0, 9)), "lazy iterables");
   t.false(equals(range(0, 9), range(0, 8)), "lazy iterables");

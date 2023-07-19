@@ -11,11 +11,11 @@ test("Applicative", (t) => {
     equals(
       ap(
         of((x) => x),
-        v
+        v,
       ),
-      v
+      v,
     ),
-    "Identity"
+    "Identity",
   );
   t.true(equals(ap(of(f), of(x)), of(f(x))), "Homomorphism");
   t.true(
@@ -23,10 +23,10 @@ test("Applicative", (t) => {
       ap(u, of(x)),
       ap(
         of((f) => f(x)),
-        u
-      )
+        u,
+      ),
     ),
-    "Interchange"
+    "Interchange",
   );
   t.end();
 });

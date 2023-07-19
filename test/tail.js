@@ -8,15 +8,15 @@ test("tail", (t) => {
   const tailPositiveIntegers = tail(positiveIntegers);
   t.deepEqual(
     processIterable(takeEight(tailPositiveIntegers)),
-    [2, 3, 4, 5, 6, 7, 8, 9]
+    [2, 3, 4, 5, 6, 7, 8, 9],
   );
   t.deepEqual(
     processIterable(takeEight(tailPositiveIntegers)),
-    [2, 3, 4, 5, 6, 7, 8, 9]
+    [2, 3, 4, 5, 6, 7, 8, 9],
   );
   t.deepEqual(
     processIterable(takeEight(tailPositiveIntegers)),
-    [2, 3, 4, 5, 6, 7, 8, 9]
+    [2, 3, 4, 5, 6, 7, 8, 9],
   );
   t.end();
 });

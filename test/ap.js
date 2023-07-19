@@ -15,12 +15,12 @@ test("ap", (t) => {
       ap(
         of(
           (x) => x * 2,
-          (x) => x + 3
+          (x) => x + 3,
         ),
-        oneTwoThree
-      )
+        oneTwoThree,
+      ),
     ),
-    [2, 4, 6, 4, 5, 6]
+    [2, 4, 6, 4, 5, 6],
   );
 
   t.deepEqual(
@@ -29,13 +29,13 @@ test("ap", (t) => {
         ap(
           of(
             (x) => x * 2,
-            (x) => x + 3
+            (x) => x + 3,
           ),
-          positiveIntegers
-        )
-      )
+          positiveIntegers,
+        ),
+      ),
     ),
-    [2, 4, 6, 8, 10, 12, 14, 16]
+    [2, 4, 6, 8, 10, 12, 14, 16],
   );
 
   t.deepEqual(
@@ -43,11 +43,11 @@ test("ap", (t) => {
       takeEight(
         ap(
           repeat((x) => x * 2),
-          oneTwoThree
-        )
-      )
+          oneTwoThree,
+        ),
+      ),
     ),
-    [2, 4, 6, 2, 4, 6, 2, 4]
+    [2, 4, 6, 2, 4, 6, 2, 4],
   );
 
   t.deepEqual(
@@ -55,11 +55,11 @@ test("ap", (t) => {
       takeEight(
         ap(
           repeat((x) => x * 2),
-          positiveIntegers
-        )
-      )
+          positiveIntegers,
+        ),
+      ),
     ),
-    [2, 4, 6, 8, 10, 12, 14, 16]
+    [2, 4, 6, 8, 10, 12, 14, 16],
   );
   t.end();
 });

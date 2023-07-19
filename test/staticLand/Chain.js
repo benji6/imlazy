@@ -9,9 +9,9 @@ test("Chain", (t) => {
   t.true(
     equals(
       chain(g, chain(f, u)),
-      chain((x) => chain(g, f(x)), u)
+      chain((x) => chain(g, f(x)), u),
     ),
-    "Associativity"
+    "Associativity",
   );
   t.end();
 });

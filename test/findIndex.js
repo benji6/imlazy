@@ -7,7 +7,7 @@ test("findIndex", (t) => {
   t.deepEqual(findIndex((x) => x === -30)(negativeIntegers), 29);
   t.deepEqual(
     findIndex((x) => x === -4, oneTwoThree),
-    undefined
+    undefined,
   );
   t.end();
 });
