@@ -1,7 +1,6 @@
 const dox = require("dox");
 const fs = require("fs");
 const hljs = require("highlight.js");
-const { minify } = require("html-minifier");
 const CleanCSS = require("clean-css");
 
 const buildDir = "docs";
@@ -75,8 +74,7 @@ const page = (children) => `
 
 if (!fs.existsSync(buildDir)) fs.mkdirSync(buildDir);
 
-fs.writeFileSync(
-  `${buildDir}/index.html`,
-  minify(page(obj.map(docEntry).join("")), { collapseWhitespace: true }),
-);
+fs.writeFileSync(`${buildDir}/index.html`, page(obj.map(docEntry).join("")), {
+  collapseWhitespace: true,
+});
 fs.writeFileSync(`${buildDir}/index.css`, new CleanCSS({}).minify(css).styles);
